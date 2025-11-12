@@ -1,0 +1,27 @@
+[
+  {
+    "emp_code": "EMP001",
+    "first_name": "John",
+    "last_name": "Doe",
+    "gender": "Male",
+    "dob": "1990-01-01",
+    "contact_number": "9876543210",
+    "email": "john@company.com",
+    "department_id": "64f1b2c4a1d3b2e7a89c2345",
+    "designation_id": "64f1b2c4a1d3b2e7a89c3456",
+    "branch_id": "64f1b2c4a1d3b2e7a89c4567",
+    "join_date": "2020-05-10",
+    "employment_type": "Full-Time",
+    "reporting_manager": "64f1b2c4a1d3b2e7a89c7890",
+    "address": {
+      "line1": "Street 12",
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "pincode": "380015"
+    },
+    "photo_url": "uploads/photos/john.jpg",
+    "status": "active",
+    "created_at": "2025-10-01T08:00:00Z",
+    "updated_at": "2025-10-31T09:00:00Z"
+  }
+]

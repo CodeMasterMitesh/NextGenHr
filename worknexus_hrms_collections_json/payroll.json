@@ -1,0 +1,12 @@
+[
+  {
+    "employee_id": "64f1b2c4a1d3b2e7a89c1234",
+    "month": "2025-10",
+    "gross_salary": 50000,
+    "deductions": 2000,
+    "net_salary": 48000,
+    "status": "Processed",
+    "processed_by": "64f1b2c4a1d3b2e7a89c7890",
+    "created_at": "2025-10-31T10:00:00Z"
+  }
+]

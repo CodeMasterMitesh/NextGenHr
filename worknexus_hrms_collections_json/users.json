@@ -1,0 +1,12 @@
+[
+  {
+    "employee_id": "64f1b2c4a1d3b2e7a89c1234",
+    "email": "john@company.com",
+    "password": "hashed_password",
+    "role_id": "64f1b2c4a1d3b2e7a89c5678",
+    "status": "active",
+    "last_login": "2025-10-31T09:00:00Z",
+    "created_at": "2025-10-01T08:00:00Z",
+    "updated_at": "2025-10-31T09:00:00Z"
+  }
+]

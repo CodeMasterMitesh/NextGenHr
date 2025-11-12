@@ -1,0 +1,13 @@
+[
+  {
+    "employee_id": "64f1b2c4a1d3b2e7a89c1234",
+    "date": "2025-10-31",
+    "check_in": "09:05 AM",
+    "check_out": "06:10 PM",
+    "status": "Present",
+    "source": "AI",
+    "worked_hours": 9.05,
+    "remarks": "Late by 5 mins",
+    "created_at": "2025-10-31T18:30:00Z"
+  }
+]

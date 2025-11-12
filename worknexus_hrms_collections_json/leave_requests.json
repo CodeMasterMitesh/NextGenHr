@@ -1,0 +1,12 @@
+[
+  {
+    "employee_id": "64f1b2c4a1d3b2e7a89c1234",
+    "leave_type_id": "64f1b2c4a1d3b2e7a89c9876",
+    "from_date": "2025-10-20",
+    "to_date": "2025-10-22",
+    "reason": "Family Function",
+    "status": "Approved",
+    "approved_by": "64f1b2c4a1d3b2e7a89c7890",
+    "created_at": "2025-10-15T08:00:00Z"
+  }
+]
