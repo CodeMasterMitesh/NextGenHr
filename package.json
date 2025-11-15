@@ -1,0 +1,26 @@
+{
+  "name": "nextgenhr",
+  "version": "1.0.0",
+  "description": "1 ) Go To This Path : C:\\Program Files\\MongoDB\\Server\\8.2\\bin and mongod.cfg : security enable\r 2) server restart from service \r 3) on mongosh terminal 1) use admin command and create new user as admin",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeMasterMitesh/NextGenHr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeMasterMitesh/NextGenHr/issues"
+  },
+  "homepage": "https://github.com/CodeMasterMitesh/NextGenHr#readme",
+  "dependencies": {
+    "mongodb": "^7.0.0",
+    "nodemon": "^3.1.11"
+  }
+}
