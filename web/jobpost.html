@@ -68,25 +68,6 @@
   </div>
 </section>
 
-<section>
-  <div>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Position</th>
-            <th>Resume</th>
-          </tr>
-        </thead>
-        <tbody id="jobpostdata">
-          <!-- Job post data will be inserted here dynamically -->
-        </tbody>
-      </table>
-  </div>
-</section>
-
 <!-- Footer -->
 <footer class="footer text-center">
   <div class="container">
@@ -99,8 +80,15 @@
 <script>
   const form = document.getElementById('jobVacancyForm');
   form.addEventListener('submit', async (e) =>{
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let position = document.getElementById('position').value;
+    let resume = document.getElementById('resume').value;
       e.preventDefault();
-
+      if(name === '' || email === '' || position === '' || resume === ''){
+          alert('Please fill all the fields');
+          return;
+      }
       const formData = {
           name: document.getElementById('name').value,
           email: document.getElementById('email').value,
@@ -132,6 +120,8 @@
       }
 
   });
+
+
 
 </script>
 </body>

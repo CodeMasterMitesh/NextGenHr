@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { MongoClient } from 'mongodb'
+import { MongoClient} from 'mongodb'
 
 
 const PORT = 3000;
@@ -7,6 +7,15 @@ const PORT = 3000;
 const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 const dbName = 'NextGenHr';
+// console.log(db);
+
+client.connect().then(() => {  // Connect to MongoDB
+    console.log("Connected successfully to MongoDB server");
+}).catch(err => {
+    console.error("Failed to connect to MongoDB server:", err);
+});
+
+const db = client.db(dbName);
 
 const server = createServer((req, res) => {
     // res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -23,18 +32,35 @@ const server = createServer((req, res) => {
     }
 
     if(req.method === 'POST' && req.url === '/storeJobVacancy') {
-        console.log('Received a POST request to ',req.url);
+        // console.log('Req Url ',req.url);
         let body = '';
 
         req.on('data', chunk => {
             body += chunk.toString();
         });
 
-        req.on('end', () => {
-            console.log('Received data:', body);
+        req.on('end', async () => {
+            // console.log('Received data:', body);
+            // convert body to JSON
+            const jobVacancyData = JSON.parse(body);
+
+            // access collection
+            const jobVacancyCollection = await db.collection('jobApplications');
+
+            // Insert the job vacancy data into the collection
+            await jobVacancyCollection.insertOne(jobVacancyData);
+            // console.log('Job Data:', jobVacancyData);
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ message: 'Job vacancy stored successfully' }));
         });
+    }
+
+    if(req.method === 'GET' && req.url === '/getApplications') {
+        (async () => {
+            const getjobdata = await db.collection('jobApplications').find({}).toArray();
+            res.writeHead(200, {'content-type' : 'application/json'});
+            res.end(JSON.stringify(getjobdata));
+        })();
     }
 });
 
