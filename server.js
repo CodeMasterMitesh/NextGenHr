@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { MongoClient} from 'mongodb'
+import { MongoClient,ObjectId} from 'mongodb';
 
 
 const PORT = 3000;
@@ -61,6 +61,22 @@ const server = createServer((req, res) => {
             res.writeHead(200, {'content-type' : 'application/json'});
             res.end(JSON.stringify(getjobdata));
         })();
+    }
+    if(req.method === 'POST' && req.url === '/getSingleJobAppData') {
+        let body = '';
+
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+
+        req.on('end', async () => {
+            const { id } = JSON.parse(body);
+            console.log('Requested ID:', id);
+            const getSinglejobdata = await db.collection('jobApplications').findOne({_id: new ObjectId(id)});
+            console.log('Single Job Data ', getSinglejobdata);
+            res.writeHead(200, {'content-type' : 'application/json'});
+            res.end(JSON.stringify(getSinglejobdata));  
+        }); 
     }
 });
 
