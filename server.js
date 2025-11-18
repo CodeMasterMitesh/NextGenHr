@@ -62,6 +62,7 @@ const server = createServer((req, res) => {
             res.end(JSON.stringify(getjobdata));
         })();
     }
+
     if(req.method === 'POST' && req.url === '/getSingleJobAppData') {
         let body = '';
 
@@ -78,9 +79,46 @@ const server = createServer((req, res) => {
             res.end(JSON.stringify(getSinglejobdata));  
         }); 
     }
+    if(req.method === 'PUT' && req.url === '/updateJobApplication') {
+        let body = '';
+
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+
+        req.on('end', async () => {
+            const updateJobAppData = JSON.parse(body);
+            console.log('Update Job Application Data:', updateJobAppData);
+            const jobVacancyCollection = await db.collection('jobApplications');
+
+            // update the job vacancy data into the collection
+            const updateResult = await jobVacancyCollection.updateOne(
+                {_id: new ObjectId(updateJobAppData.id)},
+                {$set: {name : updateJobAppData.name,
+                    email : updateJobAppData.email,
+                    phone : updateJobAppData.phone,
+                    position : updateJobAppData.position,
+                    resume : updateJobAppData.resume    
+                }}
+            )
+            if(updateResult.modifiedCount === 1) {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'Job vacancyData updated successfully' }));
+            }else{
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'Failed to update job vacancyData' }));
+            }
+            
+        });
+    }
 });
 
-
+process.on('SIGINT', () => {
+    client.close().then(() => {
+        console.log("MongoDB connection closed");
+        process.exit(0);
+    });
+});
 server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
