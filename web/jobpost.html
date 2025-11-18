@@ -154,8 +154,9 @@
           if (response.ok) {
               // console.log(result);
               // console.log(response);
-              responseMsg.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
-              form.reset();
+              // responseMsg.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+              alert(result.message);
+              window.location.href = 'viewJobpost.html';
           } else {
               responseMsg.innerHTML = `<div class="alert alert-danger">Error: ${result.message}</div>`;
           }

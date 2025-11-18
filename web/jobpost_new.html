@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Job Vacancy - NextGen HR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #4895ef;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --dark-color: #1e1e2c;
+            --light-color: #f8fafc;
+            --success-color: #4bb543;
+            --border-radius: 1.2rem;
+            --box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .navbar-brand span {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .footer {
+            background: var(--dark-color);
+            color: #fff;
+            padding: 30px 0 10px 0;
+            margin-top: auto;
+            text-align: center;
+        }
+        
+        .card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: none;
+            overflow: hidden;
+            background: #fff;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+        
+        .form-floating > label {
+            color: #6c757d;
+            padding-left: 2.5rem;
+        }
+        
+        .form-floating > .form-control {
+            padding-left: 2.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            transition: var(--transition);
+        }
+        
+        .form-floating > .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+        }
+        
+        .form-control:focus + label,
+        .form-control:not(:placeholder-shown) + label {
+            color: var(--primary-color);
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            color: var(--primary-color);
+        }
+        
+        .section-title {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .breadcrumb {
+            background: none;
+            font-size: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .form-section {
+            position: relative;
+        }
+        
+        .floating-label {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: white;
+            padding: 0 8px;
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            z-index: 10;
+        }
+        
+        .response-alert {
+            border-radius: 0.75rem;
+            border: none;
+        }
+        
+        .success-animation {
+            animation: successPulse 2s ease;
+        }
+        
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-header h2 {
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .form-header i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+        
+        .progress {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 4px;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+        
+        .step {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        .step.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #e9ecef;
+            color: #6c757d;
+            font-size: 0.75rem;
+            margin-right: 5px;
+        }
+        
+        .step.active .step-number {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .btn-outline-primary {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 0.75rem;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .file-upload-container {
+            border: 2px dashed #dee2e6;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 1rem;
+        }
+        
+        .file-upload-container:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .file-upload-container i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-name {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .optional-badge {
+            background: #e9ecef;
+            color: #6c757d;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            margin-left: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                margin: 0 1rem;
+            }
+            
+            .form-header {
+                padding: 1.5rem;
+            }
+            
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="jobvacancy.html"><span>NextGen</span> HR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="jobpost.html">Job Post</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="bg-white border-bottom py-2">
+        <div class="container">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Apply for Job Vacancy</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Apply Section (Job Vacancy Form) -->
+    <section class="py-5">
+        <div class="container py-4 flex-grow-1">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="card border-0">
+                        <div class="form-header">
+                            <i class="bi bi-briefcase-fill"></i>
+                            <h2>Apply for Job Vacancy</h2>
+                            <p class="mb-0">Take the next step in your career journey</p>
+                        </div>
+                        
+                        <div class="card-body p-4 p-md-5">
+                            <!-- Progress Indicator -->
+                            <div class="progress-container">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="step-indicator">
+                                    <div class="step active">
+                                        <span class="step-number">1</span>
+                                        Personal Info
+                                    </div>
+                                    <div class="step active">
+                                        <span class="step-number">2</span>
+                                        Application Details
+                                    </div>
+                                    <div class="step active">
+                                        <span class="step-number">3</span>
+                                        Review & Submit
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <form id="jobVacancyForm" autocomplete="off">
+                                <!-- Step 1: Personal Information -->
+                                <div class="form-step active">
+                                    <h4 class="mb-4 section-title">Personal Information</h4>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating position-relative">
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+                                                <i class="bi bi-person-fill input-icon"></i>
+                                                <label for="name">Full Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating position-relative">
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+                                                <i class="bi bi-envelope-fill input-icon"></i>
+                                                <label for="email">Email address</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating position-relative">
+                                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number">
+                                                <i class="bi bi-telephone-fill input-icon"></i>
+                                                <label for="phone">Phone Number <span class="optional-badge">Optional</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating position-relative">
+                                                <input type="text" class="form-control" id="location" name="location" placeholder="Location">
+                                                <i class="bi bi-geo-alt-fill input-icon"></i>
+                                                <label for="location">Location <span class="optional-badge">Optional</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-navigation">
+                                        <div></div> <!-- Empty div for spacing -->
+                                        <button type="button" class="btn btn-primary next-step">Next <i class="bi bi-arrow-right ms-1"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 2: Application Details -->
+                                <div class="form-step">
+                                    <h4 class="mb-4 section-title">Application Details</h4>
+                                    
+                                    <div class="mb-3">
+                                        <div class="form-floating position-relative">
+                                            <input type="text" class="form-control" id="position" name="position" placeholder="Position Applied For" required>
+                                            <i class="bi bi-briefcase input-icon"></i>
+                                            <label for="position">Position Applied For</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <div class="file-upload-container" id="resumeUpload">
+                                            <i class="bi bi-cloud-arrow-up"></i>
+                                            <h5>Upload Your Resume</h5>
+                                            <p class="text-muted">Drag & drop your resume here or click to browse</p>
+                                            <input type="file" class="file-input" id="resumeFile" accept=".pdf,.doc,.docx">
+                                            <div class="file-name" id="fileName">No file selected</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <div class="form-floating position-relative">
+                                            <textarea class="form-control" id="resume" name="resume" placeholder="Resume (Paste text)" style="height: 150px;"></textarea>
+                                            <i class="bi bi-file-earmark-text input-icon" style="top: 1.5rem;"></i>
+                                            <label for="resume">Resume (Paste text) <span class="optional-badge">Optional if file uploaded</span></label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-navigation">
+                                        <button type="button" class="btn btn-outline-primary prev-step"><i class="bi bi-arrow-left me-1"></i> Previous</button>
+                                        <button type="button" class="btn btn-primary next-step">Next <i class="bi bi-arrow-right ms-1"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 3: Review & Submit -->
+                                <div class="form-step">
+                                    <h4 class="mb-4 section-title">Review & Submit</h4>
+                                    
+                                    <div class="card bg-light mb-4">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Application Summary</h5>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p><strong>Name:</strong> <span id="reviewName">-</span></p>
+                                                    <p><strong>Email:</strong> <span id="reviewEmail">-</span></p>
+                                                    <p><strong>Phone:</strong> <span id="reviewPhone">-</span></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><strong>Location:</strong> <span id="reviewLocation">-</span></p>
+                                                    <p><strong>Position:</strong> <span id="reviewPosition">-</span></p>
+                                                    <p><strong>Resume:</strong> <span id="reviewResumeStatus">Not provided</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-check mb-4">
+                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                        <label class="form-check-label" for="agreeTerms">
+                                            I confirm that the information provided is accurate and complete
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-navigation">
+                                        <button type="button" class="btn btn-outline-primary prev-step"><i class="bi bi-arrow-left me-1"></i> Previous</button>
+                                        <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-send-fill me-2"></i>Submit Application</button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            <div id="responseMsg" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <p class="mb-1 mb-0">&copy; 2025 <span class="fw-bold">NextGen HR</span>. All rights reserved.</p>
+            <small class="text-muted">Empowering people, powering business.</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Multi-step form functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('jobVacancyForm');
+            const steps = document.querySelectorAll('.form-step');
+            const nextButtons = document.querySelectorAll('.next-step');
+            const prevButtons = document.querySelectorAll('.prev-step');
+            let currentStep = 0;
+            
+            // File upload functionality
+            const resumeUpload = document.getElementById('resumeUpload');
+            const resumeFile = document.getElementById('resumeFile');
+            const fileName = document.getElementById('fileName');
+            
+            resumeUpload.addEventListener('click', function() {
+                resumeFile.click();
+            });
+            
+            resumeFile.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    fileName.textContent = this.files[0].name;
+                    resumeUpload.style.borderColor = 'var(--success-color)';
+                    resumeUpload.style.backgroundColor = 'rgba(75, 181, 67, 0.05)';
+                } else {
+                    fileName.textContent = 'No file selected';
+                    resumeUpload.style.borderColor = '#dee2e6';
+                    resumeUpload.style.backgroundColor = '';
+                }
+            });
+            
+            // Next button functionality
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Validate current step before proceeding
+                    if (validateStep(currentStep)) {
+                        steps[currentStep].classList.remove('active');
+                        currentStep++;
+                        steps[currentStep].classList.add('active');
+                        updateProgressBar();
+                        
+                        // Update review section if we're on the last step
+                        if (currentStep === 2) {
+                            updateReviewSection();
+                        }
+                    }
+                });
+            });
+            
+            // Previous button functionality
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    steps[currentStep].classList.remove('active');
+                    currentStep--;
+                    steps[currentStep].classList.add('active');
+                    updateProgressBar();
+                });
+            });
+            
+            // Form submission
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                if (!validateStep(currentStep) || !document.getElementById('agreeTerms').checked) {
+                    alert('Please complete all required fields and agree to the terms.');
+                    return;
+                }
+                
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    location: document.getElementById('location').value,
+                    position: document.getElementById('position').value,
+                    resume: document.getElementById('resume').value
+                };
+
+                try {
+                    const response = await fetch('http://localhost:3000/storeJobVacancy', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+                    const responseMsg = document.getElementById('responseMsg');
+                    
+                    if (response.ok) {
+                        responseMsg.innerHTML = `<div class="alert alert-success response-alert success-animation">${result.message}</div>`;
+                        form.classList.add('success-animation');
+                        
+                        // Redirect after a short delay to show success message
+                        setTimeout(() => {
+                            window.location.href = 'viewJobpost.html';
+                        }, 1500);
+                    } else {
+                        responseMsg.innerHTML = `<div class="alert alert-danger response-alert">Error: ${result.message}</div>`;
+                    }
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                    document.getElementById('responseMsg').innerHTML = `<div class="alert alert-danger response-alert">Network error. Please try again.</div>`;
+                }
+            });
+            
+            // Step validation
+            function validateStep(step) {
+                let isValid = true;
+                
+                if (step === 0) {
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    
+                    if (name.trim() === '') {
+                        highlightInvalidField('name');
+                        isValid = false;
+                    }
+                    
+                    if (email.trim() === '' || !isValidEmail(email)) {
+                        highlightInvalidField('email');
+                        isValid = false;
+                    }
+                } else if (step === 1) {
+                    const position = document.getElementById('position').value;
+                    const resume = document.getElementById('resume').value;
+                    const resumeFile = document.getElementById('resumeFile').files.length;
+                    
+                    if (position.trim() === '') {
+                        highlightInvalidField('position');
+                        isValid = false;
+                    }
+                    
+                    if (resume.trim() === '' && resumeFile === 0) {
+                        alert('Please provide either a resume file or paste your resume text.');
+                        isValid = false;
+                    }
+                }
+                
+                return isValid;
+            }
+            
+            function highlightInvalidField(fieldId) {
+                const field = document.getElementById(fieldId);
+                field.style.borderColor = '#dc3545';
+                field.style.boxShadow = '0 0 0 0.25rem rgba(220, 53, 69, 0.15)';
+                
+                // Remove the highlight after a short time
+                setTimeout(() => {
+                    field.style.borderColor = '';
+                    field.style.boxShadow = '';
+                }, 3000);
+            }
+            
+            function isValidEmail(email) {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+            
+            function updateProgressBar() {
+                const progress = (currentStep + 1) / steps.length * 100;
+                document.querySelector('.progress-bar').style.width = `${progress}%`;
+                
+                // Update step indicators
+                document.querySelectorAll('.step').forEach((step, index) => {
+                    if (index <= currentStep) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+            }
+            
+            function updateReviewSection() {
+                document.getElementById('reviewName').textContent = document.getElementById('name').value || '-';
+                document.getElementById('reviewEmail').textContent = document.getElementById('email').value || '-';
+                document.getElementById('reviewPhone').textContent = document.getElementById('phone').value || '-';
+                document.getElementById('reviewLocation').textContent = document.getElementById('location').value || '-';
+                document.getElementById('reviewPosition').textContent = document.getElementById('position').value || '-';
+                
+                const resumeText = document.getElementById('resume').value;
+                const resumeFile = document.getElementById('resumeFile').files[0];
+                
+                if (resumeText) {
+                    document.getElementById('reviewResumeStatus').textContent = 'Text provided';
+                } else if (resumeFile) {
+                    document.getElementById('reviewResumeStatus').textContent = `File: ${resumeFile.name}`;
+                } else {
+                    document.getElementById('reviewResumeStatus').textContent = 'Not provided';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
