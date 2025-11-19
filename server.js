@@ -111,6 +111,27 @@ const server = createServer((req, res) => {
             
         });
     }
+
+    if(req.method === 'DELETE' && req.url === '/deleteJobAppData'){
+        let body = '';
+
+        req.on('data', chunk => {
+            body += chunk;
+        });
+
+        req.on('end', async ()=>{
+            const jobId = JSON.parse(body).id;
+            // console.log('Delete Job Application ID:', jobId);
+            const result = await db.collection('jobApplications').deleteOne({_id: new ObjectId(jobId)});
+            if(result.deletedCount === 1){
+                res.writeHead(200, {'content-type' : 'application/json'});
+                res.end(JSON.stringify({message: 'Job Application deleted successfully'}));
+            }else{
+                res.writeHead(500, {'content-type' : 'application/json'});
+                res.end(JSON.stringify({message: 'Failed to delete Job Application'}));
+            }
+        });
+    }
 });
 
 process.on('SIGINT', () => {
