@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/CodeMasterMitesh/NextGenHr#readme",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "mongodb": "^7.0.0",
     "nodemon": "^3.1.11"
   }
