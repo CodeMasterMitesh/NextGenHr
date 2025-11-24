@@ -2,6 +2,7 @@ import { createServer } from "http";
 import { MongoClient,ObjectId} from 'mongodb';
 import { dbSetup } from './db.js';
 import JobApplication from './api/JobApplication.js';
+import usersApi from './api/User.js';
 // console.log(dbSetup.url);
 // console.log('DB URL:', process.env.DB_URL);
 const PORT = 3000;
@@ -44,6 +45,10 @@ const server = createServer((req, res) => {
 
     if(req.method === 'DELETE' && req.url === '/deleteJobAppData'){
         JobApplication.deleteJobAppData(req, res, db);
+    }
+
+    if(req.method === 'POST' && req.url === '/storeEmployee'){
+        usersApi.storeEmployee(req, res, db);
     }
 });
 

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextGenHR Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+    }
+    .sidebar {
+      min-height: 100vh;
+      background: #212529;
+      color: #fff;
+      padding-top: 2rem;
+      position: fixed;
+      width: 220px;
+      transition: all 0.3s;
+    }
+    .sidebar .nav-link {
+      color: #adb5bd;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .sidebar .nav-link.active, .sidebar .nav-link:hover {
+      background: #007bff;
+      color: #fff;
+    }
+    .sidebar .nav-link i {
+      margin-right: 8px;
+    }
+    .main-content {
+      margin-left: 220px;
+      /* padding: 2rem; */
+      transition: margin 0.3s;
+    }
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .card {
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+      transition: box-shadow 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 4px 32px rgba(0,123,255,0.10);
+    }
+    .stat-icon {
+      font-size: 2rem;
+      color: #007bff;
+      margin-bottom: 0.5rem;
+    }
+    @media (max-width: 991px) {
+      .sidebar { width: 100px; }
+      .main-content { margin-left: 100px; }
+      .sidebar .nav-link span { display: none; }
+    }
+    @media (max-width: 767px) {
+      .sidebar { display: none; }
+      .main-content { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar d-none d-md-block">
+    <div class="text-center mb-4">
+      <h4>NextGenHR</h4>
+    </div>
+    <nav class="nav flex-column">
+      <a class="nav-link active" href="dashboard.html"><i class="bi bi-speedometer2"></i> <span>Dashboard</span></a>
+      <a class="nav-link" href="#approvals"><i class="bi bi-check2-square"></i> <span>Approvals</span></a>
+      <a class="nav-link" href="#reminders"><i class="bi bi-bell"></i> <span>Reminders</span></a>
+      <a class="nav-link" href="#users"><i class="bi bi-people"></i> <span>Users</span></a>
+      <a class="nav-link" href="employee.html"><i class="bi bi-people"></i> <span>Employee</span></a>
+      <a class="nav-link" href="#departments"><i class="bi bi-diagram-3"></i> <span>Departments</span></a>
+      <a class="nav-link" href="#leaves"><i class="bi bi-calendar-check"></i> <span>Leave Requests</span></a>
+      <a class="nav-link" href="#payroll"><i class="bi bi-cash-stack"></i> <span>Payroll</span></a>
+    </nav>
+  </div>
+  <div class="main-content">
+<div class="container">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Employee Form</h4>
+        </div>
+        <div class="card-body">
+
+            <form method="POST" id="employeeData">
+
+                <div class="row g-3">
+
+                    <!-- Employee Code -->
+                    <div class="col-md-4">
+                        <label class="form-label">Employee Code</label>
+                        <input type="text" class="form-control" name="emp_code" required>
+                    </div>
+
+                    <!-- First Name -->
+                    <div class="col-md-4">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="first_name">
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="col-md-4">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="last_name">
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="col-md-4">
+                        <label class="form-label">Gender</label>
+                        <select class="form-select" name="gender">
+                            <option value="">Select Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <!-- DOB -->
+                    <div class="col-md-4">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" name="dob">
+                    </div>
+
+                    <!-- Contact Number -->
+                    <div class="col-md-4">
+                        <label class="form-label">Contact Number</label>
+                        <input type="text" class="form-control" name="contact_number">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-4">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+
+                    <!-- Department -->
+                    <div class="col-md-4">
+                        <label class="form-label">Department</label>
+                        <select class="form-select" name="department_id">
+                            <option>Select Department</option>
+                            <option value="1">HR</option>
+                            <option value="2">IT</option>
+                            <option value="3">Sales</option>
+                        </select>
+                    </div>
+
+                    <!-- Designation -->
+                    <div class="col-md-4">
+                        <label class="form-label">Designation</label>
+                        <select class="form-select" name="designation_id">
+                            <option>Select Designation</option>
+                            <option value="1">Manager</option>
+                            <option value="2">Developer</option>
+                            <option value="3">Executive</option>
+                        </select>
+                    </div>
+
+                    <!-- Company -->
+                    <div class="col-md-4">
+                        <label class="form-label">Company</label>
+                        <select class="form-select" name="company_id">
+                            <option>Select Company</option>
+                            <option value="1">NextGen HR</option>
+                        </select>
+                    </div>
+
+                    <!-- Branch -->
+                    <div class="col-md-4">
+                        <label class="form-label">Branch</label>
+                        <select class="form-select" name="branch_id">
+                            <option>Select Branch</option>
+                            <option value="1">Ahmedabad</option>
+                            <option value="2">Mumbai</option>
+                        </select>
+                    </div>
+
+                    <!-- Join Date -->
+                    <div class="col-md-4">
+                        <label class="form-label">Join Date</label>
+                        <input type="date" class="form-control" name="join_date">
+                    </div>
+
+                    <!-- Employment Type -->
+                    <div class="col-md-4">
+                        <label class="form-label">Employment Type</label>
+                        <select class="form-select" name="employment_type">
+                            <option>Select Type</option>
+                            <option>Full Time</option>
+                            <option>Part Time</option>
+                            <option>Intern</option>
+                        </select>
+                    </div>
+
+                    <!-- Reporting Manager -->
+                    <div class="col-md-4">
+                        <label class="form-label">Reporting Manager</label>
+                        <select class="form-select" name="reporting_manager">
+                            <option>Select Manager</option>
+                            <option value="1">John Doe</option>
+                            <option value="2">Mitesh Prajapati</option>
+                        </select>
+                    </div>
+
+                    <!-- Address Line 1 -->
+                    <div class="col-md-6">
+                        <label class="form-label">Address Line 1</label>
+                        <input type="text" class="form-control" name="address_line1">
+                    </div>
+
+                    <!-- City -->
+                    <div class="col-md-3">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" name="city">
+                    </div>
+
+                    <!-- State -->
+                    <div class="col-md-3">
+                        <label class="form-label">State</label>
+                        <input type="text" class="form-control" name="state">
+                    </div>
+
+                    <!-- Pincode -->
+                    <div class="col-md-3">
+                        <label class="form-label">Pincode</label>
+                        <input type="text" class="form-control" name="pincode">
+                    </div>
+
+                    <!-- Photo URL -->
+                    <div class="col-md-4">
+                        <label class="form-label">Photo URL</label>
+                        <input type="text" class="form-control" name="photo_url">
+                    </div>
+
+                    <!-- Username -->
+                    <div class="col-md-4">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" name="username" required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-md-4">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+
+                    <!-- Role -->
+                    <div class="col-md-4">
+                        <label class="form-label">Role</label>
+                        <select class="form-select" name="role_id">
+                            <option>Select Role</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Employee</option>
+                            <option value="3">HR</option>
+                        </select>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-4">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" name="status">
+                            <option value="probation">Probation</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="resigned">Resigned</option>
+                            <option value="terminated">Terminated</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="mt-4 text-end">
+                    <button class="btn btn-success px-4">Submit</button>
+                </div>
+
+            </form>
+            <div id="responseMsg" class="mt-3"></div>
+        </div>
+    </div>
+</div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('employeeData').addEventListener('submit', async(e)=>{
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      console.log(...formData.entries());
+      const response  = await fetch('http://localhost:3000/storeEmployee',{
+        method:'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+      const responseMsg = document.getElementById('responseMsg');
+      if(result.success){
+        responseMsg.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+        form.reset();
+      }else{
+        responseMsg.innerHTML = `<div class="alert alert-danger">${result.message}</div>`;
+      }
+    });
+  </script>
+</body>
+</html>
