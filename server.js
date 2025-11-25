@@ -3,6 +3,7 @@ import { MongoClient,ObjectId} from 'mongodb';
 import { dbSetup } from './db.js';
 import JobApplication from './api/JobApplication.js';
 import usersApi from './api/User.js';
+import companyApi from './api/Company.js';
 // console.log(dbSetup.url);
 // console.log('DB URL:', process.env.DB_URL);
 const PORT = 3000;
@@ -49,6 +50,13 @@ const server = createServer((req, res) => {
 
     if(req.method === 'POST' && req.url === '/storeEmployee'){
         usersApi.storeEmployee(req, res, db);
+    }
+
+    if(req.method === 'POST' && req.url === '/storeCompany'){
+        companyApi.storeCompany(req, res, db);
+    }
+    if(req.method === 'GET' && req.url === '/getCompanyData'){
+        companyApi.getCompanyData(req, res, db);
     }
 });
 
