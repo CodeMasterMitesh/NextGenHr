@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch Management - NextGenHR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="nav.js"></script>
+</head>
+
+<body>
+    <div class="sidebar d-none d-md-block">
+        <div class="text-center mb-4">
+            <h4>NextGenHR</h4>
+        </div>
+        <nav class="nav flex-column" id="nav">
+
+        </nav>
+        <div class="container mt-5">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Add Branch</h4>
+                </div>
+                <div class="card-body">
+                    <form id="branchForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Company ID</label>
+                                <input type="text" class="form-control" name="company_id" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Branch Name</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Address Line 1</label>
+                                <input type="text" class="form-control" name="address1">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Address Line 2</label>
+                                <input type="text" class="form-control" name="address2">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">City</label>
+                                <input type="text" class="form-control" name="city">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">State</label>
+                                <input type="text" class="form-control" name="state">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Pincode</label>
+                                <input type="text" class="form-control" name="pincode">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Number</label>
+                                <input type="text" class="form-control" name="contact_number">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Logo URL</label>
+                                <input type="text" class="form-control" name="logo">
+                            </div>
+                        </div>
+                        <div class="mt-4 text-end">
+                            <button class="btn btn-success px-4">Submit</button>
+                        </div>
+                    </form>
+                    <div id="responseMsg" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.getElementById('branchForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const formData = new FormData(form);
+                // Convert FormData to plain object for JSON POST
+                const data = {};
+                formData.forEach((value, key) => { data[key] = value; });
+
+                try {
+                    const response = await fetch('http://localhost:3000/storeBranch', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    const responseMsg = document.getElementById('responseMsg');
+                    if (result.success) {
+                        responseMsg.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+                        form.reset();
+                    } else {
+                        responseMsg.innerHTML = `<div class="alert alert-danger">${result.message || 'Something went wrong'}</div>`;
+                    }
+                } catch (err) {
+                    document.getElementById('responseMsg').innerHTML = `<div class="alert alert-danger">Network error: ${err.message}</div>`;
+                    console.error('Error submitting branch:', err);
+                }
+            });
+        </script>
+</body>
+
+</html>
