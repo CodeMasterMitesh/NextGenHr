@@ -180,9 +180,6 @@
                     <div class="col-md-4">
                         <label class="form-label">Branch</label>
                         <select class="form-select" name="branch_id">
-                            <option>Select Branch</option>
-                            <option value="1">Ahmedabad</option>
-                            <option value="2">Mumbai</option>
                         </select>
                     </div>
 
@@ -303,6 +300,23 @@
       option.value = company._id;
       option.textContent = company.name;
       companySelect.appendChild(option);
+    });
+
+    companySelect.addEventListener('change',async ()=>{
+        const companyId = document.querySelector('select[name="company_id"]').value;
+        console.log(companyId);
+        const response = await fetch(`http://localhost:3000/getCompanyWiseBranch?companyId=${companyId}`);
+        // console.log(response);
+        const branch = await response.json();
+        // console.log(branch);
+        const branchselect = document.querySelector('select[name="branch_id"]');
+        branch.forEach(branch => {
+          // console.log(branch);
+          const option = document.createElement('option');
+          option.value = branch._id;
+          option.textContent = branch.name;
+          branchselect.appendChild(option);
+        });
     });
   }); 
   

@@ -4,6 +4,8 @@ import { dbSetup } from './db.js';
 import JobApplication from './api/JobApplication.js';
 import usersApi from './api/User.js';
 import companyApi from './api/Company.js';
+import branchApi from './api/Branch.js';
+import { URLSearchParams } from 'url';
 // console.log(dbSetup.url);
 // console.log('DB URL:', process.env.DB_URL);
 const PORT = 3000;
@@ -27,7 +29,7 @@ const server = createServer((req, res) => {
         res.end();
         return;
     }
-
+    
     if(req.method === 'POST' && req.url === '/storeJobVacancy') {
         // console.log('Req Url ',req.url);
         JobApplication.storeJobVacance(req, res, db);
@@ -57,6 +59,16 @@ const server = createServer((req, res) => {
     }
     if(req.method === 'GET' && req.url === '/getCompanyData'){
         companyApi.getCompanyData(req, res, db);
+    }
+
+    if(req.method === 'POST' && req.url === '/storeBranch'){
+        branchApi.storeBranch(req, res, db);
+    }
+    if(req.method === 'GET' && req.url.startsWith('/getCompanyWiseBranch')){
+        const queryParams = new URLSearchParams(req.url.split('?')[1]);
+        const companyId = queryParams.get('companyId');
+        // console.log(companyId);
+        branchApi.getCompanyBranch(req, res, db,companyId);
     }
 });
 
