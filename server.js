@@ -70,6 +70,10 @@ const server = createServer((req, res) => {
         // console.log(companyId);
         branchApi.getCompanyBranch(req, res, db,companyId);
     }
+
+    if(req.method === 'GET' && req.url === '/getLastEmployees'){
+        usersApi.getLastEmployees(req, res, db);
+    }
 });
 
 process.on('SIGINT', () => {

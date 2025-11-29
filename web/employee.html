@@ -99,13 +99,6 @@
             <form method="POST" id="employeeData">
 
                 <div class="row g-3">
-
-                    <!-- Employee Code -->
-                    <div class="col-md-4">
-                        <label class="form-label">Employee Code</label>
-                        <input type="text" class="form-control" name="emp_code" required>
-                    </div>
-
                     <!-- First Name -->
                     <div class="col-md-4">
                         <label class="form-label">First Name</label>
@@ -290,9 +283,9 @@
   <script>
    addEventListener('DOMContentLoaded', async () => {  
     const response = await fetch('http://localhost:3000/getCompanyData');
-    console.log(response);
+    // console.log(response);
     const companies = await response.json();
-    console.log(companies);
+    // console.log(companies);
     const companySelect = document.querySelector('select[name="company_id"]');
     companies.forEach(company => {
       console.log(company);
@@ -304,7 +297,7 @@
 
     companySelect.addEventListener('change',async ()=>{
         const companyId = document.querySelector('select[name="company_id"]').value;
-        console.log(companyId);
+        // console.log(companyId);
         const response = await fetch(`http://localhost:3000/getCompanyWiseBranch?companyId=${companyId}`);
         // console.log(response);
         const branch = await response.json();
@@ -319,13 +312,21 @@
         });
     });
   }); 
-  
     document.getElementById('employeeData').addEventListener('submit', async(e)=>{
       e.preventDefault();
       const form = e.target;
       const formData = new FormData(form);
-      console.log(...formData.entries());
+      // console.log(...formData.entries());
       const data = {};
+      const lastEmployeeData = async () => {
+        const responseLastEmployee = await fetch('http://localhost:3000/getLastEmployees');
+        const lastEmployee = await responseLastEmployee.json();
+        lastEmployeecode = lastEmployee[0].emp_code;
+          const emp_code = 'NEXTGEN' + String(parseInt(lastEmployeecode.replace('NEXTGEN','')) + 1).padStart(3,'0');
+          return emp_code;
+      };
+      formData.set('emp_code', await lastEmployeeData());
+
       formData.forEach((value, key) => { data[key] = value; });
       const response  = await fetch('http://localhost:3000/storeEmployee',{
         method:'POST',
