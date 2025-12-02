@@ -6,6 +6,7 @@ import usersApi from './api/User.js';
 import companyApi from './api/Company.js';
 import branchApi from './api/Branch.js';
 import { URLSearchParams } from 'url';
+import { Auth } from './api/Auth.js';
 // console.log(dbSetup.url);
 // console.log('DB URL:', process.env.DB_URL);
 const PORT = 3000;
@@ -73,6 +74,10 @@ const server = createServer((req, res) => {
 
     if(req.method === 'GET' && req.url === '/getLastEmployees'){
         usersApi.getLastEmployees(req, res, db);
+    }
+
+    if(req.method === 'POST' && req.url === '/login'){
+        Auth.login(req, res, db);
     }
 });
 
