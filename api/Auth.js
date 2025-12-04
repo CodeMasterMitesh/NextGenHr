@@ -6,7 +6,7 @@ const login = (req, res, db) => {
     req.on('data', chunk => {
         body += chunk.toString();
     });
-
+    
     req.on('end', async () => {
         console.log('Login Request Body:', body);
         const { email,password } = JSON.parse(body);

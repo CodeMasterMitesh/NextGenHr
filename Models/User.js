@@ -27,8 +27,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Role' },
   last_login: Date,
-  status: { type: String, enum: ['probation','resigned','terminated','confirmed'], default: 'probation' }
-  
+  status: { type: String, enum: ['probation','resigned','terminated','confirmed'], default: 'probation' },
+  type : { type: String, enum: ['admin','employee'], default: 'employee' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
