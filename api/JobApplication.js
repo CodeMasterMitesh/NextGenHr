@@ -1,25 +1,13 @@
 import { ObjectId } from 'mongodb';
 const storeJobVacance = (req, res, db) => {
-    let body = '';
+    const jobVacancyData = req.body;
+    console.log('Job Vacancy Data Received:', jobVacancyData);
+    // access collection
+    const jobVacancyCollection = db.collection('jobApplications');
+    // Insert the job vacancy data into the collection
+    jobVacancyCollection.insertOne(jobVacancyData);
 
-    req.on('data', chunk => {
-        body += chunk.toString();
-    });
-
-    req.on('end', async () => {
-        // console.log('Received data:', body);
-        // convert body to JSON
-        const jobVacancyData = JSON.parse(body);
-
-        // access collection
-        const jobVacancyCollection = await db.collection('jobApplications');
-
-        // Insert the job vacancy data into the collection
-        await jobVacancyCollection.insertOne(jobVacancyData);
-        // console.log('Job Data:', jobVacancyData);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: 'Job vacancy stored successfully' }));
-    });
+    res.redirect('/jobpost.html');
 }
 
 const getApplications = async (req, res, db) => {

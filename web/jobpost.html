@@ -84,17 +84,17 @@
       <div class="col-lg-7 col-md-9">
         <div class="card p-4 p-md-5 border-0">
           <h2 class="section-title text-center mb-4"><i class="bi bi-briefcase-fill me-2 text-primary"></i>Apply for Job Vacancy</h2>
-          <form id="jobVacancyForm" autocomplete="off">
+          <form action="/storeJobVacancy" method="POST" autocomplete="off">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+              <input type="text" class="form-control" id="name" name="user[name]" placeholder="Full Name" required>
               <label for="name"><i class="bi bi-person-fill me-2 text-secondary"></i>Full Name</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+              <input type="email" class="form-control" id="email" name="user[email]" placeholder="Email address" required>
               <label for="email"><i class="bi bi-envelope-fill me-2 text-secondary"></i>Email address</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="position" name="position" placeholder="Position Applied For" required>
+              <input type="text" class="form-control" id="position" name="user[position]" placeholder="Position Applied For" required>
               <label for="position"><i class="bi bi-briefcase me-2 text-secondary"></i>Position Applied For</label>
             </div>
             <div class="form-floating mb-3">
@@ -121,7 +121,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
+<!-- <script>
   const form = document.getElementById('jobVacancyForm');
   form.addEventListener('submit', async (e) =>{
     let name = document.getElementById('name').value;
@@ -165,6 +165,6 @@
       }
 
   });
-</script>
+</script> -->
 </body>
 </html>
