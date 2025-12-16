@@ -2,7 +2,7 @@ import JobApplication from './api/JobApplication.js';
 import usersApi from './api/User.js';
 import companyApi from './api/Company.js';
 import branchApi from './api/Branch.js';
-import { Auth } from './api/Auth.js';
+import Auth  from './api/Auth.js';
 import express from "express";
 
 const app = express();
@@ -11,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const PORT = 5000;
-
 
 app.use(JobApplication);
 app.use(companyApi);

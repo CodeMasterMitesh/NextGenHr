@@ -32,9 +32,4 @@ router.get('/getCompanyWiseBranch/:companyId', async (req, res) => {
 });
 
 
-const branchApi = {
-    storeBranch,
-    getCompanyBranch
-};
-
-export default branchApi;
+export default router;
