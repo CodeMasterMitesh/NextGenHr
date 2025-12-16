@@ -19,22 +19,6 @@ app.use(branchApi);
 app.use(usersApi);
 app.use(Auth);
 
-
-// https:localhost:5000/storeJobVacancy
-
-
-    // res.writeHead(200, { 'Content-Type': 'text/plain' });
-    // res.end('Hello, World!\n');  
-    // res.setHeader('Access-Control-Allow-Origin', '*');
-    // res.setHeader('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE, OPTIONS');
-    // res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    // if (req.method === 'OPTIONS') {// Preflight request
-    //     res.writeHead(204);
-    //     res.end();
-    //     return;
-    // }
-
 process.on('SIGINT', () => {
     client.close().then(() => {
         console.log("MongoDB connection closed");
