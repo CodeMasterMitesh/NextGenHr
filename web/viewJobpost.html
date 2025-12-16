@@ -142,8 +142,9 @@
 <script>
   const fetchJobApplications = async () => {
     try {
-      const response = await fetch('http://localhost:3000/getApplications');
+      const response = await fetch('http://localhost:5000/getApplications');
       const data = await response.json();
+      // console.log(data);
       const tableData = document.getElementById('jobpostdata');
       tableData.innerHTML = '';
       data.forEach((e, i) => {
@@ -183,11 +184,12 @@
     editBtns.forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const id = btn.getAttribute('data-id');
+        console.log('Editing ID:', id);
         try {
-          const response = await fetch('http://localhost:3000/getSingleJobAppData', {
+          const response = await fetch('http://localhost:5000/getSingleJobAppData', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id })
+            body: JSON.stringify({ id }),
           });
           const data = await response.json();
           document.getElementById('editId').value = id;
@@ -206,7 +208,7 @@
       btn.addEventListener('click', async (e) => {
         const id = btn.getAttribute('data-id');
         try {
-          const response = await fetch('http://localhost:3000/deleteJobAppData', {
+          const response = await fetch('http://localhost:5000/deleteJobAppData', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id })
@@ -236,7 +238,7 @@
         resume: document.getElementById('editResume').value
       };
       try {
-        const response = await fetch('http://localhost:3000/updateJobApplication', {
+        const response = await fetch('http://localhost:5000/updateJobApplication', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id, ...updatedData })

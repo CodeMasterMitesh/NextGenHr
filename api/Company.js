@@ -1,33 +1,34 @@
-import { ObjectId } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
+import Router from 'express';
+import { dbSetup } from '../db.js';
+const router = Router();
 
-const storeCompany = (req,res,db) => {
-    let body = '';
-    req.on('data', chunk => {
-        body += chunk.toString();
-    });
+dbSetup.client.connect().then(() => {  // Connect to MongoDB
+    console.log("Connected successfully to MongoDB server");
+}).catch(err => {
+    console.error("Failed to connect to MongoDB server:", err);
+});
 
-    req.on('end', async () => {
-        const companyData = JSON.parse(body);
+const db = dbSetup.client.db(dbSetup.dbName);
+
+router.post('/storeCompany', async (req, res) => {
+        const companyData = req.body;
         console.log('Received Company data:', companyData);
         // access collection
         const companyCollection = await db.collection('companies');
         await companyCollection.insertOne(companyData);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Company stored successfully' }));
-    });
-}
+});
 
-const getCompanyData = async (req,res,db) => {
+router.get('/getCompanyData', async (req,res) => {
     const companyCollection = await db.collection('companies');
     const companies = await companyCollection.find({}).toArray();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(companies));
-}
+
+});
 
 
-const companyApi = {
-    storeCompany,
-    getCompanyData
-};
 
-export default companyApi;
+export default router;

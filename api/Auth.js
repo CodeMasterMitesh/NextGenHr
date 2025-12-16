@@ -1,16 +1,18 @@
-import { ObjectId } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
+import Router from 'express';
+import { dbSetup } from '../db.js';
+const router = Router();
 
-const login = (req, res, db) => {
-    let body = '';
+dbSetup.client.connect().then(() => {  // Connect to MongoDB
+    console.log("Connected successfully to MongoDB server");
+}).catch(err => {
+    console.error("Failed to connect to MongoDB server:", err);
+});
 
-    req.on('data', chunk => {
-        body += chunk.toString();
-    });
-    
-    req.on('end', async () => {
-        console.log('Login Request Body:', body);
-        const { email,password } = JSON.parse(body);
-        console.log('Requested ID:', email);
+const db = dbSetup.client.db(dbSetup.dbName);
+
+router.post('/login', async (req, res) => {
+        const { email,password } = req.body;
         const loggedUser = await db.collection('users').findOne({ email: email });
         if(loggedUser){
             if(loggedUser.password == password){
@@ -26,8 +28,5 @@ const login = (req, res, db) => {
             res.end(JSON.stringify({ message: 'User not found' }));
         }
     });
-}
 
-export const Auth = {
-    login
-};
+export default router;
