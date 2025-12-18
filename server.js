@@ -20,17 +20,18 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Use EJS layouts
-app.use(expressLayouts);
-app.set('layout', 'layouts/masterlayout');
-app.set('layout extractScripts', true);
-app.set('layout extractStyles', true);
+// app.use(expressLayouts);
+// app.set('layout', 'layouts/masterlayout');
+// app.set('layout extractScripts', true);
+// app.set('layout extractStyles', true);
 
 
 const PORT = 5000;
-app.get('/', (req, res) => {
-    res.render('index', { title: 'NextGen', page: 'home', layout: false })
+app.get('/', (req,res)=>{
+    res.render("index",{ title: "HomePage" });
 });
 
+app.get('/viewjobpost', (req,res)=>{res.render("viewjobpost",{ title: "JobPostPage" })});
 
 app.use(JobApplication);
 app.use(companyApi);
