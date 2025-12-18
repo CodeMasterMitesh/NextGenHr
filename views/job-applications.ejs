@@ -1,0 +1,79 @@
+<%- include ('layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Job Applications</h5>
+                <small class="text-muted">Review job applications</small>
+            </div>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Job Position</label>
+                            <select class="form-select" id="jobFilter">
+                                <option value="">All Jobs</option>
+                                <option value="1">Senior Developer</option>
+                                <option value="2">HR Manager</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="statusFilter">
+                                <option value="">All</option>
+                                <option value="pending">Pending</option>
+                                <option value="shortlisted">Shortlisted</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Candidate</th>
+                                    <th>Position</th>
+                                    <th>Email</th>
+                                    <th>Applied Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Alex Kumar</td>
+                                    <td>Senior Developer</td>
+                                    <td>alex@example.com</td>
+                                    <td>16 Dec 2024</td>
+                                    <td><span class="badge bg-info">Pending</span></td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-info"><i class="bi bi-file-pdf"></i></a>
+                                        <button class="btn btn-sm btn-success"><i class="bi bi-check"></i> Accept</button>
+                                        <button class="btn btn-sm btn-danger"><i class="bi bi-x"></i> Reject</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Priya Sharma</td>
+                                    <td>Senior Developer</td>
+                                    <td>priya@example.com</td>
+                                    <td>15 Dec 2024</td>
+                                    <td><span class="badge bg-success">Shortlisted</span></td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-info"><i class="bi bi-file-pdf"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include ('layouts/footer'); %>

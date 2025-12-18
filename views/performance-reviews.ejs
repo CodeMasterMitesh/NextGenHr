@@ -1,0 +1,106 @@
+<%- include ('layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Performance Reviews</h5>
+                <small class="text-muted">Manage employee performance reviews</small>
+            </div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewModal">
+                <i class="bi bi-plus-circle"></i> New Review
+            </button>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Period</th>
+                                    <th>Punctuality</th>
+                                    <th>Teamwork</th>
+                                    <th>Communication</th>
+                                    <th>Performance</th>
+                                    <th>Overall</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>Q3 2024</td>
+                                    <td><span class="badge bg-success">4.5/5</span></td>
+                                    <td><span class="badge bg-success">4/5</span></td>
+                                    <td><span class="badge bg-warning">3.5/5</span></td>
+                                    <td><span class="badge bg-success">4.5/5</span></td>
+                                    <td><span class="badge bg-success">4.1/5</span></td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Performance Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" action="/performance-reviews">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Employee</label>
+                            <select class="form-select" name="employee_id" required>
+                                <option value="">Select Employee</option>
+                                <option value="1">John Doe</option>
+                                <option value="2">Sarah Smith</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Review Period</label>
+                            <input type="text" class="form-control" name="review_period" placeholder="Q1 2024">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Punctuality (1-5)</label>
+                                <input type="number" class="form-control" name="punctuality" min="1" max="5">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Teamwork (1-5)</label>
+                                <input type="number" class="form-control" name="teamwork" min="1" max="5">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Communication (1-5)</label>
+                                <input type="number" class="form-control" name="communication" min="1" max="5">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Performance (1-5)</label>
+                                <input type="number" class="form-control" name="performance" min="1" max="5">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Comments</label>
+                            <textarea class="form-control" name="comments" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<%- include ('layouts/footer'); %>

@@ -1,0 +1,188 @@
+<%- include ('layouts/header'); %>
+<div class="main-content">
+    <div class="topbar">
+        <h5>Holiday Management</h5>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#holidayModal">
+            <i class="bi bi-plus-circle"></i> Add Holiday
+        </button>
+    </div>
+
+    <div class="container-fluid mt-4">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="mb-1">15</h3>
+                        <p class="text-muted mb-0">Total Holidays</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="mb-1">5</h3>
+                        <p class="text-muted mb-0">Upcoming</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="mb-1">30 days</h3>
+                        <p class="text-muted mb-0">Total Days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-light">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6 class="mb-0">Holiday Calendar</h6>
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-select form-select-sm w-auto">
+                            <option>All Holidays</option>
+                            <option>National</option>
+                            <option>Festival</option>
+                            <option>Company</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Holiday Name</th>
+                                <th>Day</th>
+                                <th>Type</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Dec 25, 2025</strong></td>
+                                <td>Christmas</td>
+                                <td>Wednesday</td>
+                                <td><span class="badge bg-primary">National</span></td>
+                                <td>Full Day</td>
+                                <td><span class="badge bg-warning">Upcoming</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Jan 1, 2026</strong></td>
+                                <td>New Year</td>
+                                <td>Thursday</td>
+                                <td><span class="badge bg-primary">National</span></td>
+                                <td>Full Day</td>
+                                <td><span class="badge bg-warning">Upcoming</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Jan 26, 2026</strong></td>
+                                <td>Republic Day</td>
+                                <td>Monday</td>
+                                <td><span class="badge bg-success">National</span></td>
+                                <td>Full Day</td>
+                                <td><span class="badge bg-warning">Upcoming</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mar 8, 2026</strong></td>
+                                <td>Maha Shivaratri</td>
+                                <td>Saturday</td>
+                                <td><span class="badge bg-info">Festival</span></td>
+                                <td>Full Day</td>
+                                <td><span class="badge bg-warning">Upcoming</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>May 20, 2026</strong></td>
+                                <td>Company Founder Day</td>
+                                <td>Wednesday</td>
+                                <td><span class="badge bg-secondary">Company</span></td>
+                                <td>Full Day</td>
+                                <td><span class="badge bg-warning">Upcoming</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Holiday Modal -->
+<div class="modal fade" id="holidayModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Holiday</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Holiday Name</label>
+                        <input type="text" class="form-control" placeholder="Holiday name">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Type</label>
+                            <select class="form-select">
+                                <option>National</option>
+                                <option>Festival</option>
+                                <option>Company</option>
+                                <option>Optional</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Duration</label>
+                        <select class="form-select">
+                            <option>Full Day</option>
+                            <option>Half Day (Morning)</option>
+                            <option>Half Day (Afternoon)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="2" placeholder="Holiday description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Add Holiday</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('layouts/footer'); %>

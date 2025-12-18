@@ -1,0 +1,165 @@
+<%- include ('layouts/header'); %>
+<div class="main-content">
+    <div class="topbar">
+        <h5>Notifications</h5>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#notifModal">
+            <i class="bi bi-plus-circle"></i> New Notification
+        </button>
+    </div>
+
+    <div class="container-fluid mt-4">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="text-muted mb-1">Total Notifications</h6>
+                        <h3 class="mb-0">145</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="text-muted mb-1">Unread</h6>
+                        <h3 class="mb-0 text-danger">12</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="text-muted mb-1">Read</h6>
+                        <h3 class="mb-0 text-success">133</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-light">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6 class="mb-0">Notifications</h6>
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-select form-select-sm w-auto">
+                            <option>All</option>
+                            <option>Unread</option>
+                            <option>Read</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-sm">
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-primary rounded-circle" style="width: 10px; height: 10px; margin-top: 6px;"></span>
+                                <div>
+                                    <p class="mb-1 fw-bold">Leave Approved</p>
+                                    <small class="text-muted">Your leave request for Dec 25-26 has been approved by Manager</small>
+                                    <br><small class="text-muted">2 hours ago</small>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></button>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-success rounded-circle" style="width: 10px; height: 10px; margin-top: 6px;"></span>
+                                <div>
+                                    <p class="mb-1 fw-bold">New Employee Onboarded</p>
+                                    <small class="text-muted">Sarah Wilson has been added to the system</small>
+                                    <br><small class="text-muted">5 hours ago</small>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></button>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-warning rounded-circle" style="width: 10px; height: 10px; margin-top: 6px;"></span>
+                                <div>
+                                    <p class="mb-1 fw-bold">Payroll Processed</p>
+                                    <small class="text-muted">December payroll has been successfully processed and credited</small>
+                                    <br><small class="text-muted">1 day ago</small>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></button>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-info rounded-circle" style="width: 10px; height: 10px; margin-top: 6px;"></span>
+                                <div>
+                                    <p class="mb-1 fw-bold">Interview Scheduled</p>
+                                    <small class="text-muted">Interview scheduled for Senior Developer position on Dec 20, 2025 at 10:00 AM</small>
+                                    <br><small class="text-muted">2 days ago</small>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Notification Modal -->
+<div class="modal fade" id="notifModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Send Notification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" placeholder="Notification title">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" rows="3" placeholder="Notification message"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Send To</label>
+                            <select class="form-select">
+                                <option>Select Recipients</option>
+                                <option>All Employees</option>
+                                <option>Specific Department</option>
+                                <option>Specific Employee</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Type</label>
+                            <select class="form-select">
+                                <option>General</option>
+                                <option>Alert</option>
+                                <option>Warning</option>
+                                <option>Success</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="email" checked>
+                        <label class="form-check-label" for="email">Send Email</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('layouts/footer'); %>

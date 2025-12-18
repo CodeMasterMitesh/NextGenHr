@@ -1,0 +1,63 @@
+<%- include ('layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Employees</h5>
+                <small class="text-muted">Manage your workforce</small>
+            </div>
+            <a href="/employees/new" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add Employee
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Employee Code</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Department</th>
+                                    <th>Designation</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#EMP001</td>
+                                    <td>John Doe</td>
+                                    <td>john@company.com</td>
+                                    <td>IT</td>
+                                    <td>Senior Developer</td>
+                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
+                                        <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+                                        <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#EMP002</td>
+                                    <td>Sarah Smith</td>
+                                    <td>sarah@company.com</td>
+                                    <td>HR</td>
+                                    <td>HR Manager</td>
+                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
+                                        <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+                                        <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include ('layouts/footer'); %>

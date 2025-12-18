@@ -1,0 +1,71 @@
+<%- include ('layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Branches</h5>
+                <small class="text-muted">Manage company branches</small>
+            </div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#branchModal">
+                <i class="bi bi-plus-circle"></i> Add Branch
+            </button>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Branch Name</th>
+                                    <th>Location</th>
+                                    <th>Manager</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Main Office</td>
+                                    <td>New Delhi</td>
+                                    <td>Rajesh Kumar</td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+                                        <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="branchModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Branch</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" action="/branches">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Branch Name</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" name="location" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<%- include ('layouts/footer'); %>

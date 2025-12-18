@@ -1,0 +1,62 @@
+<%- include ('layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Payslips</h5>
+                <small class="text-muted">View and download payslips</small>
+            </div>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Employee</label>
+                            <select class="form-select" id="employeeFilter">
+                                <option value="">All Employees</option>
+                                <option value="1">John Doe</option>
+                                <option value="2">Sarah Smith</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Month</label>
+                            <input type="month" class="form-control" id="monthFilter">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Month</th>
+                                    <th>Gross</th>
+                                    <th>Deductions</th>
+                                    <th>Net</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>Dec 2024</td>
+                                    <td>₹50,000</td>
+                                    <td>₹5,000</td>
+                                    <td>₹45,000</td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-info"><i class="bi bi-file-pdf"></i> Download</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include ('layouts/footer'); %>

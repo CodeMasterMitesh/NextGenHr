@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import Router from 'express';
-import { dbSetup } from '../db.js';
+import { dbSetup } from '../../db.js';
 const router = Router();
 
 dbSetup.client.connect().then(() => {  // Connect to MongoDB

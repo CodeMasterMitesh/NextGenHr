@@ -1,0 +1,124 @@
+<%- include ('layouts/header'); %>
+<div class="main-content">
+    <div class="topbar">
+        <h5>Job Posting & Advertisement</h5>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postingModal">
+            <i class="bi bi-plus-circle"></i> New Posting
+        </button>
+    </div>
+
+    <div class="container-fluid mt-4">
+        <div class="card">
+            <div class="card-header bg-light">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6 class="mb-0">Job Postings</h6>
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-select form-select-sm w-auto">
+                            <option>All Status</option>
+                            <option>Published</option>
+                            <option>Draft</option>
+                            <option>Expired</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Posting ID</th>
+                                <th>Position</th>
+                                <th>Platforms</th>
+                                <th>Applications</th>
+                                <th>Status</th>
+                                <th>Published</th>
+                                <th>Expires</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>POST-001</strong></td>
+                                <td>Senior Developer</td>
+                                <td>
+                                    <span class="badge bg-info">LinkedIn</span>
+                                    <span class="badge bg-secondary">Indeed</span>
+                                </td>
+                                <td>24</td>
+                                <td><span class="badge bg-success">Published</span></td>
+                                <td>Dec 1, 2025</td>
+                                <td>Dec 31, 2025</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info"><i class="bi bi-eye"></i></button>
+                                    <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Posting Modal -->
+<div class="modal fade" id="postingModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Job Posting</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Select Position</label>
+                        <select class="form-select">
+                            <option>Select from Requisition</option>
+                            <option>Senior Developer</option>
+                            <option>HR Manager</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Publish Platforms</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="linkedin">
+                            <label class="form-check-label" for="linkedin">LinkedIn</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="indeed">
+                            <label class="form-check-label" for="indeed">Indeed</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="website">
+                            <label class="form-check-label" for="website">Company Website</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Publish Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Expiry Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Job Description</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Publish</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('layouts/footer'); %>
