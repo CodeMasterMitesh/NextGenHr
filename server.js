@@ -2,10 +2,8 @@ import JobApplication from './routes/api/JobApplication.js';
 import usersApi from './routes/api/User.js';
 import webRoutes from './routes/web.js';
 import companyApi from './routes/api/Company.js';
-import branchApi from './routes/api/Branch.js';
 import apiRoutes from './routes/api.js';
 import express from "express";
-import expressLayouts from 'express-ejs-layouts';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -30,7 +28,6 @@ app.use(webRoutes);
 // ==================== API Routes ====================
 app.use(JobApplication);
 app.use(companyApi);
-app.use(branchApi);
 app.use(usersApi);
 app.use(apiRoutes);
 

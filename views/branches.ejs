@@ -49,7 +49,7 @@
                     <h5 class="modal-title">Add Branch</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form method="POST" action="/branches">
+                <form id="branchForm">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Branch Name</label>
@@ -68,4 +68,61 @@
             </div>
         </div>
     </div>
-<%- include ('layouts/footer'); %>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"></div>
+        </div>
+    </div>
+    <%- include ('layouts/footer'); %>
+        <script>
+            addEventListener('DOMContentLoaded', async () => {
+                const response = await fetch('http://localhost:5000/getCompanyData');
+                console.log(response);
+                const companies = await response.json();
+                console.log(companies);
+                const companySelect = document.querySelector('select[name="company_id"]');
+                companies.forEach(company => {
+                    console.log(company);
+                    const option = document.createElement('option');
+                    option.value = company._id;
+                    option.textContent = company.name;
+                    companySelect.appendChild(option);
+                });
+            });
+            document.getElementById('branchForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const formData = new FormData(form);
+                // Convert FormData to plain object for JSON POST
+                const data = {};
+                formData.forEach((value, key) => { data[key] = value; });
+
+                try {
+                    const response = await fetch('http://localhost:5000/storeBranch', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    console.log(result);
+                    const responseMsg = document.querySelector('.toast-body');
+                    if (result.success) {
+                        responseMsg.innerHTML = `${result.message}`;
+                        branchModal.hide();
+                        form.reset();
+                    } else {
+                        responseMsg.innerHTML = `<div class="alert alert-danger">${result.message || 'Something went wrong'}</div>`;
+                    }
+                } catch (err) {
+                    document.getElementById('responseMsg').innerHTML = `<div class="alert alert-danger">Network error: ${err.message}</div>`;
+                    console.error('Error submitting branch:', err);
+                }
+            });
+        </script>

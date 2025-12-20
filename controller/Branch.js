@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import Router from 'express';
-import { dbSetup } from '../../db.js';
+import { dbSetup } from '../db.js';
 const router = Router();
 
 dbSetup.client.connect().then(() => {  // Connect to MongoDB
@@ -11,25 +11,22 @@ dbSetup.client.connect().then(() => {  // Connect to MongoDB
 
 const db = dbSetup.client.db(dbSetup.dbName);
 
-router.post('/storeBranch', async (req, res) => {
+const storeBranch = async (req, res) => {
     const branchData = req.body;
     console.log('Received Company data:', branchData);
     // access collection
     const branchCollection = await db.collection('branch');
     await branchCollection.insertOne(branchData);
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: 'Branch stored successfully' }));
-});
+    res.status(200).json({ message: 'Branch stored successfully', success: true });
+};
 
-router.get('/getCompanyWiseBranch/:companyId', async (req, res) => {
+const getCompanyWiseBranch = async (req, res) => {
     const companyId = req.params.companyId;
     const branchCollection = await db.collection('branch');
     const branch = await branchCollection.find({ 'company_id': companyId }).toArray();
     // console.log(branch);
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(branch));
-
-});
+    res.status(200).json(branch);
+};
 
 
-export default router;
+export { storeBranch, getCompanyWiseBranch };
