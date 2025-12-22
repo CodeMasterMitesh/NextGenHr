@@ -142,7 +142,7 @@
 <script>
   const fetchJobApplications = async () => {
     try {
-      const response = await fetch('http://localhost:5000/getApplications');
+      const response = await fetch('http://localhost:5000/api/getApplications');
       const data = await response.json();
       // console.log(data);
       const tableData = document.getElementById('jobpostdata');

@@ -15,24 +15,44 @@
             left: 0;
             right: 0;
             height: 60px;
-            background: #fff;
-            border-bottom: 1px solid #e0e0e0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-bottom: 2px solid #e8eef5;
             z-index: 1030;
             display: flex;
             align-items: center;
             padding: 0 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
         .top-navbar .navbar-brand {
             font-weight: 700;
             font-size: 1.25rem;
             color: #667eea;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+        .sidebar-toggle {
+            color: #333;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .sidebar-toggle:hover {
+            color: #667eea;
+        }
+        .top-navbar .navbar-brand i {
+            font-size: 1.5rem;
         }
         .top-navbar .navbar-actions {
             margin-left: auto;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
         }
         .notification-bell {
             position: relative;
@@ -69,7 +89,7 @@
             transition: background 0.2s;
         }
         .user-profile-dropdown:hover {
-            background: #f8f9fa;
+            background: #f0f2f7;
         }
         .user-avatar {
             width: 36px;
@@ -91,7 +111,7 @@
         }
         .user-role {
             font-size: 0.75rem;
-            color: #666;
+            color: #999;
             line-height: 1.2;
         }
         .dropdown-menu {
@@ -127,6 +147,10 @@
 <body class="<%= typeof pageClass !== 'undefined' ? pageClass : '' %>">
     <!-- Top Navbar -->
     <nav class="top-navbar">
+        <button class="btn btn-link sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">
+            <i class="bi bi-list"></i>
+        </button>
+        
         <a class="navbar-brand" href="/dashboard">
             <i class="bi bi-briefcase-fill"></i> NextGenHR
         </a>
@@ -236,199 +260,200 @@
 
             <!-- HR Management -->
             <div class="nav-section mb-3">
-                <h6 class="nav-label px-2 text-uppercase text-muted small">HR Management</h6>
-                <a class="nav-link" href="/employees">
-                    <i class="bi bi-people-fill"></i> <span>Employees</span>
-                </a>
-
-                <a class="nav-link" href="/departments">
-                    <i class="bi bi-diagram-3"></i> <span>Departments</span>
-                </a>
-
-                <a class="nav-link" href="/designations">
-                    <i class="bi bi-diagram-2"></i> <span>Designations</span>
-                </a>
-
-                <a class="nav-link" href="/branches">
-                    <i class="bi bi-geo-alt"></i> <span>Branches</span>
-                </a>
-
-                <a class="nav-link" href="/company">
-                    <i class="bi bi-building"></i> <span>Company</span>
-                </a>
+                <div class="nav-menu-toggle" data-target="hrMenu">
+                    <i class="bi bi-people-fill"></i> <span>HR Management</span>
+                    <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
+                </div>
+                <div class="nav-submenu" id="hrMenu">
+                    <a class="nav-link-sub" href="/employees">
+                        <i class="bi bi-person"></i> <span>Employees</span>
+                    </a>
+                    <a class="nav-link-sub" href="/departments">
+                        <i class="bi bi-diagram-3"></i> <span>Departments</span>
+                    </a>
+                    <a class="nav-link-sub" href="/designations">
+                        <i class="bi bi-diagram-2"></i> <span>Designations</span>
+                    </a>
+                    <a class="nav-link-sub" href="/branches">
+                        <i class="bi bi-geo-alt"></i> <span>Branches</span>
+                    </a>
+                    <a class="nav-link-sub" href="/company">
+                        <i class="bi bi-building"></i> <span>Company</span>
+                    </a>
+                </div>
             </div>
 
             <!-- Attendance & Leave -->
             <div class="nav-section mb-3">
-                <h6 class="nav-label px-2 text-uppercase text-muted small">Attendance & Leave</h6>
-                <a class="nav-link" href="/attendance">
-                    <i class="bi bi-clock-history"></i> <span>Attendance</span>
-                </a>
-
-                <a class="nav-link" href="/leave-requests">
-                    <i class="bi bi-calendar-check"></i> <span>Leave Requests</span>
-                </a>
+                <div class="nav-menu-toggle" data-target="attendanceMenu">
+                    <i class="bi bi-calendar-check"></i> <span>Attendance & Leave</span>
+                    <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
+                </div>
+                <div class="nav-submenu" id="attendanceMenu">
+                    <a class="nav-link-sub" href="/attendance">
+                        <i class="bi bi-clock-history"></i> <span>Attendance</span>
+                    </a>
+                    <a class="nav-link-sub" href="/leave-requests">
+                        <i class="bi bi-calendar-check"></i> <span>Leave Requests</span>
+                    </a>
+                    <a class="nav-link-sub" href="/leaves">
+                        <i class="bi bi-calendar2"></i> <span>Leaves</span>
+                    </a>
+                </div>
             </div>
 
-            <!-- Payroll & Performance -->
+            <!-- Payroll Management -->
             <div class="nav-section mb-3">
-                <h6 class="nav-label px-2 text-uppercase text-muted small">Payroll & Performance</h6>
-                <a class="nav-link" href="/payroll">
+                <div class="nav-menu-toggle" data-target="payrollMenu">
                     <i class="bi bi-cash-stack"></i> <span>Payroll</span>
-                </a>
-
-                <a class="nav-link" href="/payslips">
-                    <i class="bi bi-receipt"></i> <span>Payslips</span>
-                </a>
-
-                <a class="nav-link" href="/performance-reviews">
-                    <i class="bi bi-star"></i> <span>Performance Reviews</span>
-                </a>
-            </div>
-
-            <!-- Administration -->
-            <div class="nav-section mb-3">
-                <h6 class="nav-label px-2 text-uppercase text-muted small">Administration</h6>
-                <a class="nav-link" href="/users">
-                    <i class="bi bi-person-gear"></i> <span>Users</span>
-                </a>
-
-                <a class="nav-link" href="/roles">
-                    <i class="bi bi-shield-lock"></i> <span>Roles & Permissions</span>
-                </a>
-
-                <a class="nav-link" href="/audit-logs">
-                    <i class="bi bi-file-earmark-text"></i> <span>Audit Logs</span>
-                </a>
-
-                <a class="nav-link" href="/approvals">
-                    <i class="bi bi-check2-square"></i> <span>Approvals</span>
-                </a>
+                    <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
+                </div>
+                <div class="nav-submenu" id="payrollMenu">
+                    <a class="nav-link-sub" href="/payroll">
+                        <i class="bi bi-cash-stack"></i> <span>Payroll</span>
+                    </a>
+                    <a class="nav-link-sub" href="/payslips">
+                        <i class="bi bi-receipt"></i> <span>Payslips</span>
+                    </a>
+                    <a class="nav-link-sub" href="/salary">
+                        <i class="bi bi-cash-coin"></i> <span>Salary</span>
+                    </a>
+                    <a class="nav-link-sub" href="/shift-management">
+                        <i class="bi bi-clock"></i> <span>Shift Management</span>
+                    </a>
+                    <a class="nav-link-sub" href="/weekoff">
+                        <i class="bi bi-calendar-x"></i> <span>Weekoff</span>
+                    </a>
+                    <a class="nav-link-sub" href="/earnings-deductions">
+                        <i class="bi bi-arrow-left-right"></i> <span>Earnings & Deductions</span>
+                    </a>
+                </div>
             </div>
 
             <!-- Recruitment -->
             <div class="nav-section mb-3">
-                <h6 class="nav-label px-2 text-uppercase text-muted small">Recruitment</h6>
-                <a class="nav-link" href="/job-requisition">
-                    <i class="bi bi-file-earmark-plus"></i> <span>Job Requisition</span>
-                </a>
-                <a class="nav-link" href="/job-applications">
-                    <i class="bi bi-file-earmark-person"></i> <span>Job Applications</span>
-                </a>
-                <a class="nav-link" href="/job-posting">
-                    <i class="bi bi-megaphone"></i> <span>Job Posting</span>
-                </a>
-
-                <a class="nav-link" href="/resumes">
-                    <i class="bi bi-file-earmark-pdf"></i> <span>Resumes</span>
-                </a>
-
-                <a class="nav-link" href="/interview-schedule">
-                    <i class="bi bi-calendar-event"></i> <span>Interview Schedule</span>
-                </a>
-
-                <a class="nav-link" href="/onboarding">
-                    <i class="bi bi-person-check"></i> <span>Onboarding</span>
-                </a>
-
-                <a class="nav-link" href="/training-schedule">
-                    <i class="bi bi-book"></i> <span>Training Schedule</span>
-                </a>
-
-                <a class="nav-link" href="/exam">
-                    <i class="bi bi-clipboard-check"></i> <span>Exams</span>
-                </a>
+                <div class="nav-menu-toggle" data-target="recruitmentMenu">
+                    <i class="bi bi-file-earmark-person"></i> <span>Recruitment</span>
+                    <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
+                </div>
+                <div class="nav-submenu" id="recruitmentMenu">
+                    <a class="nav-link-sub" href="/job-requisition">
+                        <i class="bi bi-file-earmark-plus"></i> <span>Job Requisition</span>
+                    </a>
+                    <a class="nav-link-sub" href="/job-posting">
+                        <i class="bi bi-megaphone"></i> <span>Job Posting</span>
+                    </a>
+                    <a class="nav-link-sub" href="/job-applications">
+                        <i class="bi bi-file-earmark-person"></i> <span>Applications</span>
+                    </a>
+                    <a class="nav-link-sub" href="/resumes">
+                        <i class="bi bi-file-earmark-pdf"></i> <span>Resumes</span>
+                    </a>
+                    <a class="nav-link-sub" href="/interview-schedule">
+                        <i class="bi bi-calendar-event"></i> <span>Interviews</span>
+                    </a>
+                    <a class="nav-link-sub" href="/onboarding">
+                        <i class="bi bi-person-check"></i> <span>Onboarding</span>
+                    </a>
+                    <a class="nav-link-sub" href="/training-schedule">
+                        <i class="bi bi-book"></i> <span>Training</span>
+                    </a>
+                </div>
             </div>
 
-            <!-- Payroll -->
+            <!-- Performance & Development -->
             <div class="nav-section mb-3">
-                <h6 class="nav-label px-2 text-uppercase text-muted small">Payroll</h6>
-                <a class="nav-link" href="/shift-management">
-                    <i class="bi bi-clock"></i> <span>Shift Management</span>
-                </a>
-
-                <a class="nav-link" href="/attendance">
-                    <i class="bi bi-clock-history"></i> <span>Attendance</span>
-                </a>
-
-                <a class="nav-link" href="/salary">
-                    <i class="bi bi-cash-stack"></i> <span>Salary</span>
-                </a>
-
-                <a class="nav-link" href="/weekoff">
-                    <i class="bi bi-calendar-x"></i> <span>Weekoff</span>
-                </a>
-
-                <a class="nav-link" href="/leaves">
-                    <i class="bi bi-calendar-check"></i> <span>Leaves</span>
-                </a>
-
-                <a class="nav-link" href="/earnings-deductions">
-                    <i class="bi bi-arrow-left-right"></i> <span>Earnings & Deductions</span>
-                </a>
+                <div class="nav-menu-toggle" data-target="performanceMenu">
+                    <i class="bi bi-star"></i> <span>Performance & Development</span>
+                    <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
+                </div>
+                <div class="nav-submenu" id="performanceMenu">
+                    <a class="nav-link-sub" href="/performance-reviews">
+                        <i class="bi bi-star"></i> <span>Performance Reviews</span>
+                    </a>
+                    <a class="nav-link-sub" href="/exam">
+                        <i class="bi bi-clipboard-check"></i> <span>Exams</span>
+                    </a>
+                </div>
             </div>
 
-            <!-- Performance & Asset -->
+            <!-- Asset Management -->
             <div class="nav-section mb-3">
-                <h6 class="nav-label px-2 text-uppercase text-muted small">Performance & Assets</h6>
-                <a class="nav-link" href="/performance-reviews">
-                    <i class="bi bi-star"></i> <span>Performance Reviews</span>
-                </a>
-
-                <a class="nav-link" href="/asset-issue">
-                    <i class="bi bi-box2-heart"></i> <span>Asset Issue</span>
-                </a>
-
-                <a class="nav-link" href="/asset-return">
-                    <i class="bi bi-box2-arrow-in"></i> <span>Asset Return</span>
-                </a>
+                <div class="nav-menu-toggle" data-target="assetMenu">
+                    <i class="bi bi-box2"></i> <span>Asset Management</span>
+                    <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
+                </div>
+                <div class="nav-submenu" id="assetMenu">
+                    <a class="nav-link-sub" href="/asset-issue">
+                        <i class="bi bi-box2-heart"></i> <span>Issue</span>
+                    </a>
+                    <a class="nav-link-sub" href="/asset-return">
+                        <i class="bi bi-box2-arrow-in"></i> <span>Return</span>
+                    </a>
+                </div>
             </div>
 
             <!-- Tasks & Events -->
             <div class="nav-section mb-3">
-                <h6 class="nav-label px-2 text-uppercase text-muted small">Tasks & Events</h6>
-                <a class="nav-link" href="/tasks">
-                    <i class="bi bi-list-check"></i> <span>Task Management</span>
-                </a>
+                <div class="nav-menu-toggle" data-target="tasksMenu">
+                    <i class="bi bi-list-check"></i> <span>Tasks & Events</span>
+                    <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
+                </div>
+                <div class="nav-submenu" id="tasksMenu">
+                    <a class="nav-link-sub" href="/tasks">
+                        <i class="bi bi-list-check"></i> <span>Task Management</span>
+                    </a>
+                    <a class="nav-link-sub" href="/events">
+                        <i class="bi bi-calendar2-event"></i> <span>Events</span>
+                    </a>
+                </div>
+            </div>
 
-                <a class="nav-link" href="/events">
-                    <i class="bi bi-calendar2-event"></i> <span>Events</span>
-                </a>
+            <!-- Administration -->
+            <div class="nav-section mb-3">
+                <div class="nav-menu-toggle" data-target="adminMenu">
+                    <i class="bi bi-gear"></i> <span>Administration</span>
+                    <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
+                </div>
+                <div class="nav-submenu" id="adminMenu">
+                    <a class="nav-link-sub" href="/users">
+                        <i class="bi bi-person-gear"></i> <span>Users</span>
+                    </a>
+                    <a class="nav-link-sub" href="/roles">
+                        <i class="bi bi-shield-lock"></i> <span>Roles & Permissions</span>
+                    </a>
+                    <a class="nav-link-sub" href="/audit-logs">
+                        <i class="bi bi-file-earmark-text"></i> <span>Audit Logs</span>
+                    </a>
+                    <a class="nav-link-sub" href="/approvals">
+                        <i class="bi bi-check2-square"></i> <span>Approvals</span>
+                    </a>
+                </div>
             </div>
 
             <!-- Common -->
             <div class="nav-section mb-3">
-                <h6 class="nav-label px-2 text-uppercase text-muted small">Common</h6>
-                <a class="nav-link" href="/news">
-                    <i class="bi bi-newspaper"></i> <span>News & Articles</span>
-                </a>
-
-                <a class="nav-link" href="/notifications">
-                    <i class="bi bi-bell"></i> <span>Notifications</span>
-                </a>
-
-                <a class="nav-link" href="/holidays">
-                    <i class="bi bi-calendar-heart"></i> <span>Holidays</span>
-                </a>
+                <div class="nav-menu-toggle" data-target="commonMenu">
+                    <i class="bi bi-newspaper"></i> <span>Common</span>
+                    <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
+                </div>
+                <div class="nav-submenu" id="commonMenu">
+                    <a class="nav-link-sub" href="/news">
+                        <i class="bi bi-newspaper"></i> <span>News & Articles</span>
+                    </a>
+                    <a class="nav-link-sub" href="/notifications">
+                        <i class="bi bi-bell"></i> <span>Notifications</span>
+                    </a>
+                    <a class="nav-link-sub" href="/holidays">
+                        <i class="bi bi-calendar-heart"></i> <span>Holidays</span>
+                    </a>
+                </div>
             </div>
         </nav>
 
-        <!-- Sidebar Footer -->
-        <div class="sidebar-footer border-top p-3 mt-auto">
-            <div class="d-flex align-items-center gap-2 mb-2">
-                <img src="https://via.placeholder.com/32" class="rounded-circle" alt="User">
-                <div class="small">
-                    <div class="fw-bold">Admin</div>
-                    <div class="text-muted">admin@company.com</div>
-                </div>
-            </div>
-            <button class="btn btn-sm btn-outline-secondary w-100" onclick="logout()">
-                <i class="bi bi-box-arrow-right"></i> Logout
-            </button>
-        </div>
+
     </aside>
 
-    <!-- Restore scroll position immediately -->
     <script>
         (function() {
             const sidebar = document.querySelector('.sidebar');
@@ -442,37 +467,135 @@
     </script>
 
     <script>
-        // Set active sidebar link based on current page
+        // Sidebar collapse/expand functionality
         document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            
+            // Check localStorage for saved state
+            const savedState = localStorage.getItem('sidebarCollapsed');
+            if (savedState === 'true') {
+                sidebar.classList.add('collapsed');
+                if (mainContent) mainContent.classList.add('expanded');
+            }
+            
+            // Toggle sidebar
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                if (mainContent) mainContent.classList.toggle('expanded');
+                
+                // Save state
+                const isCollapsed = sidebar.classList.contains('collapsed');
+                localStorage.setItem('sidebarCollapsed', isCollapsed);
+            });
+        });
+    </script>
+
+    <script>
+        // Convert existing topbars into breadcrumb bars and remove extra spacing
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.topbar').forEach(bar => {
+                const textBlock = bar.querySelector('div');
+                const titleEl = bar.querySelector('h5');
+                const title = titleEl ? titleEl.textContent.trim() : '';
+
+                if (!textBlock || !title) return;
+
+                const breadcrumbNav = document.createElement('nav');
+                breadcrumbNav.className = 'breadcrumb-bar';
+                breadcrumbNav.setAttribute('aria-label', 'breadcrumb');
+                breadcrumbNav.innerHTML = `
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">${title}</li>
+                    </ol>
+                `;
+
+                textBlock.innerHTML = '';
+                textBlock.appendChild(breadcrumbNav);
+
+                const heading = document.createElement('h5');
+                heading.className = 'mb-0';
+                heading.textContent = title;
+                textBlock.appendChild(heading);
+            });
+        });
+    </script>
+
+    <script>
+        // Collapsible menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggles = document.querySelectorAll('.nav-menu-toggle');
+            
+            menuToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    const submenu = document.getElementById(targetId);
+                    
+                    if (submenu) {
+                        submenu.classList.toggle('show');
+                        this.classList.toggle('active');
+                        
+                        // Save state
+                        const state = submenu.classList.contains('show');
+                        sessionStorage.setItem('menu-' + targetId, state);
+                    }
+                });
+            });
+            
+            // Restore menu states
+            menuToggles.forEach(toggle => {
+                const targetId = toggle.getAttribute('data-target');
+                const savedState = sessionStorage.getItem('menu-' + targetId);
+                if (savedState === 'true') {
+                    const submenu = document.getElementById(targetId);
+                    if (submenu) {
+                        submenu.classList.add('show');
+                        toggle.classList.add('active');
+                    }
+                }
+            });
+            
+            // Set active sidebar link based on current page
             const currentPath = window.location.pathname;
-            const sidebarLinks = document.querySelectorAll('.sidebar .nav-link');
+            const sidebarLinks = document.querySelectorAll('.sidebar .nav-link-sub');
             const sidebar = document.querySelector('.sidebar');
             
             sidebarLinks.forEach(link => {
-                // Remove active class from all links first
-                link.classList.remove('active');
-                
-                // Get the href of the link
                 const href = link.getAttribute('href');
-                
-                // Check if current path matches the link href
-                if (currentPath === href || (href !== '/dashboard' && currentPath.startsWith(href))) {
+                if (currentPath === href || currentPath.startsWith(href.replace(/\/$/, ''))) {
                     link.classList.add('active');
+                    
+                    // Auto-open parent menu
+                    const submenu = link.closest('.nav-submenu');
+                    if (submenu) {
+                        submenu.classList.add('show');
+                        const toggle = submenu.previousElementSibling;
+                        if (toggle) {
+                            toggle.classList.add('active');
+                        }
+                    }
+                } else {
+                    link.classList.remove('active');
                 }
                 
-                // Save scroll position when clicking sidebar links
-                link.addEventListener('click', function(e) {
+                // Save scroll position when clicking
+                link.addEventListener('click', function() {
                     if (sidebar) {
                         sessionStorage.setItem('sidebarScrollPos', sidebar.scrollTop);
                     }
                 });
             });
             
-            // If no match found, set dashboard as active for home page
-            if (currentPath === '/' || currentPath === '') {
-                const dashboardLink = document.querySelector('.sidebar .nav-link[href="/dashboard"]');
-                if (dashboardLink) {
+            // Main dashboard link
+            const dashboardLink = document.querySelector('.sidebar .nav-link[href="/dashboard"]');
+            if (dashboardLink) {
+                if (currentPath === '/' || currentPath === '/dashboard') {
                     dashboardLink.classList.add('active');
+                } else {
+                    dashboardLink.classList.remove('active');
                 }
             }
         });
