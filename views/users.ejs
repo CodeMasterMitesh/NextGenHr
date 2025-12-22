@@ -2,40 +2,44 @@
     <div class="main-content">
         <div class="topbar">
             <div>
-                <h5 class="mb-1">Users</h5>
-                <small class="text-muted">Manage system users</small>
+                <h5 class="mb-1">Employees</h5>
+                <small class="text-muted">Manage system employees</small>
             </div>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal">
-                <i class="bi bi-plus-circle"></i> Add User
+                <i class="bi bi-plus-circle"></i> Add Employee
             </button>
         </div>
 
         <div class="container-fluid mt-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
+            <div class="card border-0 shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap"
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff;">
+                    <div>
+                        <h6 class="mb-0">Employee Directory</h6>
+                        <small class="text-white-50">Responsive, searchable, and actionable</small>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <input id="userSearch" type="search" class="form-control form-control-sm"
+                            placeholder="Search employees" style="min-width: 220px; border: none;">
+                        <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#userModal">
+                            <i class="bi bi-plus-circle"></i> Add Employee
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive" style="max-height: 520px;">
+                        <table class="table table-hover table-borderless align-middle mb-0 users-table">
+                            <thead class="table-light sticky-top">
                                 <tr>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Last Login</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th scope="col">Employee</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" class="text-center">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>admin</td>
-                                    <td>admin@company.com</td>
-                                    <td><span class="badge bg-danger">Admin</span></td>
-                                    <td>18 Dec 2024 10:30 AM</td>
-                                    <td><span class="badge bg-success">Active</span></td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
-                                    </td>
-                                </tr>
+                            <tbody id="userTableBody">
+                                <!-- User rows will be populated here -->
                             </tbody>
                         </table>
                     </div>
@@ -44,44 +48,282 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Add User Modal -->
     <div class="modal fade" id="userModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-bottom: none; display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <h5 style="color: white; margin-bottom: 5px; font-weight: 600;"><i class="bi bi-person-plus"></i> Add New Employee</h5>
+                        <small style="color: rgba(255,255,255,0.7);">Fill in all required details</small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <form method="POST" action="/users">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input type="text" class="form-control" name="username" required>
+                <form id="userForm">
+                    <div class="modal-body p-4">
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold"><i class="bi bi-person"></i> Username</label>
+                                <input type="text" class="form-control form-control-lg border-2" name="username" placeholder="Username" required style="border-color: #e0e0e0;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold"><i class="bi bi-envelope"></i> Email</label>
+                                <input type="email" class="form-control form-control-lg border-2" name="email" placeholder="user@example.com" required style="border-color: #e0e0e0;">
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" required>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold"><i class="bi bi-key"></i> Password</label>
+                                <input type="password" class="form-control form-control-lg border-2" name="password" placeholder="Password" required style="border-color: #e0e0e0;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold"><i class="bi bi-shield-check"></i> Role</label>
+                                <select class="form-select form-select-lg border-2" name="role_id" required style="border-color: #e0e0e0;">
+                                    <option value="">Select Role</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Manager</option>
+                                    <option value="3">Employee</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Role</label>
-                            <select class="form-select" name="role_id">
-                                <option value="">Select Role</option>
-                                <option value="1">Admin</option>
-                                <option value="2">Manager</option>
-                                <option value="3">User</option>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold"><i class="bi bi-toggle-on"></i> Status</label>
+                            <select class="form-select form-select-lg border-2" name="status" style="border-color: #e0e0e0;">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
                             </select>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create User</button>
+                    <div class="modal-footer bg-light border-top">
+                        <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                            <i class="bi bi-check-circle"></i> Save Employee
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-bottom: none; display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <h5 style="color: white; margin-bottom: 5px; font-weight: 600;"><i class="bi bi-person-gear"></i> Edit Employee</h5>
+                        <small style="color: rgba(255,255,255,0.7);">Update employee details</small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="editUserForm">
+                    <div class="modal-body p-4">
+                        <input type="hidden" name="_id" id="editUserId">
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold"><i class="bi bi-person"></i> Username</label>
+                                <input type="text" class="form-control form-control-lg border-2" name="username" placeholder="Username" required style="border-color: #e0e0e0;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold"><i class="bi bi-envelope"></i> Email</label>
+                                <input type="email" class="form-control form-control-lg border-2" name="email" placeholder="user@example.com" required style="border-color: #e0e0e0;">
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold"><i class="bi bi-key"></i> Password <small class="text-muted">(leave blank to keep)</small></label>
+                                <input type="password" class="form-control form-control-lg border-2" name="password" placeholder="New Password" style="border-color: #e0e0e0;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold"><i class="bi bi-shield-check"></i> Role</label>
+                                <select class="form-select form-select-lg border-2" name="role_id" required style="border-color: #e0e0e0;">
+                                    <option value="">Select Role</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Manager</option>
+                                    <option value="3">Employee</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold"><i class="bi bi-toggle-on"></i> Status</label>
+                            <select class="form-select form-select-lg border-2" name="status" style="border-color: #e0e0e0;">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light border-top">
+                        <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                            <i class="bi bi-check-circle"></i> Update Employee
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1090;">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff;">
+                <i class="bi bi-bell-fill me-2"></i>
+                <strong class="me-auto" id="toastTitle">Notification</strong>
+                <small id="toastTime" class="text-white-50"></small>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"></div>
+        </div>
+    </div>
+
 <%- include ('layouts/footer'); %>
+    <style>
+        .users-table tbody tr {
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .users-table tbody tr:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+    </style>
+    <script>
+        const userModal = new bootstrap.Modal(document.getElementById('userModal'));
+        const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        const toastElement = document.getElementById('liveToast');
+        const toastInstance = new bootstrap.Toast(toastElement);
+        const toastBody = document.querySelector('.toast-body');
+        const toastTitle = document.getElementById('toastTitle');
+        const toastTime = document.getElementById('toastTime');
+        const userTableBody = document.getElementById('userTableBody');
+        const addForm = document.getElementById('userForm');
+        const editForm = document.getElementById('editUserForm');
+        const searchInput = document.getElementById('userSearch');
+
+        const showToast = (message, isError = false) => {
+            toastBody.innerHTML = isError ? `<div class="text-danger fw-semibold">${message}</div>` : message;
+            toastTitle.textContent = isError ? 'Error' : 'Success';
+            toastTime.textContent = 'Just now';
+            toastInstance.show();
+        };
+
+        const fetchJSON = async (url, options = {}) => {
+            const res = await fetch(url, options);
+            return res.json();
+        };
+
+        const renderUsers = (users) => {
+            const query = searchInput.value?.toLowerCase() || '';
+            userTableBody.innerHTML = '';
+            users
+                .filter(u => `${u.username} ${u.email} ${u.role_id}`.toLowerCase().includes(query))
+                .forEach(user => {
+                    const roleMap = { '1': 'Admin', '2': 'Manager', '3': 'Employee' };
+                    const roleBadge = { '1': 'bg-danger', '2': 'bg-warning', '3': 'bg-info' };
+                    const statusBadge = user.status === 'Active' ? 'bg-success' : 'bg-secondary';
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>
+                            <div class="fw-semibold">${user.username || '-'}</div>
+                        </td>
+                        <td>${user.email || '-'}</td>
+                        <td><span class="badge ${roleBadge[user.role_id] || 'bg-secondary'}">${roleMap[user.role_id] || user.role_id || '-'}</span></td>
+                        <td><span class="badge ${statusBadge}">${user.status || 'Active'}</span></td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary me-2 editBtn" data-id="${user._id}"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-danger deleteBtn" data-id="${user._id}"><i class="bi bi-trash"></i></button>
+                        </td>
+                    `;
+                    userTableBody.appendChild(row);
+                });
+        };
+
+        const loadUsers = async () => {
+            const users = await fetchJSON('http://localhost:5000/getEmployees');
+            renderUsers(users);
+            return users;
+        };
+
+        const fillEditForm = (user) => {
+            editForm.reset();
+            editForm.querySelector('#editUserId').value = user._id;
+            editForm.querySelector('input[name="username"]').value = user.username || '';
+            editForm.querySelector('input[name="email"]').value = user.email || '';
+            editForm.querySelector('select[name="role_id"]').value = user.role_id || '';
+            editForm.querySelector('select[name="status"]').value = user.status || 'Active';
+        };
+
+        addEventListener('DOMContentLoaded', async () => {
+            let usersCache = await loadUsers();
+
+            searchInput.addEventListener('input', () => renderUsers(usersCache));
+
+            addForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(addForm).entries());
+                const result = await fetchJSON('http://localhost:5000/storeEmployee', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (result.success) {
+                    showToast(result.message || 'Employee created');
+                    addForm.reset();
+                    userModal.hide();
+                    usersCache = await loadUsers();
+                } else {
+                    showToast(result.message || 'Failed to create employee', true);
+                }
+            });
+
+            editForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(editForm).entries());
+                const id = data._id;
+                delete data._id;
+                if (!data.password) delete data.password;
+                const result = await fetchJSON(`http://localhost:5000/updateEmployee/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (result.success) {
+                    showToast(result.message || 'Employee updated');
+                    editUserModal.hide();
+                    usersCache = await loadUsers();
+                } else {
+                    showToast(result.message || 'Failed to update employee', true);
+                }
+            });
+
+            userTableBody.addEventListener('click', async (e) => {
+                const editBtn = e.target.closest('.editBtn');
+                const deleteBtn = e.target.closest('.deleteBtn');
+
+                if (editBtn) {
+                    const id = editBtn.getAttribute('data-id');
+                    const user = await fetchJSON(`http://localhost:5000/getEmployee/${id}`);
+                    fillEditForm(user);
+                    editUserModal.show();
+                }
+
+                if (deleteBtn) {
+                    const id = deleteBtn.getAttribute('data-id');
+                    if (!confirm('Delete this employee?')) return;
+                    const result = await fetchJSON(`http://localhost:5000/deleteEmployee/${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (result.success) {
+                        showToast(result.message || 'Employee deleted');
+                        usersCache = await loadUsers();
+                    } else {
+                        showToast(result.message || 'Failed to delete employee', true);
+                    }
+                }
+            });
+        });
+    </script>

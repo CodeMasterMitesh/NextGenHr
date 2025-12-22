@@ -12,37 +12,75 @@ dbSetup.client.connect().then(() => {  // Connect to MongoDB
 const db = dbSetup.client.db(dbSetup.dbName);
 
 const storeBranch = async (req, res) => {
-    const branchData = req.body;
-    console.log('Received Company data:', branchData);
-    // access collection
-    const branchCollection = await db.collection('branch');
-    await branchCollection.insertOne(branchData);
-    res.status(200).json({ message: 'Branch stored successfully', success: true });
+    try {
+        const branchData = req.body;
+        const branchCollection = await db.collection('branch');
+        await branchCollection.insertOne(branchData);
+        res.status(200).json({ message: 'Branch stored successfully', success: true });
+    } catch (err) {
+        console.error('storeBranch error', err);
+        res.status(500).json({ message: 'Failed to store branch', success: false });
+    }
 };
 
 const getCompanyWiseBranch = async (req, res) => {
-    const companyId = req.params.companyId;
-    const branchCollection = await db.collection('branch');
-    const branch = await branchCollection.find({ 'company_id': companyId }).toArray();
-    // console.log(branch);
-    res.status(200).json(branch);
+    try {
+        const companyId = req.params.companyId;
+        const branchCollection = await db.collection('branch');
+        const branch = await branchCollection.find({ company_id: companyId }).toArray();
+        res.status(200).json(branch);
+    } catch (err) {
+        console.error('getCompanyWiseBranch error', err);
+        res.status(500).json({ message: 'Failed to fetch branches' });
+    }
 };
 
 const getBranch = async (req, res) => {
-    const branchCollection = await db.collection('branch');
-    const branch = await branchCollection.find({}).toArray();
-    // console.log(branch);
-    res.status(200).json(branch);
+    try {
+        const branchCollection = await db.collection('branch');
+        const branch = await branchCollection.find({}).toArray();
+        res.status(200).json(branch);
+    } catch (err) {
+        console.error('getBranch error', err);
+        res.status(500).json({ message: 'Failed to fetch branches' });
+    }
 };
 
 const getBranchById = async (req, res) => {
-    const branchId = req.params.id;
-    console.log('Fetching branch with ID:', branchId);
-    const branchCollection = await db.collection('branch');
-    const branch = await branchCollection.findOne({ _id: new ObjectId(branchId) });
-    console.log(branch);
-    res.status(200).json(branch);
+    try {
+        const branchId = req.params.id;
+        const branchCollection = await db.collection('branch');
+        const branch = await branchCollection.findOne({ _id: new ObjectId(branchId) });
+        res.status(200).json(branch);
+    } catch (err) {
+        console.error('getBranchById error', err);
+        res.status(500).json({ message: 'Failed to fetch branch' });
+    }
 };
 
+const updateBranch = async (req, res) => {
+    try {
+        const branchId = req.params.id;
+        const payload = req.body;
+        const branchCollection = await db.collection('branch');
+        await branchCollection.updateOne({ _id: new ObjectId(branchId) }, { $set: payload });
+        res.status(200).json({ message: 'Branch updated successfully', success: true });
+    } catch (err) {
+        console.error('updateBranch error', err);
+        res.status(500).json({ message: 'Failed to update branch', success: false });
+    }
+};
 
-export { storeBranch, getCompanyWiseBranch,getBranch,getBranchById };
+const deleteBranch = async (req, res) => {
+    try {
+        const branchId = req.params.id;
+        const branchCollection = await db.collection('branch');
+        await branchCollection.deleteOne({ _id: new ObjectId(branchId) });
+        res.status(200).json({ message: 'Branch deleted successfully', success: true });
+    } catch (err) {
+        console.error('deleteBranch error', err);
+        res.status(500).json({ message: 'Failed to delete branch', success: false });
+    }
+};
+
+export { storeBranch, getCompanyWiseBranch, getBranch, getBranchById, updateBranch, deleteBranch };
