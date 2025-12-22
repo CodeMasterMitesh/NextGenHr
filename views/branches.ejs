@@ -43,26 +43,113 @@
 
     <!-- Modal -->
     <div class="modal fade" id="branchModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Branch</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-bottom: none; display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <h5 style="color: white; margin-bottom: 5px; font-weight: 600;"><i class="bi bi-building"></i> Add New Branch</h5>
+                        <small style="color: rgba(255,255,255,0.7);">Fill in all required details</small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="branchForm">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Branch Name</label>
-                            <input type="text" class="form-control" name="name" required>
+                    <div class="modal-body p-4">
+                        <!-- Company Section -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-building"></i> Company
+                            </label>
+                            <select class="form-select form-select-lg border-2" name="company_id" required style="border-color: #e0e0e0;">
+                                <option value="">Select Company</option>
+                            </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Location</label>
-                            <input type="text" class="form-control" name="location" required>
+
+                        <!-- Branch Name Full Width -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-signpost-2"></i> Branch Name
+                            </label>
+                            <input type="text" class="form-control form-control-lg border-2" name="name" placeholder="e.g., Delhi Office" required style="border-color: #e0e0e0;">
+                        </div>
+
+                        <!-- Address Section - 2 Columns -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-geo-alt"></i> Address Line 1
+                                </label>
+                                <input type="text" class="form-control form-control-lg border-2" name="address1" placeholder="Street address" required style="border-color: #e0e0e0;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-geo-alt"></i> Address Line 2
+                                </label>
+                                <input type="text" class="form-control form-control-lg border-2" name="address2" placeholder="Apt, suite, etc." style="border-color: #e0e0e0;">
+                            </div>
+                        </div>
+
+                        <!-- City, State, Pincode - 3 Columns -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-map"></i> City
+                                </label>
+                                <input type="text" class="form-control form-control-lg border-2" name="city" placeholder="City" required style="border-color: #e0e0e0;">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-map"></i> State
+                                </label>
+                                <input type="text" class="form-control form-control-lg border-2" name="state" placeholder="State" required style="border-color: #e0e0e0;">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-map"></i> Pincode
+                                </label>
+                                <input type="text" class="form-control form-control-lg border-2" name="pincode" placeholder="Pincode" required style="border-color: #e0e0e0;">
+                            </div>
+                        </div>
+
+                        <!-- Contact & Email - 2 Columns -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-telephone"></i> Contact Number
+                                </label>
+                                <input type="tel" class="form-control form-control-lg border-2" name="contact_number" placeholder="+91 XXXXXXXXXX" required style="border-color: #e0e0e0;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-envelope"></i> Email
+                                </label>
+                                <input type="email" class="form-control form-control-lg border-2" name="email" placeholder="branch@company.com" required style="border-color: #e0e0e0;">
+                            </div>
+                        </div>
+
+                        <!-- Logo & Manager - 2 Columns -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-image"></i> Logo URL
+                                </label>
+                                <input type="url" class="form-control form-control-lg border-2" name="logo" placeholder="https://example.com/logo.png" style="border-color: #e0e0e0;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-person-badge"></i> Manager Name
+                                </label>
+                                <input type="text" class="form-control form-control-lg border-2" name="manager" placeholder="Branch Manager" style="border-color: #e0e0e0;">
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+
+                    <div class="modal-footer bg-light border-top">
+                        <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                            <i class="bi bi-check-circle"></i> Save Branch
+                        </button>
                     </div>
                 </form>
             </div>
@@ -71,16 +158,21 @@
     <div class="toast-container position-fixed top-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                <img src="..." class="rounded me-2" alt="...">
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body"></div>
         </div>
     </div>
     <%- include ('layouts/footer'); %>
         <script>
+            // Initialize Bootstrap Modal and Toast
+            const branchModal = new bootstrap.Modal(document.getElementById('branchModal'));
+            const toastElement = document.getElementById('liveToast');
+            const toastInstance = new bootstrap.Toast(toastElement);
+
             addEventListener('DOMContentLoaded', async () => {
                 const response = await fetch('http://localhost:5000/getCompanyData');
                 console.log(response);
@@ -115,13 +207,16 @@
                     const responseMsg = document.querySelector('.toast-body');
                     if (result.success) {
                         responseMsg.innerHTML = `${result.message}`;
+                        toastInstance.show();
                         branchModal.hide();
                         form.reset();
                     } else {
                         responseMsg.innerHTML = `<div class="alert alert-danger">${result.message || 'Something went wrong'}</div>`;
+                        toastInstance.show();
                     }
                 } catch (err) {
-                    document.getElementById('responseMsg').innerHTML = `<div class="alert alert-danger">Network error: ${err.message}</div>`;
+                    document.querySelector('.toast-body').innerHTML = `<div class="alert alert-danger">Network error: ${err.message}</div>`;
+                    toastInstance.show();
                     console.error('Error submitting branch:', err);
                 }
             });
