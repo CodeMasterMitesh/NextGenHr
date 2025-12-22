@@ -1,61 +1,50 @@
-import { MongoClient, ObjectId } from 'mongodb';
-import Router from 'express';
-import { dbSetup } from '../../db.js';
-const router = Router();
+import JobVacancyApplications from "../models/JobVacancyApplications.js";
 
-dbSetup.client.connect().then(() => {
-    console.log("Connected successfully to MongoDB server");
-}).catch(err => {
-    console.error("Failed to connect to MongoDB server:", err);
-});
-
-const db = dbSetup.client.db(dbSetup.dbName);
-
-router.post('/storeJobVacancy', async (req, res) => {
+const storeJobVacancy = async (req, res) => {
     try {
         const jobVacancyData = req.body;
-        const jobVacancyCollection = db.collection('jobApplications');
-        await jobVacancyCollection.insertOne(jobVacancyData);
+        const newJobVacancy = new JobVacancyApplications(jobVacancyData);
+        await newJobVacancy.save();
         res.status(200).json({ message: 'Job application stored successfully', success: true });
     } catch (err) {
         console.error('storeJobVacancy error:', err);
         res.status(500).json({ message: 'Failed to store job application', success: false });
     }
-});
+};
 
-router.get('/getApplications', async (req, res) => {
+const getApplications = async (req, res) => {
     try {
-        const getjobdata = await db.collection('jobApplications').find({}).toArray();
+        const getjobdata = await JobVacancyApplications.find({});
         res.status(200).json(getjobdata);
     } catch (err) {
         console.error('getApplications error:', err);
         res.status(500).json({ message: 'Failed to fetch applications' });
     }
-});
+};
 
-router.get('/getSingleJobAppData/:id', async (req, res) => {
+const getSingleJobAppData = async (req, res) => {
     try {
         const id = req.params.id;
-        const getSinglejobdata = await db.collection('jobApplications').findOne({ _id: new ObjectId(id) });
+        const getSinglejobdata = await JobVacancyApplications.findById(id);
         res.status(200).json(getSinglejobdata);
     } catch (err) {
         console.error('getSingleJobAppData error:', err);
         res.status(500).json({ message: 'Failed to fetch job application' });
     }
-});
+};
 
-router.post('/getSingleJobAppData', async (req, res) => {
+const getSingleJobAppDataByPost = async (req, res) => {
     try {
         const id = req.body.id;
-        const getSinglejobdata = await db.collection('jobApplications').findOne({ _id: new ObjectId(id) });
+        const getSinglejobdata = await JobVacancyApplications.findById(id);
         res.status(200).json(getSinglejobdata);
     } catch (err) {
         console.error('getSingleJobAppData error:', err);
         res.status(500).json({ message: 'Failed to fetch job application' });
     }
-});
+};
 
-router.put('/updateJobApplication/:id', async (req, res) => {
+const updateJobApplicationById = async (req, res) => {
     try {
         const id = req.params.id;
         const updateJobAppData = req.body;
@@ -73,9 +62,9 @@ router.put('/updateJobApplication/:id', async (req, res) => {
         console.error('updateJobApplication error:', err);
         res.status(500).json({ message: 'Failed to update job application', success: false });
     }
-});
+};
 
-router.put('/updateJobApplication', async (req, res) => {
+const updateJobApplication = async (req, res) => {
     try {
         const updateJobAppData = req.body;
         const jobVacancyCollection = await db.collection('jobApplications');
@@ -100,9 +89,9 @@ router.put('/updateJobApplication', async (req, res) => {
         console.error('updateJobApplication error:', err);
         res.status(500).json({ message: 'Failed to update job application', success: false });
     }
-});
+};
 
-router.delete('/deleteJobAppData/:id', async (req, res) => {
+const deleteJobAppDataById = async (req, res) => {
     try {
         const jobId = req.params.id;
         const result = await db.collection('jobApplications').deleteOne({ _id: new ObjectId(jobId) });
@@ -115,9 +104,9 @@ router.delete('/deleteJobAppData/:id', async (req, res) => {
         console.error('deleteJobAppData error:', err);
         res.status(500).json({ message: 'Failed to delete job application', success: false });
     }
-});
+};
 
-router.delete('/deleteJobAppData', async (req, res) => {
+const deleteJobAppData = async (req, res) => {
     try {
         const jobId = req.body.id;
         const result = await db.collection('jobApplications').deleteOne({ _id: new ObjectId(jobId) });
@@ -130,6 +119,14 @@ router.delete('/deleteJobAppData', async (req, res) => {
         console.error('deleteJobAppData error:', err);
         res.status(500).json({ message: 'Failed to delete job application', success: false });
     }
-});
+};
 
-export default router;
+export {
+    storeJobVacancy,
+    getApplications,
+    getSingleJobAppDataByPost,
+    updateJobApplicationById,
+    updateJobApplication,
+    deleteJobAppDataById,
+    deleteJobAppData
+};

@@ -227,7 +227,7 @@
         };
 
         const loadApplications = async () => {
-            const apps = await fetchJSON('http://localhost:5000/getApplications');
+            const apps = await fetchJSON('http://localhost:5000/api/getApplications');
             renderApplications(apps);
             return apps;
         };
@@ -250,7 +250,7 @@
             addForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const data = Object.fromEntries(new FormData(addForm).entries());
-                const result = await fetchJSON('http://localhost:5000/storeJobVacancy', {
+                const result = await fetchJSON('http://localhost:5000/api/storeJobVacancy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -270,7 +270,7 @@
                 const data = Object.fromEntries(new FormData(editForm).entries());
                 const id = data._id;
                 delete data._id;
-                const result = await fetchJSON(`http://localhost:5000/updateJobApplication/${id}`, {
+                const result = await fetchJSON(`http://localhost:5000/api/updateJobApplication/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -290,7 +290,7 @@
 
                 if (editBtn) {
                     const id = editBtn.getAttribute('data-id');
-                    const app = await fetchJSON(`http://localhost:5000/getSingleJobAppData/${id}`);
+                    const app = await fetchJSON(`http://localhost:5000/api/getSingleJobAppData/${id}`);
                     fillEditForm(app);
                     editAppModal.show();
                 }
@@ -298,7 +298,7 @@
                 if (deleteBtn) {
                     const id = deleteBtn.getAttribute('data-id');
                     if (!confirm('Delete this application?')) return;
-                    const result = await fetchJSON(`http://localhost:5000/deleteJobAppData/${id}`, {
+                    const result = await fetchJSON(`http://localhost:5000/api/deleteJobAppData/${id}`, {
                         method: 'DELETE'
                     });
                     if (result.success) {

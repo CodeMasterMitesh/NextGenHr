@@ -226,7 +226,7 @@
         };
 
         const loadCompanies = async () => {
-            const companies = await fetchJSON('http://localhost:5000/getCompanyData');
+            const companies = await fetchJSON('http://localhost:5000/api/getCompanyData');
             renderCompanies(companies);
             return companies;
         };
@@ -249,7 +249,7 @@
             addForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const data = Object.fromEntries(new FormData(addForm).entries());
-                const result = await fetchJSON('http://localhost:5000/storeCompany', {
+                const result = await fetchJSON('http://localhost:5000/api/storeCompany', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -269,7 +269,7 @@
                 const data = Object.fromEntries(new FormData(editForm).entries());
                 const id = data._id;
                 delete data._id;
-                const result = await fetchJSON(`http://localhost:5000/updateCompany/${id}`, {
+                const result = await fetchJSON(`http://localhost:5000/api/updateCompany/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -289,7 +289,7 @@
 
                 if (editBtn) {
                     const id = editBtn.getAttribute('data-id');
-                    const company = await fetchJSON(`http://localhost:5000/getCompany/${id}`);
+                    const company = await fetchJSON(`http://localhost:5000/api/getCompany/${id}`);
                     fillEditForm(company);
                     editCompanyModal.show();
                 }
@@ -297,7 +297,7 @@
                 if (deleteBtn) {
                     const id = deleteBtn.getAttribute('data-id');
                     if (!confirm('Delete this company?')) return;
-                    const result = await fetchJSON(`http://localhost:5000/deleteCompany/${id}`, {
+                    const result = await fetchJSON(`http://localhost:5000/api/deleteCompany/${id}`, {
                         method: 'DELETE'
                     });
                     if (result.success) {

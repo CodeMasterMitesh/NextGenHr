@@ -1,19 +1,9 @@
-import { MongoClient, ObjectId } from 'mongodb';
-import Router from 'express';
-import { dbSetup } from '../db.js';
-
-dbSetup.client.connect().then(() => {  // Connect to MongoDB
-    console.log("Connected successfully to MongoDB server");
-}).catch(err => {
-    console.error("Failed to connect to MongoDB server:", err);
-});
-
-const db = dbSetup.client.db(dbSetup.dbName);
+import User from '../models/User.js';
 
 export const AuthLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const loggedUser = await db.collection('users').findOne({ email });
+        const loggedUser = await User.findOne({ email });
         console.log(loggedUser);
         if (!loggedUser) {
             return res.status(404).json({ message: 'User not found' });

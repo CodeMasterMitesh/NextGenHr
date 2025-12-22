@@ -100,7 +100,7 @@
             };
 
             const populateCompanies = async () => {
-                const companies = await fetchJSON('http://localhost:5000/getCompanyData');
+                const companies = await fetchJSON('http://localhost:5000/api/getCompanyData');
                 const selects = document.querySelectorAll('select[name="company_id"]');
                 selects.forEach(select => {
                     select.innerHTML = '<option value="">Select Company</option>';
@@ -147,7 +147,7 @@
             };
 
             const loadBranches = async () => {
-                const branches = await fetchJSON('http://localhost:5000/getBranch');
+                const branches = await fetchJSON('http://localhost:5000/api/getBranch');
                 renderBranches(branches);
                 return branches;
             };
@@ -177,7 +177,7 @@
                 addForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const data = Object.fromEntries(new FormData(addForm).entries());
-                    const result = await fetchJSON('http://localhost:5000/storeBranch', {
+                    const result = await fetchJSON('http://localhost:5000/api/storeBranch', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data)
@@ -197,7 +197,7 @@
                     const data = Object.fromEntries(new FormData(editForm).entries());
                     const id = data._id;
                     delete data._id;
-                    const result = await fetchJSON(`http://localhost:5000/updateBranch/${id}`, {
+                    const result = await fetchJSON(`http://localhost:5000/api/updateBranch/${id}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data)
@@ -217,7 +217,7 @@
 
                     if (editBtn) {
                         const id = editBtn.getAttribute('data-id');
-                        const branch = await fetchJSON(`http://localhost:5000/getBranch/${id}`);
+                        const branch = await fetchJSON(`http://localhost:5000/api/getBranch/${id}`);
                         fillEditForm(branch);
                         editBranchModal.show();
                     }
@@ -225,7 +225,7 @@
                     if (deleteBtn) {
                         const id = deleteBtn.getAttribute('data-id');
                         if (!confirm('Delete this branch?')) return;
-                        const result = await fetchJSON(`http://localhost:5000/deleteBranch/${id}`, {
+                        const result = await fetchJSON(`http://localhost:5000/api/deleteBranch/${id}`, {
                             method: 'DELETE'
                         });
                         if (result.success) {

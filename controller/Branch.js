@@ -1,22 +1,9 @@
-import { MongoClient, ObjectId } from 'mongodb';
-import Router from 'express';
-import { dbSetup } from '../db.js';
-const router = Router();
-
-dbSetup.client.connect().then(() => {  // Connect to MongoDB
-    console.log("Connected successfully to MongoDB server");
-}).catch(err => {
-    console.error("Failed to connect to MongoDB server:", err);
-});
-
-const db = dbSetup.client.db(dbSetup.dbName);
+import Branch from '../models/Branch.js';
 
 const storeBranch = async (req, res) => {
     try {
-        const branchData = req.body;
-        const branchCollection = await db.collection('branch');
-        await branchCollection.insertOne(branchData);
-        res.status(200).json({ message: 'Branch stored successfully', success: true });
+        const branch = await Branch.create(req.body);
+        res.status(200).json({ message: 'Branch stored successfully', success: true,data: branch });
     } catch (err) {
         console.error('storeBranch error', err);
         res.status(500).json({ message: 'Failed to store branch', success: false });
@@ -26,8 +13,7 @@ const storeBranch = async (req, res) => {
 const getCompanyWiseBranch = async (req, res) => {
     try {
         const companyId = req.params.companyId;
-        const branchCollection = await db.collection('branch');
-        const branch = await branchCollection.find({ company_id: companyId }).toArray();
+        const branch = await Branch.find({ company_id: companyId });
         res.status(200).json(branch);
     } catch (err) {
         console.error('getCompanyWiseBranch error', err);
@@ -37,8 +23,8 @@ const getCompanyWiseBranch = async (req, res) => {
 
 const getBranch = async (req, res) => {
     try {
-        const branchCollection = await db.collection('branch');
-        const branch = await branchCollection.find({}).toArray();
+      
+        const branch = await Branch.find({});
         res.status(200).json(branch);
     } catch (err) {
         console.error('getBranch error', err);
@@ -49,8 +35,7 @@ const getBranch = async (req, res) => {
 const getBranchById = async (req, res) => {
     try {
         const branchId = req.params.id;
-        const branchCollection = await db.collection('branch');
-        const branch = await branchCollection.findOne({ _id: new ObjectId(branchId) });
+        const branch = await Branch.findById(branchId);
         res.status(200).json(branch);
     } catch (err) {
         console.error('getBranchById error', err);
@@ -62,8 +47,7 @@ const updateBranch = async (req, res) => {
     try {
         const branchId = req.params.id;
         const payload = req.body;
-        const branchCollection = await db.collection('branch');
-        await branchCollection.updateOne({ _id: new ObjectId(branchId) }, { $set: payload });
+        await Branch.findByIdAndUpdate(branchId, payload);
         res.status(200).json({ message: 'Branch updated successfully', success: true });
     } catch (err) {
         console.error('updateBranch error', err);
@@ -74,8 +58,7 @@ const updateBranch = async (req, res) => {
 const deleteBranch = async (req, res) => {
     try {
         const branchId = req.params.id;
-        const branchCollection = await db.collection('branch');
-        await branchCollection.deleteOne({ _id: new ObjectId(branchId) });
+        await Branch.findByIdAndDelete(branchId);
         res.status(200).json({ message: 'Branch deleted successfully', success: true });
     } catch (err) {
         console.error('deleteBranch error', err);

@@ -1,15 +1,13 @@
-import JobApplication from './routes/api/JobApplication.js';
-import usersApi from './routes/api/User.js';
-import webRoutes from './routes/web.js';
-import companyApi from './routes/api/Company.js';
-import apiRoutes from './routes/api.js';
+import webRoutes from './routes/web/index.js';
+import apiRoutes from './routes/api/index.js';
 import express from "express";
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+import connectDB from './db.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
+connectDB();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -24,20 +22,15 @@ app.set('views', path.join(__dirname, 'views'));
 const PORT = 5000;
 
 // ==================== WEB Routes ====================
-app.use(webRoutes);
+app.use('/', webRoutes);
 // ==================== API Routes ====================
-app.use(JobApplication);
-app.use(companyApi);
-app.use(usersApi);
-app.use(apiRoutes);
+app.use('/api', apiRoutes);
 
-
-
-process.on('SIGINT', () => {
-    dbSetup.client.close().then(() => {
-        console.log("MongoDB connection closed");
-        process.exit(0);
-    });
+process.on("SIGINT", async () => {
+  console.log("\nShutting down server...");
+  await mongoose.connection.close();
+  console.log("MongoDB disconnected");
+  process.exit(0);
 });
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
