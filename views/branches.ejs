@@ -14,25 +14,23 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>Branch Name</th>
-                                    <th>Location</th>
+                                    <th>Address Line 1</th>
+                                    <th>Address Line 2</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Pincode</th>
+                                    <th>Contact Number</th>
+                                    <th>Email</th>
                                     <th>Manager</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Main Office</td>
-                                    <td>New Delhi</td>
-                                    <td>Rajesh Kumar</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
-                                        <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
-                                    </td>
-                                </tr>
+                            <tbody id="branchTableBody" width="100%" cellspacing="0" style="overflow-x: auto;">
+                                <!-- Branch rows will be populated here -->
                             </tbody>
                         </table>
                     </div>
@@ -40,121 +38,8 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="branchModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content border-0 shadow-lg">
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-bottom: none; display: flex; justify-content: space-between; align-items: flex-start;">
-                    <div>
-                        <h5 style="color: white; margin-bottom: 5px; font-weight: 600;"><i class="bi bi-building"></i> Add New Branch</h5>
-                        <small style="color: rgba(255,255,255,0.7);">Fill in all required details</small>
-                    </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <form id="branchForm">
-                    <div class="modal-body p-4">
-                        <!-- Company Section -->
-                        <div class="mb-4">
-                            <label class="form-label fw-bold">
-                                <i class="bi bi-building"></i> Company
-                            </label>
-                            <select class="form-select form-select-lg border-2" name="company_id" required style="border-color: #e0e0e0;">
-                                <option value="">Select Company</option>
-                            </select>
-                        </div>
-
-                        <!-- Branch Name Full Width -->
-                        <div class="mb-4">
-                            <label class="form-label fw-bold">
-                                <i class="bi bi-signpost-2"></i> Branch Name
-                            </label>
-                            <input type="text" class="form-control form-control-lg border-2" name="name" placeholder="e.g., Delhi Office" required style="border-color: #e0e0e0;">
-                        </div>
-
-                        <!-- Address Section - 2 Columns -->
-                        <div class="row g-3 mb-4">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">
-                                    <i class="bi bi-geo-alt"></i> Address Line 1
-                                </label>
-                                <input type="text" class="form-control form-control-lg border-2" name="address1" placeholder="Street address" required style="border-color: #e0e0e0;">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">
-                                    <i class="bi bi-geo-alt"></i> Address Line 2
-                                </label>
-                                <input type="text" class="form-control form-control-lg border-2" name="address2" placeholder="Apt, suite, etc." style="border-color: #e0e0e0;">
-                            </div>
-                        </div>
-
-                        <!-- City, State, Pincode - 3 Columns -->
-                        <div class="row g-3 mb-4">
-                            <div class="col-md-4">
-                                <label class="form-label fw-bold">
-                                    <i class="bi bi-map"></i> City
-                                </label>
-                                <input type="text" class="form-control form-control-lg border-2" name="city" placeholder="City" required style="border-color: #e0e0e0;">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label fw-bold">
-                                    <i class="bi bi-map"></i> State
-                                </label>
-                                <input type="text" class="form-control form-control-lg border-2" name="state" placeholder="State" required style="border-color: #e0e0e0;">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label fw-bold">
-                                    <i class="bi bi-map"></i> Pincode
-                                </label>
-                                <input type="text" class="form-control form-control-lg border-2" name="pincode" placeholder="Pincode" required style="border-color: #e0e0e0;">
-                            </div>
-                        </div>
-
-                        <!-- Contact & Email - 2 Columns -->
-                        <div class="row g-3 mb-4">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">
-                                    <i class="bi bi-telephone"></i> Contact Number
-                                </label>
-                                <input type="tel" class="form-control form-control-lg border-2" name="contact_number" placeholder="+91 XXXXXXXXXX" required style="border-color: #e0e0e0;">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">
-                                    <i class="bi bi-envelope"></i> Email
-                                </label>
-                                <input type="email" class="form-control form-control-lg border-2" name="email" placeholder="branch@company.com" required style="border-color: #e0e0e0;">
-                            </div>
-                        </div>
-
-                        <!-- Logo & Manager - 2 Columns -->
-                        <div class="row g-3 mb-4">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">
-                                    <i class="bi bi-image"></i> Logo URL
-                                </label>
-                                <input type="url" class="form-control form-control-lg border-2" name="logo" placeholder="https://example.com/logo.png" style="border-color: #e0e0e0;">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">
-                                    <i class="bi bi-person-badge"></i> Manager Name
-                                </label>
-                                <input type="text" class="form-control form-control-lg border-2" name="manager" placeholder="Branch Manager" style="border-color: #e0e0e0;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer bg-light border-top">
-                        <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">
-                            <i class="bi bi-x-circle"></i> Cancel
-                        </button>
-                        <button type="submit" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
-                            <i class="bi bi-check-circle"></i> Save Branch
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <%- include ('modals/branch'); %>
+    
     <div class="toast-container position-fixed top-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
@@ -186,6 +71,35 @@
                     option.textContent = company.name;
                     companySelect.appendChild(option);
                 });
+            });
+
+             addEventListener('DOMContentLoaded', async () => {
+                const response = await fetch('http://localhost:5000/getBranch');
+                // console.log(response);
+                const branches = await response.json();
+                branches.forEach(branch => {
+                    console.log("branch", branch);
+                    const tableBody = document.getElementById('branchTableBody');
+                    const row = document.createElement('tr');
+
+                    row.innerHTML += `
+                        <td width="150">${branch.name}</td>
+                        <td width="150">${branch.address1}</td>
+                        <td width="150">${branch.address2 || ''}</td>
+                        <td width="150">${branch.city}</td>
+                        <td >${branch.state}</td>
+                        <td>${branch.pincode}</td>
+                        <td>${branch.contact_number}</td>
+                        <td>${branch.email}</td>
+                        <td>${branch.manager || ''}</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning editBtn" data-id="${branch._id}"><i class="bi bi-pencil"></i></button>` +
+                            `<a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+                attachEventListeners();
             });
             document.getElementById('branchForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -220,4 +134,35 @@
                     console.error('Error submitting branch:', err);
                 }
             });
+            function attachEventListeners() {
+            const editBtn = document.querySelectorAll('.editBtn');
+            editBtn.forEach(button => {
+                const branchId = button.getAttribute('data-id');
+                console.log('Editing Branch ID:', branchId);
+                
+                button.addEventListener('click', async (e) => {
+                    const response = await fetch(`http://localhost:5000/getBranch/${branchId}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    const branch = await response.json();
+                    console.log('Branch Data:', branch);
+                    const row = button.closest('tr');
+                    const cells = row.getElementsByTagName('td');
+                    // document.getElementById('editBranchId').value = cells[0].innerText;
+                    // document.getElementById('editBranchName').value = cells[1].innerText;
+                    // document.getElementById('editAddress1').value = cells[2].innerText;
+                    // document.getElementById('editAddress2').value = cells[3].innerText;
+                    // document.getElementById('editCity').value = cells[4].innerText;
+                    // document.getElementById('editState').value = cells[5].innerText;
+                    // document.getElementById('editPincode').value = cells[6].innerText;
+                    // document.getElementById('editContactNumber').value = cells[7].innerText;
+                    // document.getElementById('editEmail').value = cells[8].innerText;
+                    // document.getElementById('editManager').value = cells[9].innerText;
+
+                    const editBranchModal = new bootstrap.Modal(document.getElementById('editBranchModal'));
+                    editBranchModal.show();
+                });
+            });
+        }
         </script>

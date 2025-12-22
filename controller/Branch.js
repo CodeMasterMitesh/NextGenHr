@@ -28,5 +28,21 @@ const getCompanyWiseBranch = async (req, res) => {
     res.status(200).json(branch);
 };
 
+const getBranch = async (req, res) => {
+    const branchCollection = await db.collection('branch');
+    const branch = await branchCollection.find({}).toArray();
+    // console.log(branch);
+    res.status(200).json(branch);
+};
 
-export { storeBranch, getCompanyWiseBranch };
+const getBranchById = async (req, res) => {
+    const branchId = req.params.id;
+    console.log('Fetching branch with ID:', branchId);
+    const branchCollection = await db.collection('branch');
+    const branch = await branchCollection.findOne({ _id: new ObjectId(branchId) });
+    console.log(branch);
+    res.status(200).json(branch);
+};
+
+
+export { storeBranch, getCompanyWiseBranch,getBranch,getBranchById };
