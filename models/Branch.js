@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const branchSchema = new mongoose.Schema({
   company_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
-  name: { type: String, required: true, unique: true },
+  name: { type: String, required: [true, 'Branch name is required'], unique: true, },
   address1 : {type : String },
   address2 : {type : String },
   city : {type : String },

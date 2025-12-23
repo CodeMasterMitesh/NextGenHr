@@ -3,10 +3,11 @@ import Branch from '../models/Branch.js';
 const storeBranch = async (req, res) => {
     try {
         const branch = await Branch.create(req.body);
+        // console.log('Branch created:', branch);
         res.status(200).json({ message: 'Branch stored successfully', success: true,data: branch });
     } catch (err) {
         console.error('storeBranch error', err);
-        res.status(500).json({ message: 'Failed to store branch', success: false });
+        res.status(500).json({ message: err.message, success: false });
     }
 };
 
