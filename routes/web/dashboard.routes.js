@@ -3,7 +3,8 @@ import { Router } from 'express';
 const router = Router();
 
 router.get('/dashboard', (req, res) => {
-  res.render("dashboard", { title: "DashboardPage", pageClass: 'dashboard-page' });
+  const UserLoggedIn = req.cookies.LoggedIn;
+  res.render("dashboard", { title: "DashboardPage", pageClass: 'dashboard-page', UserLoggedIn });
 });
 
 export default router;

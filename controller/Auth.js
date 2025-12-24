@@ -15,6 +15,7 @@ export const AuthLogin = async (req, res) => {
 
         // Return JSON so the frontend fetch can redirect after parsing the response
         const { password: _pw, ...safeUser } = loggedUser;
+        res.cookie('LoggedIn', true);
         res.status(200).json({ message: 'Login successful', user: safeUser });
     } catch (err) {
         console.error('Login failed:', err);

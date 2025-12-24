@@ -1,5 +1,6 @@
 import webRoutes from './routes/web/index.js';
 import apiRoutes from './routes/api/index.js';
+import cookieParser from 'cookie-parser';
 import express from "express";
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -17,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
+app.use(cookieParser());
 
 const PORT = 5000;
 

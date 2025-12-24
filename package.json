@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/CodeMasterMitesh/NextGenHr#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cookies": "^0.9.1",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
