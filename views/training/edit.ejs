@@ -1,0 +1,83 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-book me-2"></i>Edit Training</h2>
+    <a href="/training-schedule" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Training
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="editTrainingForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="trainingTitle" class="form-label">Training Title</label>
+            <input type="text" class="form-control" id="trainingTitle" value="React Advanced Training" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="trainer" class="form-label">Trainer</label>
+            <input type="text" class="form-control" id="trainer" value="John Doe" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="startDate" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="startDate" value="2025-02-01" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="endDate" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="endDate" value="2025-02-05" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="duration" class="form-label">Duration (hours)</label>
+            <input type="number" class="form-control" id="duration" value="40" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="mode" class="form-label">Training Mode</label>
+            <select class="form-select" id="mode" required>
+              <option value="">Select Mode</option>
+              <option value="online" selected>Online</option>
+              <option value="offline">Offline</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="location" class="form-label">Location/Link</label>
+            <input type="text" class="form-control" id="location" value="https://zoom.us/j/123456" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="maxParticipants" class="form-label">Max Participants</label>
+            <input type="number" class="form-control" id="maxParticipants" value="20" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="3">Advanced React concepts including hooks, context, and performance optimization</textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Update Training
+          </button>
+          <a href="/training-schedule" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,81 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-cash-stack me-2"></i>Edit Salary</h2>
+    <a href="/salary" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Salary
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="editSalaryForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="employee" class="form-label">Employee</label>
+            <select class="form-select" id="employee" required>
+              <option value="">Select Employee</option>
+              <option value="1" selected>John Doe</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="effectiveDate" class="form-label">Effective Date</label>
+            <input type="date" class="form-control" id="effectiveDate" value="2025-01-01" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="basicSalary" class="form-label">Basic Salary</label>
+            <input type="number" class="form-control" id="basicSalary" value="50000" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="hra" class="form-label">House Rent Allowance (HRA)</label>
+            <input type="number" class="form-control" id="hra" value="7000" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="transportAllowance" class="form-label">Transport Allowance</label>
+            <input type="number" class="form-control" id="transportAllowance" value="3000" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="otherAllowances" class="form-label">Other Allowances</label>
+            <input type="number" class="form-control" id="otherAllowances" value="2000" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="providentFund" class="form-label">Provident Fund (%)</label>
+            <input type="number" class="form-control" id="providentFund" value="12" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="grossSalary" class="form-label">Gross Salary</label>
+            <input type="number" class="form-control" id="grossSalary" value="62000" readonly>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="remarks" class="form-label">Remarks</label>
+            <textarea class="form-control" id="remarks" rows="3">Salary revised as per annual appraisal</textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Update Salary
+          </button>
+          <a href="/salary" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

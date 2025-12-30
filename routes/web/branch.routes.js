@@ -25,11 +25,19 @@ router.post('/branches', (req, res) => {
 
 // Company Routes
 router.get('/company', (req, res) => {
-  res.render("company", { title: "Company" });
+  res.render("company/list", { title: "Company" });
 });
 
 router.get('/company/add', (req, res) => {
   res.render("company/add", { title: "Add Company" });
+});
+
+router.get('/company/edit/:id', (req, res) => {
+  res.render("company/edit", { title: "Edit Company", company: {} });
+});
+
+router.get('/company/view/:id', (req, res) => {
+  res.render("company/view", { title: "View Company", company: {} });
 });
 
 router.post('/company', (req, res) => {

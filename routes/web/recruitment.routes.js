@@ -26,6 +26,14 @@ router.get('/job-applications', (req, res) => {
   res.render("job-applications/list", { title: "Job Applications" });
 });
 
+router.get('/job-applications/add', (req, res) => {
+  res.render("job-applications/add", { title: "New Application" });
+});
+
+router.get('/job-applications/edit/:id', (req, res) => {
+  res.render("job-applications/edit", { title: "Edit Application", application: {} });
+});
+
 router.get('/job-applications/view/:id', (req, res) => {
   res.render("job-applications/view", { title: "View Application", application: {} });
 });
@@ -91,7 +99,15 @@ router.get('/training-schedule/view/:id', (req, res) => {
 });
 
 router.get('/exam', (req, res) => {
-  res.render("exam", { title: "Employee Exams" });
+  res.render("exam/list", { title: "Employee Exams" });
+});
+
+router.get('/exam/add', (req, res) => {
+  res.render("exam/add", { title: "Add Exam" });
+});
+
+router.get('/exam/edit/:id', (req, res) => {
+  res.render("exam/add", { title: "Edit Exam" });
 });
 
 export default router;

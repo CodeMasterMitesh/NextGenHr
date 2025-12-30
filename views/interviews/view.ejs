@@ -1,0 +1,73 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-calendar-check me-2"></i>Interview Details</h2>
+    <div>
+      <a href="/interview-schedule/edit/<%= interview.id || '1' %>" class="btn btn-warning me-2">
+        <i class="bi bi-pencil me-2"></i>Edit
+      </a>
+      <a href="/interview-schedule" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Interviews
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Technical Round - Jane Smith</h5>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h6 class="text-muted">Candidate Information</h6>
+          <p class="mb-1"><strong>Name:</strong> Jane Smith</p>
+          <p class="mb-1"><strong>Position:</strong> Senior Developer</p>
+          <p class="mb-1"><strong>Email:</strong> jane.smith@email.com</p>
+          <p class="mb-1"><strong>Phone:</strong> +91 9876543210</p>
+        </div>
+        <div class="col-md-6">
+          <h6 class="text-muted">Interview Details</h6>
+          <p class="mb-1"><strong>Date:</strong> 1st February 2025</p>
+          <p class="mb-1"><strong>Time:</strong> 10:00 AM</p>
+          <p class="mb-1"><strong>Type:</strong> <span class="badge bg-info">Technical Round</span></p>
+          <p class="mb-1"><strong>Status:</strong> <span class="badge bg-warning">Scheduled</span></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <p class="mb-2"><strong>Interviewer:</strong> John Doe</p>
+          <p class="mb-2"><strong>Mode:</strong> Online</p>
+        </div>
+        <div class="col-md-6">
+          <p class="mb-2"><strong>Meeting Link:</strong></p>
+          <p><a href="https://meet.google.com/xyz" target="_blank">https://meet.google.com/xyz</a></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="mb-3">
+        <p class="mb-2"><strong>Notes:</strong></p>
+        <p class="text-muted">Candidate has strong technical background</p>
+      </div>
+
+      <div class="d-flex gap-2 mt-4">
+        <button class="btn btn-success">
+          <i class="bi bi-check-circle me-2"></i>Mark as Completed
+        </button>
+        <button class="btn btn-danger">
+          <i class="bi bi-x-circle me-2"></i>Cancel Interview
+        </button>
+        <button class="btn btn-info">
+          <i class="bi bi-calendar-event me-2"></i>Reschedule
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

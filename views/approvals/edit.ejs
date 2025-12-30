@@ -1,0 +1,102 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-check-circle me-2"></i>Edit Approval</h2>
+    <a href="/approvals" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Approvals
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="editApprovalForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="requestType" class="form-label">Request Type</label>
+            <select class="form-select" id="requestType" required>
+              <option value="">Select Type</option>
+              <option value="leave" selected>Leave Request</option>
+              <option value="expense">Expense Claim</option>
+              <option value="purchase">Purchase Order</option>
+              <option value="overtime">Overtime Request</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="requestedBy" class="form-label">Requested By</label>
+            <select class="form-select" id="requestedBy" required>
+              <option value="">Select Employee</option>
+              <option value="1" selected>John Doe</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="requestDate" class="form-label">Request Date</label>
+            <input type="date" class="form-control" id="requestDate" value="2025-01-15" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <select class="form-select" id="priority" required>
+              <option value="">Select Priority</option>
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="approver" class="form-label">Approver</label>
+            <select class="form-select" id="approver" required>
+              <option value="">Select Approver</option>
+              <option value="1" selected>Manager Name</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" required>
+              <option value="">Select Status</option>
+              <option value="pending" selected>Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="requestDetails" class="form-label">Request Details</label>
+            <textarea class="form-control" id="requestDetails" rows="4" required>Requesting 3 days leave from Jan 20-22 for personal reasons.</textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="approverNotes" class="form-label">Approver Notes</label>
+            <textarea class="form-control" id="approverNotes" rows="3">Under review</textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Update Approval
+          </button>
+          <button type="button" class="btn btn-success">
+            <i class="bi bi-check-lg me-2"></i>Approve
+          </button>
+          <button type="button" class="btn btn-danger">
+            <i class="bi bi-x-lg me-2"></i>Reject
+          </button>
+          <a href="/approvals" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,103 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-bell me-2"></i>Edit Notification</h2>
+    <a href="/notifications" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Notifications
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="editNotificationForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" value="System Maintenance Notice" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="type" class="form-label">Type</label>
+            <select class="form-select" id="type" required>
+              <option value="">Select Type</option>
+              <option value="info" selected>Information</option>
+              <option value="warning">Warning</option>
+              <option value="success">Success</option>
+              <option value="error">Error</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <select class="form-select" id="priority" required>
+              <option value="">Select Priority</option>
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="sendTo" class="form-label">Send To</label>
+            <select class="form-select" id="sendTo" required>
+              <option value="">Select Recipients</option>
+              <option value="all" selected>All Employees</option>
+              <option value="department">Specific Department</option>
+              <option value="individual">Specific Individuals</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="sendDate" class="form-label">Send Date</label>
+            <input type="date" class="form-control" id="sendDate" value="2025-01-20" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="sendTime" class="form-label">Send Time</label>
+            <input type="time" class="form-control" id="sendTime" value="09:00" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" rows="5" required>The system will undergo maintenance on January 20th from 10 PM to 2 AM. Please save your work accordingly.</textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="emailNotification" checked>
+              <label class="form-check-label" for="emailNotification">
+                Send Email Notification
+              </label>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="smsNotification">
+              <label class="form-check-label" for="smsNotification">
+                Send SMS Notification
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Update Notification
+          </button>
+          <a href="/notifications" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-currency-dollar me-2"></i>Entry Details</h2>
+    <div>
+      <a href="/earnings-deductions/edit/<%= entry.id || '1' %>" class="btn btn-warning me-2">
+        <i class="bi bi-pencil me-2"></i>Edit
+      </a>
+      <a href="/earnings-deductions" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to List
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">Medical Allowance</h5>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p class="mb-2"><strong>Type:</strong> <span class="badge bg-success">Earning</span></p>
+          <p class="mb-2"><strong>Code:</strong> MA001</p>
+          <p class="mb-2"><strong>Status:</strong> <span class="badge bg-success">Active</span></p>
+        </div>
+        <div class="col-md-6">
+          <p class="mb-2"><strong>Calculation Type:</strong> Fixed Amount</p>
+          <p class="mb-2"><strong>Amount:</strong> ₹2,000</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="mb-3">
+        <p class="mb-2"><strong>Description:</strong></p>
+        <p class="text-muted">Medical allowance for all employees</p>
+      </div>
+
+      <hr>
+
+      <div class="mb-3">
+        <p class="mb-2"><strong>Created:</strong> 01/01/2025</p>
+        <p class="mb-2"><strong>Updated:</strong> 15/01/2025</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

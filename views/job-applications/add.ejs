@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-file-earmark me-2"></i>Add Job Application</h2>
+    <a href="/job-applications" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Applications
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="addApplicationForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="candidate" class="form-label">Candidate Name *</label>
+            <input type="text" class="form-control" id="candidate" placeholder="Enter candidate name" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="position" class="form-label">Position Applied *</label>
+            <select class="form-select" id="position" required>
+              <option value="">Select Position</option>
+              <option value="1">Senior Developer</option>
+              <option value="2">Junior Developer</option>
+              <option value="3">HR Manager</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label">Email *</label>
+            <input type="email" class="form-control" id="email" placeholder="candidate@email.com" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="phone" class="form-label">Phone *</label>
+            <input type="tel" class="form-control" id="phone" placeholder="+91 9876543210" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="resume" class="form-label">Upload Resume *</label>
+            <input type="file" class="form-control" id="resume" accept=".pdf,.doc,.docx" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="coverLetter" class="form-label">Cover Letter</label>
+            <textarea class="form-control" id="coverLetter" rows="4" placeholder="Enter cover letter text"></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Create Application
+          </button>
+          <a href="/job-applications" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

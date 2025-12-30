@@ -1,0 +1,76 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-plus-circle me-2"></i>Add Employee Exam</h2>
+    <a href="/exam" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Exams
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="addExamForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="employee" class="form-label">Employee *</label>
+            <select class="form-select" id="employee" required>
+              <option value="">Select Employee</option>
+              <option value="1">John Doe</option>
+              <option value="2">Jane Smith</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="examName" class="form-label">Exam Name *</label>
+            <input type="text" class="form-control" id="examName" placeholder="e.g., AWS Solutions Architect" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="score" class="form-label">Score (%) *</label>
+            <input type="number" class="form-control" id="score" min="0" max="100" placeholder="Enter score" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="status" class="form-label">Status *</label>
+            <select class="form-select" id="status" required>
+              <option value="">Select Status</option>
+              <option value="passed">Passed</option>
+              <option value="failed">Failed</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="passDate" class="form-label">Pass Date</label>
+            <input type="date" class="form-control" id="passDate">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="expiryDate" class="form-label">Expiry Date</label>
+            <input type="date" class="form-control" id="expiryDate">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="certificate" class="form-label">Certificate File</label>
+            <input type="file" class="form-control" id="certificate" accept=".pdf,.jpg,.png">
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Create Exam
+          </button>
+          <a href="/exam" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

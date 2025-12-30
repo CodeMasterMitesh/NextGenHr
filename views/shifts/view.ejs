@@ -1,0 +1,90 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-clock me-2"></i>Shift Details</h2>
+    <div>
+      <a href="/shift-management/edit/<%= shift.id || '1' %>" class="btn btn-warning me-2">
+        <i class="bi bi-pencil me-2"></i>Edit
+      </a>
+      <a href="/shift-management" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Shifts
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Shift Information</h5>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p class="mb-2"><strong>Shift Name:</strong> Morning Shift</p>
+              <p class="mb-2"><strong>Shift Code:</strong> MS001</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-2"><strong>Status:</strong> <span class="badge bg-success">Active</span></p>
+              <p class="mb-2"><strong>Type:</strong> Regular</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p class="mb-2"><strong>Start Time:</strong> 09:00 AM</p>
+              <p class="mb-2"><strong>End Time:</strong> 06:00 PM</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-2"><strong>Break Duration:</strong> 60 minutes</p>
+              <p class="mb-2"><strong>Work Hours:</strong> 8 hours</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="mb-3">
+            <p class="mb-2"><strong>Description:</strong></p>
+            <p class="text-muted">Standard morning shift for regular employees</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6 class="mb-0">Statistics</h6>
+        </div>
+        <div class="card-body">
+          <p class="mb-2"><strong>Assigned Employees:</strong> <span class="badge bg-primary">45</span></p>
+          <p class="mb-2"><strong>Departments:</strong> <span class="badge bg-info">5</span></p>
+          <p class="mb-2"><strong>Created:</strong> 01/01/2025</p>
+          <p class="mb-2"><strong>Updated:</strong> 15/01/2025</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h6 class="mb-0">Quick Actions</h6>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-sm btn-primary w-100 mb-2">
+            <i class="bi bi-people me-2"></i>Assign Employees
+          </button>
+          <button class="btn btn-sm btn-info w-100 mb-2">
+            <i class="bi bi-calendar me-2"></i>View Schedule
+          </button>
+          <button class="btn btn-sm btn-success w-100">
+            <i class="bi bi-clock-history me-2"></i>Shift History
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

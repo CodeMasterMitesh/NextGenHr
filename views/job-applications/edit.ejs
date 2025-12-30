@@ -1,0 +1,85 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-file-earmark me-2"></i>Edit Job Application</h2>
+    <a href="/job-applications" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Applications
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="editApplicationForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="candidate" class="form-label">Candidate Name</label>
+            <input type="text" class="form-control" id="candidate" value="Jane Smith" readonly>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="position" class="form-label">Position Applied</label>
+            <input type="text" class="form-control" id="position" value="Senior Developer" readonly>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" value="jane@email.com" readonly>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="tel" class="form-control" id="phone" value="+91 9876543210" readonly>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="applicationDate" class="form-label">Application Date</label>
+            <input type="date" class="form-control" id="applicationDate" value="2025-01-10" readonly>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="status" class="form-label">Status *</label>
+            <select class="form-select" id="status" required>
+              <option value="">Select Status</option>
+              <option value="applied" selected>Applied</option>
+              <option value="shortlisted">Shortlisted</option>
+              <option value="rejected">Rejected</option>
+              <option value="selected">Selected</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="resume" class="form-label">Resume</label>
+            <div class="input-group">
+              <input type="file" class="form-control" id="resume" accept=".pdf,.doc,.docx">
+              <button class="btn btn-outline-secondary" type="button">
+                <i class="bi bi-download me-2"></i>Current Resume
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" rows="3">Good technical background, scheduled for interview</textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Update Application
+          </button>
+          <a href="/job-applications" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

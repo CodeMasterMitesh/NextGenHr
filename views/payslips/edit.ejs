@@ -1,0 +1,70 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-receipt me-2"></i>Edit Payslip</h2>
+    <a href="/payslips" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Payslips
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="editPayslipForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="employee" class="form-label">Employee</label>
+            <select class="form-select" id="employee" required>
+              <option value="">Select Employee</option>
+              <option value="1" selected>John Doe</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="payrollMonth" class="form-label">Payroll Month</label>
+            <input type="month" class="form-control" id="payrollMonth" value="2025-01" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="basicSalary" class="form-label">Basic Salary</label>
+            <input type="number" class="form-control" id="basicSalary" value="50000" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="allowances" class="form-label">Allowances</label>
+            <input type="number" class="form-control" id="allowances" value="10000" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="deductions" class="form-label">Deductions</label>
+            <input type="number" class="form-control" id="deductions" value="5000" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="netSalary" class="form-label">Net Salary</label>
+            <input type="number" class="form-control" id="netSalary" value="55000" readonly>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" rows="3">Regular monthly payslip</textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Update Payslip
+          </button>
+          <a href="/payslips" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

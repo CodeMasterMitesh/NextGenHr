@@ -1,0 +1,85 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-briefcase me-2"></i>Add Company</h2>
+    <a href="/company" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Company
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="addCompanyForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="companyName" class="form-label">Company Name *</label>
+            <input type="text" class="form-control" id="companyName" placeholder="Enter company name" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="companyCode" class="form-label">Company Code *</label>
+            <input type="text" class="form-control" id="companyCode" placeholder="e.g., COMP001" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="registrationNumber" class="form-label">Registration Number</label>
+            <input type="text" class="form-control" id="registrationNumber" placeholder="Company registration">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="industryType" class="form-label">Industry Type *</label>
+            <select class="form-select" id="industryType" required>
+              <option value="">Select Industry</option>
+              <option value="IT">Information Technology</option>
+              <option value="FINANCE">Finance</option>
+              <option value="HEALTHCARE">Healthcare</option>
+              <option value="MANUFACTURING">Manufacturing</option>
+              <option value="RETAIL">Retail</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="address" class="form-label">Address *</label>
+            <textarea class="form-control" id="address" rows="3" placeholder="Company address" required></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" placeholder="Contact number">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label">Email *</label>
+            <input type="email" class="form-control" id="email" placeholder="Company email" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="website" class="form-label">Website</label>
+            <input type="url" class="form-control" id="website" placeholder="www.example.com">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="employees" class="form-label">Number of Employees</label>
+            <input type="number" class="form-control" id="employees" placeholder="0">
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Create Company
+          </button>
+          <a href="/company" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

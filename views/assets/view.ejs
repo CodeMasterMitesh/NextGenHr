@@ -1,0 +1,69 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-archive me-2"></i>Asset Details</h2>
+    <div>
+      <a href="/assets/edit/<%= asset.id || '1' %>" class="btn btn-warning me-2">
+        <i class="bi bi-pencil me-2"></i>Edit
+      </a>
+      <button class="btn btn-info me-2">
+        <i class="bi bi-arrow-counterclockwise me-2"></i>Return Asset
+      </button>
+      <a href="/assets" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Assets
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Asset Information - Dell Laptop</h5>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h6 class="text-muted">Asset Details</h6>
+          <p class="mb-1"><strong>Asset Name:</strong> Dell Laptop</p>
+          <p class="mb-1"><strong>Asset Code:</strong> ASSET001</p>
+          <p class="mb-1"><strong>Type:</strong> Laptop</p>
+          <p class="mb-1"><strong>Status:</strong> <span class="badge bg-success">Active</span></p>
+        </div>
+        <div class="col-md-6">
+          <h6 class="text-muted">Financial Information</h6>
+          <p class="mb-1"><strong>Purchase Date:</strong> 15th January 2024</p>
+          <p class="mb-1"><strong>Purchase Value:</strong> ₹75,000</p>
+          <p class="mb-1"><strong>Warranty Expiry:</strong> 15th January 2025</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="mb-4">
+        <h6 class="text-muted">Current Assignment</h6>
+        <p class="mb-1"><strong>Assigned To:</strong> John Doe</p>
+        <p class="mb-1"><strong>Employee Code:</strong> EMP001</p>
+        <p class="mb-1"><strong>Department:</strong> IT</p>
+        <p class="mb-1"><strong>Issued Date:</strong> 15th January 2024</p>
+      </div>
+
+      <hr>
+
+      <div class="mb-3">
+        <h6 class="text-muted">Description</h6>
+        <p>Dell Laptop 15.6" i7 16GB RAM</p>
+      </div>
+
+      <div class="d-flex gap-2 mt-4">
+        <button class="btn btn-primary">
+          <i class="bi bi-pencil me-2"></i>Edit Asset
+        </button>
+        <button class="btn btn-danger">
+          <i class="bi bi-trash me-2"></i>Decommission
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-pencil-square me-2"></i>Employee Exams & Certifications</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control" placeholder="Search exams...">
+          </div>
+        </div>
+        <div class="col-md-4 text-end">
+          <a href="/exam/add" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-2"></i>Add Exam
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Employee</th>
+            <th>Exam Name</th>
+            <th>Score</th>
+            <th>Pass Date</th>
+            <th>Status</th>
+            <th>Expiry Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John Doe</td>
+            <td>AWS Solutions Architect</td>
+            <td>85%</td>
+            <td>15/01/2025</td>
+            <td><span class="badge bg-success">Passed</span></td>
+            <td>15/01/2028</td>
+            <td>
+              <a href="/exam/edit/1" class="btn btn-sm btn-warning">Edit</a>
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Jane Smith</td>
+            <td>Certified Kubernetes Administrator</td>
+            <td>78%</td>
+            <td>10/01/2025</td>
+            <td><span class="badge bg-success">Passed</span></td>
+            <td>10/01/2027</td>
+            <td>
+              <a href="/exam/edit/2" class="btn btn-sm btn-warning">Edit</a>
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

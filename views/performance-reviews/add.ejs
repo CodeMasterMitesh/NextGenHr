@@ -1,0 +1,81 @@
+<%- include ('../layouts/header'); %>
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-star me-2"></i>Add Performance Review</h2>
+    <a href="/performance-reviews" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Reviews
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="addReviewForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="employee" class="form-label">Employee *</label>
+            <select class="form-select" id="employee" required>
+              <option value="">Select Employee</option>
+              <option value="1">John Doe</option>
+              <option value="2">Jane Smith</option>
+              <option value="3">Mike Johnson</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="reviewer" class="form-label">Reviewer *</label>
+            <input type="text" class="form-control" id="reviewer" placeholder="Manager Name" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="reviewPeriod" class="form-label">Review Period *</label>
+            <input type="text" class="form-control" id="reviewPeriod" placeholder="e.g., Q4 2025" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="rating" class="form-label">Rating (1-5) *</label>
+            <select class="form-select" id="rating" required>
+              <option value="">Select Rating</option>
+              <option value="1">1 - Poor</option>
+              <option value="2">2 - Below Average</option>
+              <option value="3">3 - Average</option>
+              <option value="4">4 - Good</option>
+              <option value="5">5 - Excellent</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="strengths" class="form-label">Strengths *</label>
+            <textarea class="form-control" id="strengths" rows="3" placeholder="List key strengths" required></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="improvements" class="form-label">Areas for Improvement *</label>
+            <textarea class="form-control" id="improvements" rows="3" placeholder="Mention areas to improve" required></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="comments" class="form-label">Additional Comments</label>
+            <textarea class="form-control" id="comments" rows="3" placeholder="Any additional feedback"></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Create Review
+          </button>
+          <a href="/performance-reviews" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

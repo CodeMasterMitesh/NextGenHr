@@ -1,0 +1,79 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-currency-dollar me-2"></i>Edit Earnings/Deductions</h2>
+    <a href="/earnings-deductions" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to List
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="editEntryForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="type" class="form-label">Type</label>
+            <select class="form-select" id="type" required>
+              <option value="">Select Type</option>
+              <option value="earning" selected>Earning</option>
+              <option value="deduction">Deduction</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" value="Medical Allowance" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="code" class="form-label">Code</label>
+            <input type="text" class="form-control" id="code" value="MA001" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="calculationType" class="form-label">Calculation Type</label>
+            <select class="form-select" id="calculationType" required>
+              <option value="">Select Type</option>
+              <option value="fixed" selected>Fixed Amount</option>
+              <option value="percentage">Percentage</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="amount" class="form-label">Amount/Percentage</label>
+            <input type="number" class="form-control" id="amount" value="2000" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" required>
+              <option value="">Select Status</option>
+              <option value="active" selected>Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="3">Medical allowance for all employees</textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Update Entry
+          </button>
+          <a href="/earnings-deductions" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

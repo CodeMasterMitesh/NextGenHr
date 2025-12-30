@@ -1,0 +1,90 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-calendar-check me-2"></i>Edit Interview</h2>
+    <a href="/interview-schedule" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Interviews
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="editInterviewForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="candidate" class="form-label">Candidate Name</label>
+            <input type="text" class="form-control" id="candidate" value="Jane Smith" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="position" class="form-label">Position</label>
+            <input type="text" class="form-control" id="position" value="Senior Developer" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="interviewDate" class="form-label">Interview Date</label>
+            <input type="date" class="form-control" id="interviewDate" value="2025-02-01" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="interviewTime" class="form-label">Interview Time</label>
+            <input type="time" class="form-control" id="interviewTime" value="10:00" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="interviewType" class="form-label">Interview Type</label>
+            <select class="form-select" id="interviewType" required>
+              <option value="">Select Type</option>
+              <option value="technical" selected>Technical Round</option>
+              <option value="hr">HR Round</option>
+              <option value="management">Management Round</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="interviewer" class="form-label">Interviewer</label>
+            <select class="form-select" id="interviewer" required>
+              <option value="">Select Interviewer</option>
+              <option value="1" selected>John Doe</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="mode" class="form-label">Interview Mode</label>
+            <select class="form-select" id="mode" required>
+              <option value="">Select Mode</option>
+              <option value="online" selected>Online</option>
+              <option value="offline">Offline</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="location" class="form-label">Location/Link</label>
+            <input type="text" class="form-control" id="location" value="https://meet.google.com/xyz" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" rows="3">Candidate has strong technical background</textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Update Interview
+          </button>
+          <a href="/interview-schedule" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

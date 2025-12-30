@@ -1,0 +1,56 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-briefcase me-2"></i>Company Details</h2>
+    <div>
+      <a href="/company/edit/<%= company.id || '1' %>" class="btn btn-warning me-2">
+        <i class="bi bi-pencil me-2"></i>Edit
+      </a>
+      <a href="/company" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Company
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Company Information</h5>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h6 class="text-muted">Basic Information</h6>
+          <p class="mb-1"><strong>Company Name:</strong> NextGen Technologies</p>
+          <p class="mb-1"><strong>Company Code:</strong> COMP001</p>
+          <p class="mb-1"><strong>Registration Number:</strong> REG123456</p>
+          <p class="mb-1"><strong>Industry Type:</strong> Information Technology</p>
+        </div>
+        <div class="col-md-6">
+          <h6 class="text-muted">Contact Information</h6>
+          <p class="mb-1"><strong>Email:</strong> contact@nextgen.com</p>
+          <p class="mb-1"><strong>Phone:</strong> +91 9876543210</p>
+          <p class="mb-1"><strong>Website:</strong> <a href="https://www.nextgen.com" target="_blank">www.nextgen.com</a></p>
+          <p class="mb-1"><strong>Employees:</strong> 250</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="mb-4">
+        <h6 class="text-muted">Address</h6>
+        <p>123 Tech Park, Innovation Boulevard, Tech City, TC 12345, Country</p>
+      </div>
+
+      <hr>
+
+      <div class="mb-3">
+        <p class="mb-1"><strong>Status:</strong> <span class="badge bg-success">Active</span></p>
+        <p class="mb-1"><strong>Created:</strong> 01/01/2025</p>
+        <p class="mb-1"><strong>Updated:</strong> 15/01/2025</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

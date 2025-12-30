@@ -1,0 +1,77 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-newspaper me-2"></i>News Article</h2>
+    <div>
+      <a href="/news/edit/<%= news.id || '1' %>" class="btn btn-warning me-2">
+        <i class="bi bi-pencil me-2"></i>Edit
+      </a>
+      <a href="/news" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to News
+      </a>
+    </div>
+  </div>
+
+  <article class="card">
+    <div class="card-header bg-primary text-white">
+      <div class="d-flex justify-content-between align-items-start">
+        <h4 class="mb-0">Company Achieves Record Growth</h4>
+        <span class="badge bg-success">Published</span>
+      </div>
+      <div class="mt-2">
+        <small><i class="bi bi-person me-2"></i>Admin User</small>
+        <small class="ms-3"><i class="bi bi-calendar me-2"></i>15th January 2025</small>
+        <small class="ms-3"><i class="bi bi-eye me-2"></i>245 views</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="mb-4">
+        <h6 class="text-muted">Summary</h6>
+        <p class="lead">Company reports 25% growth in Q4 2024</p>
+      </div>
+
+      <hr>
+
+      <div class="mb-4">
+        <h6 class="text-muted">Full Article</h6>
+        <p>We are thrilled to announce that our company has achieved record growth this quarter. This remarkable achievement is a testament to the hard work and dedication of our entire team.</p>
+        
+        <p>The 25% growth in Q4 2024 exceeds our initial projections and positions us strongly for continued success in the coming year. Key factors contributing to this growth include:</p>
+        
+        <ul>
+          <li>Expansion into new markets</li>
+          <li>Launch of innovative products</li>
+          <li>Improved customer satisfaction</li>
+          <li>Operational efficiencies</li>
+        </ul>
+        
+        <p>We look forward to building on this momentum and achieving even greater success in 2025.</p>
+      </div>
+
+      <hr>
+
+      <div class="mb-3">
+        <strong>Category:</strong> <span class="badge bg-info">Company News</span>
+      </div>
+
+      <div class="mb-3">
+        <strong>Tags:</strong>
+        <span class="badge bg-secondary me-2">growth</span>
+        <span class="badge bg-secondary me-2">achievement</span>
+        <span class="badge bg-secondary">quarterly</span>
+      </div>
+
+      <div class="d-flex gap-2 mt-4">
+        <button class="btn btn-primary">
+          <i class="bi bi-share me-2"></i>Share
+        </button>
+        <button class="btn btn-info">
+          <i class="bi bi-printer me-2"></i>Print
+        </button>
+      </div>
+    </div>
+  </article>
+</div>
+
+<%- include('../partials/footer') %>

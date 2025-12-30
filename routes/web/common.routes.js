@@ -60,7 +60,7 @@ router.post('/roles', (req, res) => {
 });
 
 router.get('/audit-logs', (req, res) => {
-  res.render("audit-logs", { title: "Audit Logs" });
+  res.render("audit-logs/list", { title: "Audit Logs" });
 });
 
 router.get('/approvals', (req, res) => {
@@ -101,14 +101,6 @@ router.get('/asset-issue', (req, res) => {
 
 router.post('/asset-issue', (req, res) => {
   res.json({ message: 'Asset issued' });
-});
-
-router.get('/asset-return', (req, res) => {
-  res.render("asset-return", { title: "Asset Return" });
-});
-
-router.post('/asset-return', (req, res) => {
-  res.json({ message: 'Asset returned' });
 });
 
 router.get('/tasks', (req, res) => {

@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-star me-2"></i>Performance Review Details</h2>
+    <div>
+      <a href="/performance-reviews/edit/<%= review.id || '1' %>" class="btn btn-warning me-2">
+        <i class="bi bi-pencil me-2"></i>Edit
+      </a>
+      <a href="/performance-reviews" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Reviews
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">John Doe - Performance Review Q4 2025</h5>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h6 class="text-muted">Employee Information</h6>
+          <p class="mb-1"><strong>Name:</strong> John Doe</p>
+          <p class="mb-1"><strong>Employee Code:</strong> EMP001</p>
+          <p class="mb-1"><strong>Designation:</strong> Senior Developer</p>
+          <p class="mb-1"><strong>Department:</strong> IT</p>
+        </div>
+        <div class="col-md-6">
+          <h6 class="text-muted">Review Information</h6>
+          <p class="mb-1"><strong>Review Period:</strong> Q4 2025</p>
+          <p class="mb-1"><strong>Reviewed By:</strong> Manager Name</p>
+          <p class="mb-1"><strong>Rating:</strong> <span class="badge bg-success">4/5</span></p>
+          <p class="mb-1"><strong>Status:</strong> <span class="badge bg-success">Completed</span></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="mb-4">
+        <h6 class="text-muted">Strengths</h6>
+        <p>Excellent technical skills and leadership qualities</p>
+      </div>
+
+      <div class="mb-4">
+        <h6 class="text-muted">Areas for Improvement</h6>
+        <p>Can improve communication with cross-functional teams</p>
+      </div>
+
+      <div class="mb-4">
+        <h6 class="text-muted">Additional Comments</h6>
+        <p>Overall, excellent performance this quarter</p>
+      </div>
+
+      <hr>
+
+      <div class="mb-3">
+        <p class="mb-1"><strong>Review Date:</strong> 15th January 2025</p>
+        <p class="mb-1"><strong>Created:</strong> 15/01/2025 by Admin User</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
