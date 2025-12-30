@@ -12,6 +12,9 @@ import isAuth from '../../middleware/auth.js';
 const router = Router();
 
 router.use(authRoutes);
+
+// Protect everything below this line; login/home stay public
+router.use(isAuth);
 router.use(dashboardRoutes);
 router.use(employeeRoutes);
 router.use(branchRoutes);

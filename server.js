@@ -43,10 +43,10 @@ app.use(session({
 
 const PORT = 5000;
 
-// ==================== WEB Routes ====================
-app.use('/', webRoutes);
 // ==================== API Routes ====================
 app.use('/api', apiRoutes);
+// ==================== WEB Routes ====================
+app.use('/', webRoutes);
 
 process.on("SIGINT", async () => {
   console.log("\nShutting down server...");

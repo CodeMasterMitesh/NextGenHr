@@ -1,0 +1,51 @@
+<%- include ('../layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Leave Requests</h5>
+                <small class="text-muted">Manage employee leave requests</small>
+            </div>
+            <a href="/leave-requests/add" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> New Leave Request
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Leave Type</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Days</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>Sick Leave</td>
+                                    <td>2025-12-25</td>
+                                    <td>2025-12-27</td>
+                                    <td>3</td>
+                                    <td><span class="badge bg-warning">Pending</span></td>
+                                    <td>
+                                        <a href="/leave-requests/view/1" class="btn btn-sm btn-info" title="View"><i class="bi bi-eye"></i></a>
+                                        <a href="/leave-requests/edit/1" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                                        <button class="btn btn-sm btn-success" title="Approve"><i class="bi bi-check"></i></button>
+                                        <button class="btn btn-sm btn-danger" title="Reject"><i class="bi bi-x"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include ('../layouts/footer'); %>

@@ -1,0 +1,54 @@
+<%- include ('../layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Departments</h5>
+                <small class="text-muted">Manage departments</small>
+            </div>
+            <a href="/departments/add" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add Department
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Department Name</th>
+                                    <th>Description</th>
+                                    <th>Head of Department</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Information Technology</td>
+                                    <td>Software development and IT infrastructure</td>
+                                    <td>John Doe</td>
+                                    <td>
+                                        <a href="/departments/view/1" class="btn btn-sm btn-info" title="View"><i class="bi bi-eye"></i></a>
+                                        <a href="/departments/edit/1" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                                        <a href="#" class="btn btn-sm btn-danger" title="Delete"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Human Resources</td>
+                                    <td>HR and employee management</td>
+                                    <td>Sarah Smith</td>
+                                    <td>
+                                        <a href="/departments/view/2" class="btn btn-sm btn-info" title="View"><i class="bi bi-eye"></i></a>
+                                        <a href="/departments/edit/2" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                                        <a href="#" class="btn btn-sm btn-danger" title="Delete"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include ('../layouts/footer'); %>

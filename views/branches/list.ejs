@@ -1,0 +1,154 @@
+<%- include ('../layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Branches</h5>
+                <small class="text-muted">Manage company branches</small>
+            </div>
+            <a href="/branches/add" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add Branch
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap"
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff;">
+                    <div>
+                        <h6 class="mb-0">Branch Directory</h6>
+                        <small class="text-white-50">Responsive, searchable, and actionable</small>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <input id="branchSearch" type="search" class="form-control form-control-sm"
+                            placeholder="Search branches" style="min-width: 220px; border: none;">
+                        <a href="/branches/add" class="btn btn-light btn-sm">
+                            <i class="bi bi-plus-circle"></i> Add Branch
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive" style="max-height: 520px;">
+                        <table class="table table-hover table-borderless align-middle mb-0 branches-table">
+                            <thead class="table-light sticky-top">
+                                <tr>
+                                    <th scope="col">Branch</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Contact</th>
+                                    <th scope="col" class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="branchTableBody">
+                                <!-- Branch rows will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1090;">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff;">
+                <i class="bi bi-bell-fill me-2"></i>
+                <strong class="me-auto" id="toastTitle">Notification</strong>
+                <small id="toastTime" class="text-white-50"></small>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"></div>
+        </div>
+    </div>
+<%- include ('../layouts/footer'); %>
+    <style>
+        .branches-table tbody tr {
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .branches-table tbody tr:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .badge-soft {
+            background: rgba(102,126,234,0.12);
+            color: #4c51bf;
+        }
+    </style>
+    <script>
+        const toastElement = document.getElementById('liveToast');
+        const toastInstance = new bootstrap.Toast(toastElement);
+        const toastBody = document.querySelector('.toast-body');
+        const toastTitle = document.getElementById('toastTitle');
+        const toastTime = document.getElementById('toastTime');
+        const branchTableBody = document.getElementById('branchTableBody');
+        const searchInput = document.getElementById('branchSearch');
+
+        const showToast = (message, isError = false) => {
+            toastBody.innerHTML = isError ? `<div class="text-danger fw-semibold">${message}</div>` : message;
+            toastTitle.textContent = isError ? 'Error' : 'Success';
+            toastTime.textContent = 'Just now';
+            toastInstance.show();
+        };
+
+        const fetchJSON = async (url, options = {}) => {
+            const res = await fetch(url, options);
+            return res.json();
+        };
+
+        const renderBranches = (branches) => {
+            const query = searchInput.value?.toLowerCase() || '';
+            branchTableBody.innerHTML = '';
+            branches
+                .filter(b => `${b.name} ${b.city} ${b.state} ${b.email}`.toLowerCase().includes(query))
+                .forEach(branch => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>
+                            <div class="fw-semibold">${branch.name || '-'} <span class="badge badge-soft ms-2">${branch.company_name || ''}</span></div>
+                            <div class="text-muted small">${branch.manager || 'N/A'}</div>
+                        </td>
+                        <td>
+                            <div>${branch.address1 || '-'}</div>
+                            <div class="text-muted small">${branch.address2 || ''}</div>
+                        </td>
+                        <td>
+                            <div>${branch.city || '-'}, ${branch.state || '-'}</div>
+                            <div class="text-muted small">${branch.pincode || ''}</div>
+                        </td>
+                        <td>
+                            <div class="fw-semibold">${branch.contact_number || '-'}</div>
+                            <div class="text-muted small">${branch.email || '-'}</div>
+                        </td>
+                        <td class="text-center">
+                            <a href="/branches/view/${branch._id}" class="btn btn-sm btn-outline-info me-1" title="View"><i class="bi bi-eye"></i></a>
+                            <a href="/branches/edit/${branch._id}" class="btn btn-sm btn-outline-primary me-1" title="Edit"><i class="bi bi-pencil"></i></a>
+                            <button class="btn btn-sm btn-outline-danger deleteBtn" data-id="${branch._id}" title="Delete"><i class="bi bi-trash"></i></button>
+                        </td>
+                    `;
+                    branchTableBody.appendChild(row);
+                });
+        };
+
+        const loadBranches = async () => {
+            const branches = await fetchJSON('/api/getBranch');
+            renderBranches(branches);
+        };
+
+        searchInput?.addEventListener('input', loadBranches);
+
+        document.addEventListener('click', async (e) => {
+            if (e.target.closest('.deleteBtn')) {
+                const id = e.target.closest('.deleteBtn').dataset.id;
+                if (confirm('Are you sure you want to delete this branch?')) {
+                    try {
+                        await fetch(`/api/deleteBranch/${id}`, { method: 'DELETE' });
+                        showToast('Branch deleted successfully');
+                        loadBranches();
+                    } catch (err) {
+                        showToast('Failed to delete branch', true);
+                    }
+                }
+            }
+        });
+
+        loadBranches();
+    </script>

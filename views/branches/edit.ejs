@@ -1,0 +1,121 @@
+<%- include ('../layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Edit Branch</h5>
+                <small class="text-muted">Update branch information</small>
+            </div>
+            <a href="/branches" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="branchEditForm" method="POST" action="/branches/edit/<%= branch?._id || '' %>">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Branch Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="name" value="<%= branch?.name || '' %>" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Company <span class="text-danger">*</span></label>
+                                <select class="form-select" name="company_id" required>
+                                    <option value="">Select Company</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Branch Manager</label>
+                                <input type="text" class="form-control" name="manager" value="<%= branch?.manager || '' %>" placeholder="Manager Name">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" value="<%= branch?.email || '' %>" placeholder="branch@company.com">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Contact Number</label>
+                                <input type="tel" class="form-control" name="contact_number" value="<%= branch?.contact_number || '' %>" placeholder="Phone number">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Alternative Contact</label>
+                                <input type="tel" class="form-control" name="alternate_contact" value="<%= branch?.alternate_contact || '' %>" placeholder="Alternate phone">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="form-label">Address Line 1 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="address1" value="<%= branch?.address1 || '' %>" required placeholder="Street address">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="form-label">Address Line 2</label>
+                                <input type="text" class="form-control" name="address2" value="<%= branch?.address2 || '' %>" placeholder="Apartment, suite, etc.">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">City <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="city" value="<%= branch?.city || '' %>" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">State <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="state" value="<%= branch?.state || '' %>" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Pincode <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="pincode" value="<%= branch?.pincode || '' %>" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Country</label>
+                                <input type="text" class="form-control" name="country" value="<%= branch?.country || 'India' %>">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Branch Code</label>
+                                <input type="text" class="form-control" name="code" value="<%= branch?.code || '' %>" placeholder="e.g., BR001">
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Update Branch
+                            </button>
+                            <a href="/branches" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include ('../layouts/footer'); %>
+    <script>
+        const populateCompanies = async () => {
+            const companies = await fetch('/api/getCompanyData').then(r => r.json());
+            const select = document.querySelector('select[name="company_id"]');
+            select.innerHTML = '<option value="">Select Company</option>';
+            companies.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company._id;
+                option.textContent = company.name;
+                option.selected = company._id === '<%= branch?.company_id || "" %>';
+                select.appendChild(option);
+            });
+        };
+
+        populateCompanies();
+    </script>

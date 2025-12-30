@@ -1,0 +1,88 @@
+<%- include ('../layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Create Job Post</h5>
+                <small class="text-muted">Post a new job opening</small>
+            </div>
+            <a href="/jobpost" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="/jobpost">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Job Title <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="title" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Department <span class="text-danger">*</span></label>
+                                <select class="form-select" name="department_id" required>
+                                    <option value="">Select Department</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Location <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="location" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Employment Type <span class="text-danger">*</span></label>
+                                <select class="form-select" name="employment_type" required>
+                                    <option value="">Select Type</option>
+                                    <option value="full-time">Full Time</option>
+                                    <option value="part-time">Part Time</option>
+                                    <option value="contract">Contract</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Experience Level</label>
+                                <select class="form-select" name="experience_level">
+                                    <option value="">Select Level</option>
+                                    <option value="entry">Entry Level</option>
+                                    <option value="mid">Mid Level</option>
+                                    <option value="senior">Senior Level</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Salary Range</label>
+                                <input type="text" class="form-control" name="salary_range" placeholder="$50,000 - $70,000">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Application Deadline</label>
+                                <input type="date" class="form-control" name="deadline">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="form-label">Job Description <span class="text-danger">*</span></label>
+                                <textarea class="form-control" name="description" rows="6" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="form-label">Requirements</label>
+                                <textarea class="form-control" name="requirements" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Publish Job Post
+                            </button>
+                            <a href="/jobpost" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include ('../layouts/footer'); %>

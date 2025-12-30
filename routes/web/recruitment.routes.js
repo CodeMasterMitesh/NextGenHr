@@ -3,11 +3,19 @@ import { Router } from 'express';
 const router = Router();
 
 router.get('/jobpost', (req, res) => {
-  res.render("jobpost", { title: "Job Posts" });
+  res.render("jobpost/list", { title: "Job Posts" });
 });
 
-router.get('/jobpost/new', (req, res) => {
-  res.render("jobpost-form", { title: "Create Job Post" });
+router.get('/jobpost/add', (req, res) => {
+  res.render("jobpost/add", { title: "Create Job Post" });
+});
+
+router.get('/jobpost/edit/:id', (req, res) => {
+  res.render("jobpost/edit", { title: "Edit Job Post", job: {} });
+});
+
+router.get('/jobpost/view/:id', (req, res) => {
+  res.render("jobpost/view", { title: "View Job Post", job: {} });
 });
 
 router.get('/viewjobpost', (req, res) => {
@@ -15,7 +23,11 @@ router.get('/viewjobpost', (req, res) => {
 });
 
 router.get('/job-applications', (req, res) => {
-  res.render("job-applications", { title: "Job Applications" });
+  res.render("job-applications/list", { title: "Job Applications" });
+});
+
+router.get('/job-applications/view/:id', (req, res) => {
+  res.render("job-applications/view", { title: "View Application", application: {} });
 });
 
 router.get('/job-requisition', (req, res) => {
@@ -31,15 +43,51 @@ router.get('/resumes', (req, res) => {
 });
 
 router.get('/interview-schedule', (req, res) => {
-  res.render("interview-schedule", { title: "Interview Schedule" });
+  res.render("interviews/list", { title: "Interview Schedule" });
+});
+
+router.get('/interview-schedule/add', (req, res) => {
+  res.render("interviews/add", { title: "Schedule Interview" });
+});
+
+router.get('/interview-schedule/edit/:id', (req, res) => {
+  res.render("interviews/edit", { title: "Edit Interview", interview: {} });
+});
+
+router.get('/interview-schedule/view/:id', (req, res) => {
+  res.render("interviews/view", { title: "View Interview", interview: {} });
 });
 
 router.get('/onboarding', (req, res) => {
-  res.render("onboarding", { title: "Employee Onboarding" });
+  res.render("onboarding/list", { title: "Employee Onboarding" });
+});
+
+router.get('/onboarding/add', (req, res) => {
+  res.render("onboarding/add", { title: "New Onboarding" });
+});
+
+router.get('/onboarding/edit/:id', (req, res) => {
+  res.render("onboarding/edit", { title: "Edit Onboarding", onboarding: {} });
+});
+
+router.get('/onboarding/view/:id', (req, res) => {
+  res.render("onboarding/view", { title: "View Onboarding", onboarding: {} });
 });
 
 router.get('/training-schedule', (req, res) => {
-  res.render("training-schedule", { title: "Training Schedule" });
+  res.render("training/list", { title: "Training Schedule" });
+});
+
+router.get('/training-schedule/add', (req, res) => {
+  res.render("training/add", { title: "Schedule Training" });
+});
+
+router.get('/training-schedule/edit/:id', (req, res) => {
+  res.render("training/edit", { title: "Edit Training", training: {} });
+});
+
+router.get('/training-schedule/view/:id', (req, res) => {
+  res.render("training/view", { title: "View Training", training: {} });
 });
 
 router.get('/exam', (req, res) => {

@@ -1,0 +1,47 @@
+<%- include ('../layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Job Applications</h5>
+                <small class="text-muted">Manage candidate applications</small>
+            </div>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Candidate Name</th>
+                                    <th>Job Position</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Applied Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jane Smith</td>
+                                    <td>Senior Developer</td>
+                                    <td>jane@example.com</td>
+                                    <td>555-1234</td>
+                                    <td>2025-12-25</td>
+                                    <td><span class="badge bg-info">Applied</span></td>
+                                    <td>
+                                        <a href="/job-applications/view/1" class="btn btn-sm btn-info" title="View"><i class="bi bi-eye"></i></a>
+                                        <button class="btn btn-sm btn-success" title="Shortlist"><i class="bi bi-check-circle"></i></button>
+                                        <button class="btn btn-sm btn-danger" title="Reject"><i class="bi bi-x-circle"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include ('../layouts/footer'); %>

@@ -1,0 +1,108 @@
+<%- include ('../layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Employees</h5>
+                <small class="text-muted">Manage your workforce</small>
+            </div>
+            <a href="/employees/add" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add Employee
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="employeesTable" class="table table-hover table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Employee Code</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Department</th>
+                                    <th>Designation</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                                <!-- Column filters -->
+                                <tr class="filters">
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search code"></th>
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search name"></th>
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search email"></th>
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search department"></th>
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search designation"></th>
+                                    <th>
+                                        <select class="form-select form-select-sm">
+                                            <option value="">All</option>
+                                            <option value="Confirmed">Confirmed</option>
+                                            <option value="Probation">Probation</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#EMP001</td>
+                                    <td>John Doe</td>
+                                    <td>john@company.com</td>
+                                    <td>IT</td>
+                                    <td>Senior Developer</td>
+                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                    <td>
+                                        <a href="/employees/view/1" class="btn btn-sm btn-info" title="View"><i class="bi bi-eye"></i></a>
+                                        <a href="/employees/edit/1" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                                        <a href="#" class="btn btn-sm btn-danger" title="Delete"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#EMP002</td>
+                                    <td>Sarah Smith</td>
+                                    <td>sarah@company.com</td>
+                                    <td>HR</td>
+                                    <td>HR Manager</td>
+                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                    <td>
+                                        <a href="/employees/view/2" class="btn btn-sm btn-info" title="View"><i class="bi bi-eye"></i></a>
+                                        <a href="/employees/edit/2" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                                        <a href="#" class="btn btn-sm btn-danger" title="Delete"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            // Initialize DataTable with custom filters
+            const table = $('#employeesTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                pageLength: 25,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    const api = this.api();
+
+                    // Apply filters for each column
+                    api.columns().eq(0).each(function (colIdx) {
+                        const cell = $('.filters th').eq(colIdx);
+                        const input = $('input, select', cell);
+
+                        input.off('keyup change').on('change', function () {
+                            api.column(colIdx).search(this.value).draw();
+                        }).on('keyup', function (e) {
+                            e.stopPropagation();
+                            $(this).trigger('change');
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+<%- include ('../layouts/footer'); %>

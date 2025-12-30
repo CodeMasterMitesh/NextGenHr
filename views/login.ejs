@@ -90,26 +90,36 @@
         password: formData.get('password')
       };
       try {
-        const response = await fetch('http://localhost:5000/api/login', {
+        const response = await fetch('/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(data),
         });
-        const result = await response.json();
+
+        const contentType = response.headers.get('content-type') || '';
+        const isJson = contentType.includes('application/json');
+        const result = isJson ? await response.json() : await response.text();
+
+        if (!isJson) {
+          console.error('Non-JSON response from /api/login:', result);
+          responseMsg.innerHTML = `<div class="alert alert-danger">Server returned HTML instead of JSON. Check server logs.</div>`;
+          return;
+        }
+
         console.log('result:', result);
         if (response.ok) {
           const userData = result;
           console.log('Login successful:', userData);
-          // localStorage.setItem('user', JSON.stringify(userData));
           window.location.href = '/dashboard';
           responseMsg.innerHTML = `<div class="alert alert-success">Login Successful</div>`;
         } else {
-          responseMsg.innerHTML = `<div class="alert alert-danger">${result.message}</div>`;
+          responseMsg.innerHTML = `<div class="alert alert-danger">${result.message || 'Login failed'}</div>`;
         }
       } catch (error) {
         console.error('Error during login:', error);
+        responseMsg.innerHTML = `<div class="alert alert-danger">${error?.message || 'Network error'}</div>`;
       }
 
     });
