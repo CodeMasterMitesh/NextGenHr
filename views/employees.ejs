@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table id="employeesTable" class="table table-hover table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Employee Code</th>
@@ -25,9 +25,26 @@
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
+                                <!-- Column filters -->
+                                <tr class="filters">
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search code"></th>
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search name"></th>
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search email"></th>
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search department"></th>
+                                    <th><input type="text" class="form-control form-control-sm" placeholder="Search designation"></th>
+                                    <th>
+                                        <select class="form-select form-select-sm">
+                                            <option value="">All</option>
+                                            <option value="Confirmed">Confirmed</option>
+                                            <option value="Probation">Probation</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </th>
+                                    <th></th>
+                                </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                                                <tr>
                                     <td>#EMP001</td>
                                     <td>John Doe</td>
                                     <td>john@company.com</td>
@@ -46,7 +63,7 @@
                                     <td>sarah@company.com</td>
                                     <td>HR</td>
                                     <td>HR Manager</td>
-                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                                                        <td><span class="badge bg-success">Confirmed</span></td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
                                         <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
@@ -60,4 +77,48 @@
             </div>
         </div>
     </div>
+        <script>
+            // Define a page-level initializer that will be called after jQuery/DataTables load
+            window.initEmployeesTable = function() {
+                const $ = window.jQuery;
+                if (!$) return;
+
+                const table = $('#employeesTable').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            title: 'Employees',
+                            exportOptions: { columns: [0,1,2,3,4,5] }
+                        }
+                    ],
+                    orderCellsTop: true,
+                    pageLength: 10,
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']]
+                });
+
+                // Apply column-wise search using the second header row (filters)
+                table.columns().every(function (idx) {
+                    const column = this;
+                    const headerCell = $('#employeesTable thead tr:eq(1) th').eq(idx);
+                    const inputEl = headerCell.find('input');
+                    const selectEl = headerCell.find('select');
+
+                    if (inputEl.length) {
+                        inputEl.on('keyup change clear', function () {
+                            const val = $(this).val();
+                            if (column.search() !== val) {
+                                column.search(val).draw();
+                            }
+                        });
+                    }
+                    if (selectEl.length) {
+                        selectEl.on('change', function () {
+                            const val = $(this).val();
+                            column.search(val).draw();
+                        });
+                    }
+                });
+            };
+        </script>
 <%- include ('layouts/footer'); %>

@@ -7,6 +7,7 @@ import payrollRoutes from './payroll.routes.js';
 import recruitmentRoutes from './recruitment.routes.js';
 import attendanceRoutes from './attendance.routes.js';
 import commonRoutes from './common.routes.js';
+import isAuth from '../../middleware/auth.js';
 
 const router = Router();
 
