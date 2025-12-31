@@ -1,0 +1,154 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Software Management</h5>
+                <small class="text-muted">Manage sidebar menu items (parent menus)</small>
+            </div>
+            <a href="/software-management/add" class="btn btn-primary" data-spa>
+                <i class="bi bi-plus-circle"></i> Add Software
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="softwareTable" class="table table-hover table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Name</th>
+                                    <th>Icon</th>
+                                    <th>Route</th>
+                                    <th>Status</th>
+                                    <th>Route Valid</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be loaded via AJAX -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+        let table;
+
+        // Initialize DataTable
+        function initTable() {
+            table = $('#softwareTable').DataTable({
+                ajax: {
+                    url: '/api/software?list=all',
+                    dataSrc: 'data'
+                },
+                columns: [
+                    { data: 'order' },
+                    { data: 'name' },
+                    { 
+                        data: 'icon',
+                        render: function(data) {
+                            return `<i class="bi ${data}"></i> ${data}`;
+                        }
+                    },
+                    { data: 'route' },
+                    { 
+                        data: 'isActive',
+                        render: function(data, type, row) {
+                            const statusClass = data ? 'bg-success' : 'bg-secondary';
+                            const statusText = data ? 'Active' : 'Inactive';
+                            return `<span class="badge ${statusClass}">${statusText}</span>`;
+                        }
+                    },
+                    { 
+                        data: '_id',
+                        render: function(data, type, row) {
+                            return '<span class="badge bg-info">Checking...</span>';
+                        }
+                    },
+                    {
+                        data: null,
+                        orderable: false,
+                        render: function(data, type, row) {
+                            return `
+                                <a href="/software-management/view/${row._id}" class="btn btn-sm btn-info" data-spa title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="/software-management/edit/${row._id}" class="btn btn-sm btn-warning" data-spa title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <button class="btn btn-sm btn-${row.isActive ? 'secondary' : 'success'} toggle-status" data-id="${row._id}" title="${row.isActive ? 'Deactivate' : 'Activate'}">
+                                    <i class="bi bi-toggle-${row.isActive ? 'on' : 'off'}"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger delete-software" data-id="${row._id}" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            `;
+                        }
+                    }
+                ],
+                order: [[0, 'asc']],
+                dom: 'Bfrtip',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+            });
+        }
+
+        initTable();
+
+        // Toggle status
+        $(document).on('click', '.toggle-status', async function() {
+            const id = $(this).data('id');
+            try {
+                const response = await fetch(`/api/software/${id}/toggle-status`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const result = await response.json();
+                if (result.success) {
+                    Toast.success(result.message);
+                    table.ajax.reload(null, false);
+                } else {
+                    Toast.error(result.message);
+                }
+            } catch (error) {
+                Toast.error('Failed to toggle status');
+            }
+        });
+
+        // Delete software
+        $(document).on('click', '.delete-software', async function() {
+            const id = $(this).data('id');
+            const row = $(this).closest('tr');
+            const softwareName = table.row(row).data().name;
+
+            if (!confirm(`Are you sure you want to delete "${softwareName}"?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/software/${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    Toast.success(result.message);
+                    table.ajax.reload(null, false);
+                } else {
+                    Toast.error(result.message);
+                }
+            } catch (error) {
+                Toast.error('Failed to delete software');
+            }
+        });
+    });
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

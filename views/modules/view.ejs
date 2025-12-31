@@ -1,0 +1,99 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Module Details</h5>
+                <small class="text-muted">View module information</small>
+            </div>
+            <a href="/module-management" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-3" id="moduleDetails">
+                        <div class="col-12 text-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (async function() {
+        const urlParts = window.location.pathname.split('/');
+        const moduleId = urlParts[urlParts.length - 1];
+        
+        try {
+            const response = await fetch(`/api/modules/${moduleId}`);
+            const result = await response.json();
+            
+            if (result.success) {
+                const module = result.data;
+                const statusBadge = module.isActive ? 
+                    '<span class="badge bg-success">Active</span>' : 
+                    '<span class="badge bg-secondary">Inactive</span>';
+                
+                document.getElementById('moduleDetails').innerHTML = `
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-1">Name</h6>
+                        <div class="fw-semibold">${module.name}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-1">Software (Parent)</h6>
+                        <div class="fw-semibold">${module.softwareId ? module.softwareId.name : 'N/A'}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-muted mb-1">Icon</h6>
+                        <div class="fw-semibold"><i class="bi ${module.icon}"></i> ${module.icon}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-muted mb-1">Route</h6>
+                        <div class="fw-semibold">${module.route}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-muted mb-1">Status</h6>
+                        <div>${statusBadge}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-1">Order</h6>
+                        <div class="fw-semibold">${module.order}</div>
+                    </div>
+                    <div class="col-12">
+                        <h6 class="text-muted mb-1">Description</h6>
+                        <p class="mb-0">${module.description || 'No description provided'}</p>
+                    </div>
+                    <div class="col-12">
+                        <h6 class="text-muted mb-1">Permissions</h6>
+                        <p class="mb-0">${module.permissions && module.permissions.length > 0 ? module.permissions.join(', ') : 'Public (No permissions required)'}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-1">Created At</h6>
+                        <div class="fw-semibold">${new Date(module.createdAt).toLocaleString()}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-1">Updated At</h6>
+                        <div class="fw-semibold">${new Date(module.updatedAt).toLocaleString()}</div>
+                    </div>
+                `;
+            } else {
+                Toast.error('Failed to load module data');
+                document.getElementById('moduleDetails').innerHTML = '<div class="col-12 text-center text-danger">Failed to load data</div>';
+            }
+        } catch (error) {
+            Toast.error('Failed to load module data');
+            document.getElementById('moduleDetails').innerHTML = '<div class="col-12 text-center text-danger">Failed to load data</div>';
+        }
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

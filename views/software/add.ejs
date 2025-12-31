@@ -1,0 +1,113 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Add Software</h5>
+                <small class="text-muted">Create new sidebar parent menu</small>
+            </div>
+            <a href="/software-management" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="softwareForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="name" required placeholder="e.g., Employee Management">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Icon <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="icon" required placeholder="bi-people" value="bi-box">
+                                <small class="text-muted">Bootstrap icon class</small>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Order <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="order" required value="0" min="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Route <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="route" required placeholder="employees">
+                                <small class="text-muted">Path to the view (e.g., employees, attendance)</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" name="isActive">
+                                    <option value="true">Active</option>
+                                    <option value="false">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" name="description" rows="3" placeholder="Optional description"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Permissions (comma-separated)</label>
+                                <input type="text" class="form-control" name="permissions" placeholder="admin, manager">
+                                <small class="text-muted">Leave empty for public access</small>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Save Software
+                            </button>
+                            <a href="/software-management" class="btn btn-secondary" data-spa>
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('softwareForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const data = {
+            name: formData.get('name'),
+            icon: formData.get('icon'),
+            route: formData.get('route'),
+            order: parseInt(formData.get('order')),
+            isActive: formData.get('isActive') === 'true',
+            description: formData.get('description'),
+            permissions: formData.get('permissions') ? formData.get('permissions').split(',').map(p => p.trim()) : []
+        };
+
+        try {
+            const response = await fetch('/api/software', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                Toast.success(result.message);
+                setTimeout(() => {
+                    if (window.spaNavigate) {
+                        window.spaNavigate('/software-management');
+                    } else {
+                        window.location.href = '/software-management';
+                    }
+                }, 500);
+            } else {
+                Toast.error(result.message);
+            }
+        } catch (error) {
+            Toast.error('Failed to create software');
+        }
+    });
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

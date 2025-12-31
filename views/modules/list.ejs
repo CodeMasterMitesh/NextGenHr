@@ -1,0 +1,154 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Module Management</h5>
+                <small class="text-muted">Manage sidebar sub-menu items (child menus)</small>
+            </div>
+            <a href="/module-management/add" class="btn btn-primary" data-spa>
+                <i class="bi bi-plus-circle"></i> Add Module
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="moduleTable" class="table table-hover table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Name</th>
+                                    <th>Software</th>
+                                    <th>Icon</th>
+                                    <th>Route</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be loaded via AJAX -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+        let table;
+
+        // Initialize DataTable
+        function initTable() {
+            table = $('#moduleTable').DataTable({
+                ajax: {
+                    url: '/api/modules',
+                    dataSrc: 'data'
+                },
+                columns: [
+                    { data: 'order' },
+                    { data: 'name' },
+                    { 
+                        data: 'softwareId',
+                        render: function(data) {
+                            return data ? data.name : 'N/A';
+                        }
+                    },
+                    { 
+                        data: 'icon',
+                        render: function(data) {
+                            return `<i class="bi ${data}"></i> ${data}`;
+                        }
+                    },
+                    { data: 'route' },
+                    { 
+                        data: 'isActive',
+                        render: function(data) {
+                            const statusClass = data ? 'bg-success' : 'bg-secondary';
+                            const statusText = data ? 'Active' : 'Inactive';
+                            return `<span class="badge ${statusClass}">${statusText}</span>`;
+                        }
+                    },
+                    {
+                        data: null,
+                        orderable: false,
+                        render: function(data, type, row) {
+                            return `
+                                <a href="/module-management/view/${row._id}" class="btn btn-sm btn-info" data-spa title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="/module-management/edit/${row._id}" class="btn btn-sm btn-warning" data-spa title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <button class="btn btn-sm btn-${row.isActive ? 'secondary' : 'success'} toggle-status" data-id="${row._id}" title="${row.isActive ? 'Deactivate' : 'Activate'}">
+                                    <i class="bi bi-toggle-${row.isActive ? 'on' : 'off'}"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger delete-module" data-id="${row._id}" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            `;
+                        }
+                    }
+                ],
+                order: [[2, 'asc'], [0, 'asc']],
+                dom: 'Bfrtip',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+            });
+        }
+
+        initTable();
+
+        // Toggle status
+        $(document).on('click', '.toggle-status', async function() {
+            const id = $(this).data('id');
+            try {
+                const response = await fetch(`/api/modules/${id}/toggle-status`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const result = await response.json();
+                if (result.success) {
+                    Toast.success(result.message);
+                    table.ajax.reload(null, false);
+                } else {
+                    Toast.error(result.message);
+                }
+            } catch (error) {
+                Toast.error('Failed to toggle status');
+            }
+        });
+
+        // Delete module
+        $(document).on('click', '.delete-module', async function() {
+            const id = $(this).data('id');
+            const row = $(this).closest('tr');
+            const moduleName = table.row(row).data().name;
+
+            if (!confirm(`Are you sure you want to delete "${moduleName}"?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/modules/${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    Toast.success(result.message);
+                    table.ajax.reload(null, false);
+                } else {
+                    Toast.error(result.message);
+                }
+            } catch (error) {
+                Toast.error('Failed to delete module');
+            }
+        });
+    });
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

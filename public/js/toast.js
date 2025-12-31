@@ -6,29 +6,45 @@
 class ToastNotification {
   constructor() {
     this.toasts = [];
-    this.createContainer();
+    this.containerCreated = false;
   }
 
   createContainer() {
-    if (!document.getElementById('toast-container')) {
-      const container = document.createElement('div');
-      container.id = 'toast-container';
-      container.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        pointer-events: none;
-      `;
-      document.body.appendChild(container);
+    if (this.containerCreated || document.getElementById('toast-container')) {
+      return;
     }
+    
+    // Ensure document.body exists
+    if (!document.body) {
+      console.warn('Toast: document.body not available yet');
+      return;
+    }
+    
+    const container = document.createElement('div');
+    container.id = 'toast-container';
+    container.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    `;
+    document.body.appendChild(container);
+    this.containerCreated = true;
   }
 
   show(message, type = 'info', duration = 4000) {
+    // Create container on first use
+    this.createContainer();
+    
     const container = document.getElementById('toast-container');
+    if (!container) {
+      console.error('Toast container could not be created');
+      return;
+    }
     const id = 'toast-' + Date.now() + Math.random();
     
     const toast = document.createElement('div');

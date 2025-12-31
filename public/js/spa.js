@@ -35,7 +35,9 @@
       if (oldScript.src) {
         script.src = oldScript.src;
       } else {
-        script.textContent = oldScript.textContent;
+        // Wrap inline scripts in an IIFE to avoid variable redeclaration errors
+        const wrappedCode = `(function() {\n${oldScript.textContent}\n})();`;
+        script.textContent = wrappedCode;
       }
       // Copy attrs
       Array.from(oldScript.attributes).forEach((attr) => {

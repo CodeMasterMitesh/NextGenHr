@@ -1,0 +1,176 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Edit Module</h5>
+                <small class="text-muted">Update sidebar sub-menu</small>
+            </div>
+            <a href="/module-management" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="moduleEditForm">
+                        <input type="hidden" id="moduleId">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Software (Parent Menu) <span class="text-danger">*</span></label>
+                                <select class="form-select" name="softwareId" id="softwareId" required>
+                                    <option value="">Select Software</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Icon <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="icon" name="icon" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Route <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="route" name="route" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Order <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="order" name="order" required min="0">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="isActive" name="isActive">
+                                    <option value="true">Active</option>
+                                    <option value="false">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Permissions (comma-separated)</label>
+                                <input type="text" class="form-control" id="permissions" name="permissions">
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Update Module
+                            </button>
+                            <a href="/module-management" class="btn btn-secondary" data-spa>
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (async function() {
+        // Extract ID from URL path: /module-management/edit/:id
+        const pathParts = window.location.pathname.split('/');
+        const moduleId = pathParts[pathParts.length - 1];
+        
+        if (!moduleId || moduleId === 'edit') {
+            Toast.error('Invalid module ID');
+            return;
+        }
+        
+        // Load software list
+        try {
+            const response = await fetch('/api/software?list=all');
+            const result = await response.json();
+            
+            if (result.success) {
+                const select = document.getElementById('softwareId');
+                result.data.forEach(software => {
+                    const option = document.createElement('option');
+                    option.value = software._id;
+                    option.textContent = software.name;
+                    select.appendChild(option);
+                });
+                
+                // Load module data after software list is ready
+                loadModuleData();
+            }
+        } catch (error) {
+            Toast.error('Failed to load software list');
+        }
+
+        async function loadModuleData() {
+            try {
+                const response = await fetch(`/api/modules/${moduleId}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const module = result.data;
+                    document.getElementById('moduleId').value = module._id;
+                    document.getElementById('name').value = module.name;
+                    document.getElementById('icon').value = module.icon;
+                    document.getElementById('route').value = module.route;
+                    document.getElementById('order').value = module.order;
+                    document.getElementById('softwareId').value = module.softwareId._id || module.softwareId;
+                    document.getElementById('isActive').value = module.isActive.toString();
+                    document.getElementById('description').value = module.description || '';
+                    document.getElementById('permissions').value = module.permissions ? module.permissions.join(', ') : '';
+                } else {
+                    Toast.error('Failed to load module data');
+                }
+            } catch (error) {
+                Toast.error('Failed to load module data');
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('moduleEditForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const id = document.getElementById('moduleId').value;
+            const formData = new FormData(e.target);
+            const data = {
+                softwareId: formData.get('softwareId'),
+                name: formData.get('name'),
+                icon: formData.get('icon'),
+                route: formData.get('route'),
+                order: parseInt(formData.get('order')),
+                isActive: formData.get('isActive') === 'true',
+                description: formData.get('description'),
+                permissions: formData.get('permissions') ? formData.get('permissions').split(',').map(p => p.trim()) : []
+            };
+
+            try {
+                const response = await fetch(`/api/modules/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    Toast.success(result.message);
+                    setTimeout(() => {
+                        if (window.spaNavigate) {
+                            window.spaNavigate('/module-management');
+                        } else {
+                            window.location.href = '/module-management';
+                        }
+                    }, 500);
+                } else {
+                    Toast.error(result.message);
+                }
+            } catch (error) {
+                Toast.error('Failed to update module');
+            }
+        });
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

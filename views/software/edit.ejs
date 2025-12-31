@@ -1,0 +1,146 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Edit Software</h5>
+                <small class="text-muted">Update sidebar parent menu</small>
+            </div>
+            <a href="/software-management" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="softwareEditForm">
+                        <input type="hidden" id="softwareId">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Icon <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="icon" name="icon" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Order <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="order" name="order" required min="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Route <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="route" name="route" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="isActive" name="isActive">
+                                    <option value="true">Active</option>
+                                    <option value="false">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Permissions (comma-separated)</label>
+                                <input type="text" class="form-control" id="permissions" name="permissions">
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Update Software
+                            </button>
+                            <a href="/software-management" class="btn btn-secondary" data-spa>
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (async function() {
+        // Extract ID from URL path: /software-management/edit/:id
+        const pathParts = window.location.pathname.split('/');
+        const softwareId = pathParts[pathParts.length - 1];
+        
+        if (!softwareId || softwareId === 'edit') {
+            Toast.error('Invalid software ID');
+            return;
+        }
+        
+        // Load software data
+        try {
+            const response = await fetch(`/api/software/${softwareId}`);
+            const result = await response.json();
+            
+            if (result.success) {
+                const software = result.data;
+                document.getElementById('softwareId').value = software._id;
+                document.getElementById('name').value = software.name;
+                document.getElementById('icon').value = software.icon;
+                document.getElementById('route').value = software.route;
+                document.getElementById('order').value = software.order;
+                document.getElementById('isActive').value = software.isActive.toString();
+                document.getElementById('description').value = software.description || '';
+                document.getElementById('permissions').value = software.permissions ? software.permissions.join(', ') : '';
+            } else {
+                Toast.error('Failed to load software data');
+            }
+        } catch (error) {
+            Toast.error('Failed to load software data');
+        }
+
+        // Handle form submission
+        document.getElementById('softwareEditForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const id = document.getElementById('softwareId').value;
+            const formData = new FormData(e.target);
+            const data = {
+                name: formData.get('name'),
+                icon: formData.get('icon'),
+                route: formData.get('route'),
+                order: parseInt(formData.get('order')),
+                isActive: formData.get('isActive') === 'true',
+                description: formData.get('description'),
+                permissions: formData.get('permissions') ? formData.get('permissions').split(',').map(p => p.trim()) : []
+            };
+
+            try {
+                const response = await fetch(`/api/software/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    Toast.success(result.message);
+                    setTimeout(() => {
+                        if (window.spaNavigate) {
+                            window.spaNavigate('/software-management');
+                        } else {
+                            window.location.href = '/software-management';
+                        }
+                    }, 500);
+                } else {
+                    Toast.error(result.message);
+                }
+            } catch (error) {
+                Toast.error('Failed to update software');
+            }
+        });
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>
