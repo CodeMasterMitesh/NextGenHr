@@ -30,8 +30,10 @@ app.use(cookieParser());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false },
+  saveUninitialized: false,
+  cookie: { secure: false,
+    maxAge: 1000 * 60 * 60  // 1 hour
+   },
   store : MongoDBStore
 }));
 // Expose login state to all EJS views
