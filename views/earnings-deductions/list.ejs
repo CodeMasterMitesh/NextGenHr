@@ -1,0 +1,55 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Earnings & Deductions</h5>
+                <small class="text-muted">Manage payroll components</small>
+            </div>
+            <a href="/earnings-deductions/add" class="btn btn-primary" data-spa>
+                <i class="bi bi-plus-circle"></i> Add Entry
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="earningsTable">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Earning</td>
+                                    <td>Bonus</td>
+                                    <td>$500</td>
+                                    <td>
+                                        <a href="/earnings-deductions/view/1" class="btn btn-sm btn-info" data-spa><i class="bi bi-eye"></i></a>
+                                        <a href="/earnings-deductions/edit/1" class="btn btn-sm btn-warning" data-spa><i class="bi bi-pencil"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function initEarningsList(){
+      if (window.$ && $.fn.DataTable) {
+        $('#earningsTable').DataTable({ order: [] });
+      }
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

@@ -1,11 +1,13 @@
+<% if (!partial) { %>
 <%- include ('../layouts/header'); %>
+<% } %>
     <div class="main-content">
         <div class="topbar">
             <div>
                 <h5 class="mb-1">Employees</h5>
                 <small class="text-muted">Manage your workforce</small>
             </div>
-            <a href="/employees/add" class="btn btn-primary">
+            <a href="/employees/add" class="btn btn-primary" data-spa>
                 <i class="bi bi-plus-circle"></i> Add Employee
             </a>
         </div>
@@ -103,6 +105,36 @@
                     });
                 }
             });
+
+            // Handle delete button clicks
+            $(document).on('click', '.btn-danger', async function (e) {
+                e.preventDefault();
+                const row = $(this).closest('tr');
+                const empCode = row.find('td:first').text();
+                const empName = row.find('td:nth-child(2)').text();
+                const employeeId = $(this).attr('data-id');
+
+                // Extract ID from href if data-id not present
+                const href = $(this).attr('href');
+                const id = employeeId || href.split('/').pop();
+
+                const result = await CRUDHelper.delete(
+                    `/api/deleteEmployee/${id}`,
+                    empName || 'Employee'
+                );
+
+                if (result.success) {
+                    row.fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                }
+
+                if (result.cancelled) {
+                    // User cancelled delete
+                }
+            });
         });
     </script>
+<% if (!partial) { %>
 <%- include ('../layouts/footer'); %>
+<% } %>

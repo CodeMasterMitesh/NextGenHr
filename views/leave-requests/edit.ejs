@@ -1,0 +1,66 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Edit Leave Request</h5>
+                <small class="text-muted">Update leave details</small>
+            </div>
+            <a href="/leave-requests" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to Requests
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="leaveEditForm" class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Employee</label>
+                            <input type="text" class="form-control" name="employee" placeholder="Employee name">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">From</label>
+                            <input type="date" class="form-control" name="from">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">To</label>
+                            <input type="date" class="form-control" name="to">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Type</label>
+                            <select class="form-select" name="type">
+                                <option value="annual">Annual Leave</option>
+                                <option value="sick">Sick Leave</option>
+                                <option value="unpaid">Unpaid Leave</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Reason</label>
+                            <textarea class="form-control" rows="3" name="reason" placeholder="Reason"></textarea>
+                        </div>
+                        <div class="d-flex gap-2 mt-2">
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save Changes</button>
+                            <a href="/leave-requests" class="btn btn-secondary" data-spa><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function initLeaveEdit(){
+      const form = document.getElementById('leaveEditForm');
+      if (!form) return;
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (window.Toast) Toast.success('Leave request saved (demo)');
+        if (window.spaNavigate) spaNavigate('/leave-requests'); else window.location.href = '/leave-requests';
+      });
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

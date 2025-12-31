@@ -165,4 +165,39 @@
             </div>
         </div>
     </div>
+
+<script>
+document.getElementById('employeeEditForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const employeeId = '<%= employee?._id || "" %>';
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData);
+  
+  // Validate required fields
+  if (!CRUDHelper.validateForm(data, ['emp_code', 'email', 'first_name', 'last_name'])) {
+    return;
+  }
+  
+  // Show loading
+  const loadingId = CRUDHelper.showLoading('Updating employee record...');
+  
+  // Update employee
+  const result = await CRUDHelper.update(
+    `/api/updateEmployee/${employeeId}`,
+    data,
+    data.first_name + ' ' + data.last_name + ' updated successfully!'
+  );
+  
+  CRUDHelper.hideLoading(loadingId);
+  
+  if (result.success) {
+    // Redirect after short delay
+    setTimeout(() => {
+      window.location.href = '/employees';
+    }, 800);
+  }
+});
+</script>
+
 <%- include ('../layouts/footer'); %>

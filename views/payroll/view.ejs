@@ -1,0 +1,43 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Payroll Details</h5>
+                <small class="text-muted">Review payroll run</small>
+            </div>
+            <a href="/payroll" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to Payroll
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <h6 class="text-muted mb-1">Period</h6>
+                            <div class="fw-semibold">Jan 2024</div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="text-muted mb-1">Total Employees</h6>
+                            <div class="fw-semibold">120</div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="text-muted mb-1">Status</h6>
+                            <span class="badge bg-success">Processed</span>
+                        </div>
+                        <div class="col-12">
+                            <h6 class="text-muted mb-1">Notes</h6>
+                            <p class="mb-0">Payroll processed successfully.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

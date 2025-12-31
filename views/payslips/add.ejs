@@ -1,0 +1,58 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Generate Payslip</h5>
+                <small class="text-muted">Create payslip for an employee</small>
+            </div>
+            <a href="/payslips" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="payslipAddForm" class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Employee</label>
+                            <input type="text" class="form-control" name="employee" placeholder="Employee name">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Period</label>
+                            <input type="month" class="form-control" name="period">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Net Pay</label>
+                            <input type="number" class="form-control" name="net_pay" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" rows="3" name="notes" placeholder="Optional notes"></textarea>
+                        </div>
+                        <div class="d-flex gap-2 mt-2">
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save Payslip</button>
+                            <a href="/payslips" class="btn btn-secondary" data-spa><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function initPayslipAdd(){
+      const form = document.getElementById('payslipAddForm');
+      if (!form) return;
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (window.Toast) Toast.success('Payslip saved (demo)');
+        if (window.spaNavigate) spaNavigate('/payslips'); else window.location.href = '/payslips';
+      });
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

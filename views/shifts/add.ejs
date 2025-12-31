@@ -1,0 +1,54 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Add Shift</h5>
+                <small class="text-muted">Create a new shift</small>
+            </div>
+            <a href="/shift-management" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to Shifts
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="shiftAddForm" class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Shift Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Morning">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Start Time</label>
+                            <input type="time" class="form-control" name="start_time">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">End Time</label>
+                            <input type="time" class="form-control" name="end_time">
+                        </div>
+                        <div class="d-flex gap-2 mt-2">
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save Shift</button>
+                            <a href="/shift-management" class="btn btn-secondary" data-spa><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function initShiftAdd(){
+      const form = document.getElementById('shiftAddForm');
+      if (!form) return;
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (window.Toast) Toast.success('Shift saved (demo)');
+        if (window.spaNavigate) spaNavigate('/shift-management'); else window.location.href = '/shift-management';
+      });
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

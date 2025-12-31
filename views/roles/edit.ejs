@@ -1,0 +1,61 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Edit Role</h5>
+                <small class="text-muted">Adjust permissions</small>
+            </div>
+            <a href="/roles" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to Roles
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="roleEditForm" class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Role Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Role name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control" name="description" placeholder="Short description">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Permissions</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="manage-users" id="permUsers">
+                                <label class="form-check-label" for="permUsers">Manage users</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="manage-roles" id="permRoles">
+                                <label class="form-check-label" for="permRoles">Manage roles</label>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 mt-2">
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save Role</button>
+                            <a href="/roles" class="btn btn-secondary" data-spa><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function initRoleEdit(){
+      const form = document.getElementById('roleEditForm');
+      if (!form) return;
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (window.Toast) Toast.success('Role saved (demo)');
+        if (window.spaNavigate) spaNavigate('/roles'); else window.location.href = '/roles';
+      });
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

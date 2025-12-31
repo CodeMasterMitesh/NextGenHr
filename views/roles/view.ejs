@@ -1,0 +1,43 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Role Details</h5>
+                <small class="text-muted">Review role</small>
+            </div>
+            <a href="/roles" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to Roles
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <h6 class="text-muted mb-1">Role Name</h6>
+                            <div class="fw-semibold">Administrator</div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted mb-1">Description</h6>
+                            <div class="fw-semibold">Full system access</div>
+                        </div>
+                        <div class="col-12">
+                            <h6 class="text-muted mb-1">Permissions</h6>
+                            <ul class="mb-0">
+                                <li>Manage users</li>
+                                <li>Manage roles</li>
+                                <li>View reports</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

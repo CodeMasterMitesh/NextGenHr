@@ -1,0 +1,55 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Shifts</h5>
+                <small class="text-muted">Manage shift schedules</small>
+            </div>
+            <a href="/shift-management/add" class="btn btn-primary" data-spa>
+                <i class="bi bi-plus-circle"></i> Add Shift
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="shiftTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Morning</td>
+                                    <td>08:00</td>
+                                    <td>16:00</td>
+                                    <td>
+                                        <a href="/shift-management/view/1" class="btn btn-sm btn-info" data-spa><i class="bi bi-eye"></i></a>
+                                        <a href="/shift-management/edit/1" class="btn btn-sm btn-warning" data-spa><i class="bi bi-pencil"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function initShiftsList(){
+      if (window.$ && $.fn.DataTable) {
+        $('#shiftTable').DataTable({ order: [] });
+      }
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

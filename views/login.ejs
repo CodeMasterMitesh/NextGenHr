@@ -6,81 +6,278 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="/css/transitions.css" rel="stylesheet">
   <style>
+    :root {
+      --bg-deep: #0f172a;
+      --bg-accent: #111827;
+      --card-bg: #ffffff;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --muted: #6b7280;
+    }
+
+    * {
+      font-family: 'Manrope', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
     body {
-      background: linear-gradient(120deg, #007bff 60%, #6c757d 100%);
+      background: radial-gradient(80% 80% at 20% 20%, rgba(37, 99, 235, 0.15), transparent 50%),
+                  radial-gradient(60% 60% at 80% 0%, rgba(16, 185, 129, 0.12), transparent 45%),
+                  linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-accent) 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 2rem 1rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    .login-box {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
-      padding: 2.5rem 2rem;
+    .glow-blob {
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.35), transparent 55%);
+      filter: blur(80px);
+      opacity: 0.7;
+      top: -80px;
+      right: -40px;
+      pointer-events: none;
+    }
+
+    .glow-blob.secondary {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.35), transparent 55%);
+      bottom: -60px;
+      left: -40px;
+    }
+
+    .login-shell {
       width: 100%;
-      max-width: 400px;
-      animation: fadeIn 1s;
+      max-width: 960px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
+    .login-grid {
+      background: var(--card-bg);
+      border-radius: 14px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      min-height: 480px;
+    }
 
-      to {
-        opacity: 1;
-        transform: none;
+    @media (max-width: 900px) {
+      .login-grid {
+        grid-template-columns: 1fr;
       }
+      .hero-panel {
+        display: none;
+      }
+    }
+
+    .hero-panel {
+      background: linear-gradient(160deg, rgba(37, 99, 235, 0.12) 0%, rgba(37, 99, 235, 0.02) 40%, rgba(16, 185, 129, 0.1) 100%);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid #eef2ff;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.2px;
+      width: fit-content;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      color: #0f172a;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .stats {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: rgba(37, 99, 235, 0.08);
+      color: #0f172a;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      min-width: 160px;
+      border: 1px solid rgba(37, 99, 235, 0.15);
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 1.15rem;
+    }
+
+    .login-panel {
+      padding: 2.5rem;
+      background: #ffffff;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+      color: #0f172a;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .brand .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #22c55e);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
     }
 
     .login-title {
       font-weight: 700;
-      color: #007bff;
-      margin-bottom: 1.5rem;
-      text-align: center;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+    }
+
+    .login-subtitle {
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+      font-size: 0.98rem;
+    }
+
+    label.form-label {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .form-control {
+      border-radius: 12px;
+      padding: 0.85rem 0.9rem;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
     }
 
     .form-control:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .15);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.15);
+      background: #fff;
     }
 
     .btn-primary {
-      background: #007bff;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: background 0.2s;
+      border-radius: 12px;
+      font-weight: 700;
+      padding: 0.9rem 1rem;
+      letter-spacing: 0.2px;
+      box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
     }
 
     .btn-primary:hover {
-      background: #0056b3;
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(37, 99, 235, 0.45);
+      opacity: 0.96;
+    }
+
+    .support-text {
+      margin-top: 1rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
-  <div class="login-box">
-    <h2 class="login-title">NextGenHR Login</h2>
-    <form id="loginForm">
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" name="email" value="" class="form-control" id="email" required autofocus>
+  <div class="glow-blob"></div>
+  <div class="glow-blob secondary"></div>
+
+  <div class="login-shell">
+    <div class="login-grid">
+      <div class="hero-panel">
+        <div class="hero-kicker">HR Suite · NextGen</div>
+        <div class="hero-title">Secure access to your workforce hub</div>
+        <div class="hero-copy">Approve requests, manage payroll, and onboard talent with a streamlined HR experience designed for teams that move fast.</div>
+        <div class="stats">
+          <div class="stat-pill">
+            <div class="stat-label">Daily active users</div>
+            <div class="stat-value">2,340</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-label">Avg. approval time</div>
+            <div class="stat-value">6m 12s</div>
+          </div>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" value="" class="form-control" id="password" required>
+
+      <div class="login-panel">
+        <div class="brand">
+          <span class="dot"></span>
+          NextGenHR Access
+        </div>
+        <h2 class="login-title">Welcome back</h2>
+        <p class="login-subtitle">Sign in to review approvals, update payroll, and keep your teams aligned.</p>
+
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="email" class="form-label">Work Email</label>
+            <input type="email" name="email" value="" class="form-control" id="email" placeholder="you@company.com" required autofocus>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" value="" class="form-control" id="password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Sign In</button>
+        </form>
+
+        <div class="support-text">Need help? Contact HR Operations or reach us at support@nextgenhr.com</div>
       </div>
-      <button type="submit" class="btn btn-primary w-100">Login</button>
-    </form>
+    </div>
   </div>
-  <div id="responseMsg"></div>
+  <script src="/js/toast.js"></script>
   <script>
-    const responseMsg = document.getElementById('responseMsg');
     const loginForm = document.getElementById('loginForm');
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -104,7 +301,7 @@
 
         if (!isJson) {
           console.error('Non-JSON response from /api/login:', result);
-          responseMsg.innerHTML = `<div class="alert alert-danger">Server returned HTML instead of JSON. Check server logs.</div>`;
+          Toast.error('Server error: Unexpected response format');
           return;
         }
 
@@ -112,16 +309,17 @@
         if (response.ok) {
           const userData = result;
           console.log('Login successful:', userData);
-          window.location.href = '/dashboard';
-          responseMsg.innerHTML = `<div class="alert alert-success">Login Successful</div>`;
+          Toast.success('Login successful! Redirecting...');
+          setTimeout(() => {
+            window.location.href = '/dashboard';
+          }, 500);
         } else {
-          responseMsg.innerHTML = `<div class="alert alert-danger">${result.message || 'Login failed'}</div>`;
+          Toast.error(result.message || 'Login failed');
         }
       } catch (error) {
         console.error('Error during login:', error);
-        responseMsg.innerHTML = `<div class="alert alert-danger">${error?.message || 'Network error'}</div>`;
+        Toast.error(error?.message || 'Network error');
       }
-
     });
   </script>
 </body>

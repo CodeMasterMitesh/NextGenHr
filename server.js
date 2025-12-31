@@ -6,6 +6,7 @@ import path from 'path';
 import session from 'express-session';
 import connectMongoDBSession  from 'connect-mongodb-session';
 import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
 import connectDB from './db.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

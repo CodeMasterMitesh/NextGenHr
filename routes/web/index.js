@@ -11,6 +11,12 @@ import isAuth from '../../middleware/auth.js';
 
 const router = Router();
 
+// Expose partial flag to views when ?partial=1 is present
+router.use((req, res, next) => {
+	res.locals.partial = Boolean(req.query.partial);
+	next();
+});
+
 router.use(authRoutes);
 
 // Protect everything below this line; login/home stay public

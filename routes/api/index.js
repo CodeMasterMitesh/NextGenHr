@@ -9,7 +9,7 @@ import isAuth from '../../middleware/auth.js';
 const router = Router();
 
 // Protect everything below this line; login/home stay public
-router.use(isAuth);
+// router.use(isAuth);
 router.use(JobApplication);
 router.use(compnayRoutes);
 router.use(usersApi);

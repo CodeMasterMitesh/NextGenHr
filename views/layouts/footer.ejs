@@ -1,3 +1,5 @@
+<% if (!partial) { %>
+    </main>
  <!-- jQuery (required by DataTables) -->
  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
  <!-- Bootstrap JS -->
@@ -10,11 +12,20 @@
  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+ <!-- Toast Notification System -->
+ <script src="/js/toast.js"></script>
+ <!-- CRUD Helper with Toast Integration -->
+ <script src="/js/crud-helper.js"></script>
+ <!-- SPA Router -->
+ <script src="/js/spa.js"></script>
  <script>
     function logout() {
         if (confirm('Are you sure you want to logout?')) {
             localStorage.removeItem('user');
-            window.location.href = '/login';
+            Toast.info('Logging out...');
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 500);
         }
     }
     // Invoke page-specific initializers if defined
@@ -24,3 +35,4 @@
  </script>
 </body>
 </html>
+<% } %>

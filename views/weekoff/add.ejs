@@ -1,0 +1,58 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Add Week-off</h5>
+                <small class="text-muted">Set weekly off day</small>
+            </div>
+            <a href="/weekoff" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="weekoffAddForm" class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Team</label>
+                            <input type="text" class="form-control" name="team" placeholder="Team/Department">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Week-off Day</label>
+                            <select class="form-select" name="day">
+                                <option value="Sunday">Sunday</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                            </select>
+                        </div>
+                        <div class="d-flex gap-2 mt-2">
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save</button>
+                            <a href="/weekoff" class="btn btn-secondary" data-spa><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function initWeekoffAdd(){
+      const form = document.getElementById('weekoffAddForm');
+      if (!form) return;
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (window.Toast) Toast.success('Week-off saved (demo)');
+        if (window.spaNavigate) spaNavigate('/weekoff'); else window.location.href = '/weekoff';
+      });
+    })();
+    </script>
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

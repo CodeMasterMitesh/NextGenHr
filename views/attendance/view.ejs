@@ -1,0 +1,43 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Attendance Details</h5>
+                <small class="text-muted">Review attendance entry</small>
+            </div>
+            <a href="/attendance" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <h6 class="text-muted mb-1">Employee</h6>
+                            <div class="fw-semibold">John Doe</div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="text-muted mb-1">Date</h6>
+                            <div class="fw-semibold">2024-01-15</div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="text-muted mb-1">Status</h6>
+                            <span class="badge bg-success">Present</span>
+                        </div>
+                        <div class="col-12">
+                            <h6 class="text-muted mb-1">Remarks</h6>
+                            <p class="mb-0">On time, no issues.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

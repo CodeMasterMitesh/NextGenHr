@@ -1,0 +1,199 @@
+/**
+ * Global Smooth Transitions
+ * Applies smooth transitions throughout the application
+ */
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Buttons and interactive elements */
+button,
+a,
+input[type="button"],
+input[type="submit"],
+.btn,
+.badge,
+.nav-link,
+.dropdown-item {
+  transition: all 0.2s ease-out !important;
+}
+
+button:hover,
+a:hover,
+.btn:hover,
+.badge:hover,
+.nav-link.active,
+.dropdown-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Form controls smooth focus */
+input,
+textarea,
+select {
+  transition: all 0.3s ease !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  transform: scale(1.01);
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Modal animations */
+.modal {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal.fade .modal-dialog {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Fade in for page content */
+body,
+main,
+.container,
+.content {
+  animation: pageLoad 0.4s ease-out;
+}
+
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Table row hover effects */
+table tbody tr {
+  transition: all 0.2s ease;
+}
+
+table tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+  transform: scale(1.01);
+}
+
+/* Card animations */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Badge and status animations */
+.badge,
+.tag,
+.label {
+  transition: all 0.2s ease;
+}
+
+/* Disabled state smooth transition */
+:disabled,
+[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transition: all 0.2s ease;
+}
+
+/* Loading state animation */
+.loading,
+.spinner,
+[data-loading="true"] {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Alert animations */
+.alert {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Remove forced transitions for certain interactions to avoid jank */
+.sidebar,
+.navbar,
+.sidebar-toggle {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth page transitions */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Prevent layout shift during transitions */
+button,
+a,
+.btn {
+  will-change: transform;
+}
+
+/* Smooth input placeholder transitions */
+input::placeholder,
+textarea::placeholder {
+  transition: color 0.3s ease;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+  color: rgba(0, 123, 255, 0.3);
+}

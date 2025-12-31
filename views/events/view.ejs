@@ -1,0 +1,43 @@
+<% if (!partial) { %>
+<%- include('../layouts/header'); %>
+<% } %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Event Details</h5>
+                <small class="text-muted">Review event</small>
+            </div>
+            <a href="/events" class="btn btn-secondary" data-spa>
+                <i class="bi bi-arrow-left"></i> Back to Events
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <h6 class="text-muted mb-1">Title</h6>
+                            <div class="fw-semibold">Quarterly All-Hands</div>
+                        </div>
+                        <div class="col-md-3">
+                            <h6 class="text-muted mb-1">Date</h6>
+                            <div class="fw-semibold">2024-02-10</div>
+                        </div>
+                        <div class="col-md-3">
+                            <h6 class="text-muted mb-1">Location</h6>
+                            <div class="fw-semibold">Main Auditorium</div>
+                        </div>
+                        <div class="col-12">
+                            <h6 class="text-muted mb-1">Description</h6>
+                            <p class="mb-0">Company-wide updates and Q&A session.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<% if (!partial) { %>
+<%- include('../layouts/footer'); %>
+<% } %>

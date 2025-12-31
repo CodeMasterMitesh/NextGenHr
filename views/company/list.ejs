@@ -1,0 +1,56 @@
+<%- include('../layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Company Profile</h5>
+                <small class="text-muted">Manage organization details</small>
+            </div>
+            <a href="/company/add" class="btn btn-primary" data-spa>
+                <i class="bi bi-plus-circle"></i> Add Company
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="companyTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Industry</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Acme Corp</td>
+                                    <td>Technology</td>
+                                    <td>New York, USA</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <a href="/company/view/1" class="btn btn-sm btn-info" data-spa><i class="bi bi-eye"></i></a>
+                                        <a href="/company/edit/1" class="btn btn-sm btn-warning" data-spa><i class="bi bi-pencil"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function initCompanyTable(){
+      if (window.$ && $.fn.DataTable) {
+        $('#companyTable').DataTable({
+          pageLength: 10,
+          order: []
+        });
+      }
+    })();
+    </script>
+<%- include('../layouts/footer'); %>
