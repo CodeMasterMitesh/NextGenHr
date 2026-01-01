@@ -9,8 +9,8 @@ import attendanceRoutes from './attendance.routes.js';
 import commonRoutes from './common.routes.js';
 import softwareRoutes from './software.routes.js';
 import moduleRoutes from './module.routes.js';
+import reportsRoutes from './reports.route.js';
 import isAuth from '../../middleware/auth.js';
-
 const router = Router();
 
 // Expose partial flag to views when ?partial=1 is present
@@ -32,5 +32,6 @@ router.use(attendanceRoutes);
 router.use(commonRoutes);
 router.use(softwareRoutes);
 router.use(moduleRoutes);
+router.use(reportsRoutes);
 
 export default router;

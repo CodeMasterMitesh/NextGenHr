@@ -65,4 +65,21 @@ router.post('/designations', (req, res) => {
   res.json({ message: 'Designation saved' });
 });
 
+
+// Holiday Routes
+router.get('/holiday', (req, res) => {
+  res.render("holiday/list", { title: "holiday" });
+});
+
+router.get('/holiday/add', (req, res) => {
+  res.render("holiday/add", { title: "Add Holiday" });
+});
+
+router.get('/holiday/edit/:id', (req, res) => {
+  res.render("holiday/edit", { title: "Edit Holiday", holiday: {} });
+});
+
+router.get('/holiday/view/:id', (req, res) => {
+  res.render("holiday/view", { title: "View Holiday", holiday: {} });
+});
 export default router;

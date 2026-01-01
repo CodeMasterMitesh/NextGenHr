@@ -1,25 +1,6 @@
 <%- include ('layouts/header'); %>
     
     <div class="main-content">
-        <!-- Topbar -->
-        <div class="topbar">
-            <div>
-                <h5 class="mb-1">Welcome Back, <%= userData.first_name || 'Admin' %>! 👋</h5>
-                <small class="text-muted">Here's what's happening with your HR today</small>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-circle"></i> <%= userData.first_name || 'Admin' %>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/login">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-
         <!-- Main Dashboard Content -->
         <div class="container-fluid mt-4">
             <!-- KPI Cards Row 1 -->

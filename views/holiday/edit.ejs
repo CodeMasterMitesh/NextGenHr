@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-calendar-event me-2"></i>Edit Holiday</h2>
+    <a href="/holiday" class="btn btn-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to holiday
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form id="editHolidayForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="holidayName" class="form-label">Holiday Name</label>
+            <input type="text" class="form-control" id="holidayName" value="Republic Day" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="holidayDate" class="form-label">Date</label>
+            <input type="date" class="form-control" id="holidayDate" value="2025-01-26" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="holidayType" class="form-label">Holiday Type</label>
+            <select class="form-select" id="holidayType" required>
+              <option value="">Select Type</option>
+              <option value="national" selected>National Holiday</option>
+              <option value="regional">Regional Holiday</option>
+              <option value="optional">Optional Holiday</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="applicableTo" class="form-label">Applicable To</label>
+            <select class="form-select" id="applicableTo" required>
+              <option value="">Select Option</option>
+              <option value="all" selected>All Employees</option>
+              <option value="department">Specific Department</option>
+              <option value="branch">Specific Branch</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="3">Celebrating the Constitution of India</textarea>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle me-2"></i>Update Holiday
+          </button>
+          <a href="/holiday" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

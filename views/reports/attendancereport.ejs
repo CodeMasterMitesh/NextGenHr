@@ -1,0 +1,47 @@
+<%- include ('../layouts/header'); %>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-1">Tasks</h5>
+                <small class="text-muted">Manage tasks and assignments</small>
+            </div>
+            <a href="/tasks/add" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> New Task
+            </a>
+        </div>
+
+        <div class="container-fluid mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Assigned To</th>
+                                    <th>Due Date</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Update Documentation</td>
+                                    <td>John Doe</td>
+                                    <td>2025-12-31</td>
+                                    <td><span class="badge bg-danger">High</span></td>
+                                    <td><span class="badge bg-warning">In Progress</span></td>
+                                    <td>
+                                        <a href="/tasks/view/1" class="btn btn-sm btn-info" title="View"><i class="bi bi-eye"></i></a>
+                                        <a href="/tasks/edit/1" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include ('../layouts/footer'); %>
