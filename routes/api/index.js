@@ -12,18 +12,19 @@ import isAuth from '../../middleware/auth.js';
 const router = Router();
 
 // Seed route for menu initialization (development only)
-router.get('/seed-menus', async (req, res) => {
-    try {
-        await seedMenus();
-        res.json({ success: true, message: 'Menus seeded successfully!' });
-    } catch (error) {
-        console.error('Seed error:', error);
-        res.status(500).json({ success: false, message: 'Failed to seed menus', error: error.message });
-    }
-});
+// router.get('/seed-menus', async (req, res) => {
+//     try {
+//         await seedMenus();
+//         res.json({ success: true, message: 'Menus seeded successfully!' });
+//     } catch (error) {
+//         console.error('Seed error:', error);
+//         res.status(500).json({ success: false, message: 'Failed to seed menus', error: error.message });
+//     }
+// });
 
+router.use(auth);
 // Protect everything below this line; login/home stay public
-// router.use(isAuth);
+router.use(isAuth);
 
 // Mount software and module routes FIRST before other routes
 // This ensures specific paths like /software/management work
@@ -34,6 +35,5 @@ router.use(JobApplication);
 router.use(compnayRoutes);
 router.use(usersApi);
 router.use(branchRoutes);
-router.use(auth);
 
 export default router;
