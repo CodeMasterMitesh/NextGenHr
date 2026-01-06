@@ -28,6 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(cookieParser());
 
+// Session configuration for web requests
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -37,12 +38,12 @@ app.use(session({
    },
   store : MongoDBStore
 }));
-// Expose login state to all EJS views
-// app.use((req, res, next) => {
-//   const isLoggedIn = Boolean(req.cookies && req.cookies.session_id);
-//   res.locals.UserLoggedIn = isLoggedIn;
-//   next();
-// });
+
+// JWT Configuration
+// JWT tokens are validated in the isAuth middleware
+// For API requests: Use Bearer token in Authorization header
+// For web requests: Use session cookies
+// Example API request header: Authorization: Bearer <token>
 
 const PORT = 5000;
 
