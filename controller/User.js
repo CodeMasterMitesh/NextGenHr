@@ -13,6 +13,7 @@ const storeEmployee = async (req, res) => {
 const getEmployees = async (req, res) => {
     try {
         const employees = await User.find({});
+        console.log('Fetched employees:', employees);
         res.status(200).json(employees);
     } catch (err) {
         console.error('getEmployees error:', err);
