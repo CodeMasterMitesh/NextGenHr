@@ -14,7 +14,8 @@ const storeJobVacancy = async (req, res) => {
 
 const getApplications = async (req, res) => {
     try {
-        const getjobdata = await JobVacancyApplications.find({});
+        const getjobdata = await JobApp.find({});
+        console.log(getjobdata);
         res.status(200).json(getjobdata);
     } catch (err) {
         console.error('getApplications error:', err);

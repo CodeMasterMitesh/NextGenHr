@@ -1,4 +1,5 @@
 import Company from "../models/Company.js";
+import verifyJwt from "../middleware/verifyJwt.js";
 
 const storeCompany = async (req, res) => {
     try {
