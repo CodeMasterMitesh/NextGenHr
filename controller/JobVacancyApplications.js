@@ -1,8 +1,16 @@
 import JobVacancyApplications from "../models/JobVacancyApplications.js";
 
 const storeJobVacancy = async (req, res) => {
+    console.log('Request Body:', req.body);
+    console.log('Uploaded File:', req.file);
     try {
         const jobVacancyData = req.body;
+        
+        // Add the uploaded file path to the job vacancy data
+        if (req.file) {
+            jobVacancyData.resume = req.file.path;
+        }
+        
         const newJobVacancy = new JobVacancyApplications(jobVacancyData);
         await newJobVacancy.save();
         res.status(200).json({ message: 'Job application stored successfully', success: true });

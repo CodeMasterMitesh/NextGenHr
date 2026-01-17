@@ -1,10 +1,15 @@
+<% if (!partial) { %>
 <%- include ('../layouts/header'); %>
+<% } %>
     <div class="main-content">
         <div class="topbar">
             <div>
                 <h5 class="mb-1">Job Applications</h5>
                 <small class="text-muted">Manage candidate applications</small>
             </div>
+            <a href="/job-applications/add" class="btn btn-primary" data-spa>
+                <i class="bi bi-plus-circle"></i> Add Job Application
+            </a>
         </div>
 
         <div class="container-fluid mt-4">
@@ -44,4 +49,6 @@
             </div>
         </div>
     </div>
+<% if (!partial) { %>
 <%- include ('../layouts/footer'); %>
+<% } %>

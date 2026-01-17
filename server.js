@@ -1,6 +1,7 @@
 import webRoutes from './routes/web/index.js';
 import apiRoutes from './routes/api/index.js';
 import cookieParser from 'cookie-parser';
+import multer from 'multer';
 import express from "express";
 import path from 'path';
 import session from 'express-session';
@@ -46,6 +47,7 @@ app.use(session({
 // Example API request header: Authorization: Bearer <token>
 
 const PORT = 5000;
+
 
 // ==================== API Routes ====================
 app.use('/api', apiRoutes);
