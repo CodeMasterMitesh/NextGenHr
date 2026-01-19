@@ -1,85 +1,151 @@
-<%- include('../partials/header') %>
+<% if (!partial) { %>
+<%- include ('../layouts/header'); %>
+<% } %>
 
-<div class="container-fluid">
+<div class="main-content">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="bi bi-file-earmark me-2"></i>Edit Job Application</h2>
-    <a href="/job-applications" class="btn btn-secondary">
+    <a href="/job-applications" class="btn btn-secondary" data-spa>
       <i class="bi bi-arrow-left me-2"></i>Back to Applications
     </a>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <form id="editApplicationForm">
+      <form id="editApplicationForm" enctype="multipart/form-data">
+        <input type="hidden" id="applicationId" value="<%= application._id %>">
+        
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="candidate" class="form-label">Candidate Name</label>
-            <input type="text" class="form-control" id="candidate" value="Jane Smith" readonly>
+            <label for="name" class="form-label">Candidate Name *</label>
+            <input type="text" class="form-control" name="name" id="name" value="<%= application.name || '' %>" required>
           </div>
           <div class="col-md-6 mb-3">
-            <label for="position" class="form-label">Position Applied</label>
-            <input type="text" class="form-control" id="position" value="Senior Developer" readonly>
+            <label for="position" class="form-label">Position Applied *</label>
+            <input type="text" class="form-control" name="position" id="position" value="<%= application.position || '' %>" required>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" value="jane@email.com" readonly>
+            <label for="email" class="form-label">Email *</label>
+            <input type="email" class="form-control" name="email" id="email" value="<%= application.email || '' %>" required>
           </div>
           <div class="col-md-6 mb-3">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="tel" class="form-control" id="phone" value="+91 9876543210" readonly>
+            <label for="phone" class="form-label">Phone *</label>
+            <input type="tel" class="form-control" name="phone" id="phone" value="<%= application.phone || '' %>" required>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="applicationDate" class="form-label">Application Date</label>
-            <input type="date" class="form-control" id="applicationDate" value="2025-01-10" readonly>
+            <label for="appliedAt" class="form-label">Application Date</label>
+            <input type="date" class="form-control" name="appliedAt" id="appliedAt" 
+                   value="<%= application.appliedAt ? new Date(application.appliedAt).toISOString().split('T')[0] : '' %>">
           </div>
           <div class="col-md-6 mb-3">
-            <label for="status" class="form-label">Status *</label>
-            <select class="form-select" id="status" required>
-              <option value="">Select Status</option>
-              <option value="applied" selected>Applied</option>
-              <option value="shortlisted">Shortlisted</option>
-              <option value="rejected">Rejected</option>
-              <option value="selected">Selected</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12 mb-3">
             <label for="resume" class="form-label">Resume</label>
-            <div class="input-group">
-              <input type="file" class="form-control" id="resume" accept=".pdf,.doc,.docx">
-              <button class="btn btn-outline-secondary" type="button">
-                <i class="bi bi-download me-2"></i>Current Resume
-              </button>
+            <input type="file" class="form-control" name="resume" id="resume" accept=".pdf,.doc,.docx">
+            <small class="text-muted">Leave empty to keep current resume</small>
+          </div>
+        </div>
+
+        <% if (application.resume) { %>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <div class="alert alert-info">
+              <i class="bi bi-file-earmark-pdf me-2"></i>
+              Current Resume: 
+              <a href="/<%= application.resume %>" target="_blank" class="alert-link">
+                <%= application.resume.split('/').pop() %>
+              </a>
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-12 mb-3">
-            <label for="notes" class="form-label">Notes</label>
-            <textarea class="form-control" id="notes" rows="3">Good technical background, scheduled for interview</textarea>
-          </div>
-        </div>
+        <% } %>
 
         <div class="d-flex gap-2">
           <button type="submit" class="btn btn-primary">
             <i class="bi bi-check-circle me-2"></i>Update Application
           </button>
-          <a href="/job-applications" class="btn btn-secondary">
+          <a href="/job-applications" class="btn btn-secondary" data-spa>
             <i class="bi bi-x-circle me-2"></i>Cancel
           </a>
+          <button type="button" class="btn btn-danger ms-auto" onclick="deleteApplication('<%= application._id %>')">
+            <i class="bi bi-trash me-2"></i>Delete
+          </button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-<%- include('../partials/footer') %>
+<script>
+document.getElementById('editApplicationForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const applicationId = document.getElementById('applicationId').value;
+    const formData = new FormData(e.target);
+    
+    // Show loading state
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Updating...';
+    
+    try {
+        const response = await fetch(`/api/updateJobApplication/${applicationId}`, {
+            method: 'PUT',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            showToast('Application updated successfully', 'success');
+            setTimeout(() => {
+                window.location.href = '/job-applications';
+            }, 1000);
+        } else {
+            showToast(data.message || 'Failed to update application', 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('An error occurred while updating', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+    }
+});
+
+function deleteApplication(id) {
+    if (confirm('Are you sure you want to delete this application? This action cannot be undone.')) {
+        fetch(`/api/deleteJobApplication/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast('Application deleted successfully', 'success');
+                setTimeout(() => {
+                    window.location.href = '/job-applications';
+                }, 1000);
+            } else {
+                showToast(data.message || 'Failed to delete application', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('An error occurred while deleting', 'error');
+        });
+    }
+}
+</script>
+
+<% if (!partial) { %>
+<%- include ('../layouts/footer'); %>
+<% } %>

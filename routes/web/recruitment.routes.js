@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import JobVacancyApplications from '../../models/JobVacancyApplications.js';
 
 const router = Router();
 
@@ -22,20 +23,97 @@ router.get('/viewjobpost', (req, res) => {
   res.render("viewjobpost", { title: "Job Details" });
 });
 
-router.get('/job-applications', (req, res) => {
-  res.render("job-applications/list", { title: "Job Applications" });
+router.get('/job-applications', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    console.log('Requested page:', page);
+    const limit = 10;
+    const skip = (page - 1) * limit;
+    const search = req.query.search || '';
+    
+    const searchQuery = search ? {
+      $or: [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+        { position: { $regex: search, $options: 'i' } }
+      ]
+    } : {};
+    
+    const total = await JobVacancyApplications.countDocuments(searchQuery);
+    const applications = await JobVacancyApplications.find(searchQuery)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .lean();
+    
+    res.render("job-applications/list", { 
+      title: "Job Applications",
+      applications: applications,
+      pagination: {
+        page: page,
+        limit: limit,
+        total: total,
+        totalPages: Math.ceil(total / limit)
+      },
+      search: search
+    });
+  } catch (error) {
+    console.error('Error fetching applications:', error);
+    res.render("job-applications/list", { 
+      title: "Job Applications",
+      applications: [],
+      pagination: { page: 1, limit: 10, total: 0, totalPages: 0 },
+      search: ''
+    });
+  }
 });
 
 router.get('/job-applications/add', (req, res) => {
-  res.render("job-applications/add", { title: "New Application" });
+  res.render("job-applications/add", { title: "New Application", partial: false });
 });
 
-router.get('/job-applications/edit/:id', (req, res) => {
-  res.render("job-applications/edit", { title: "Edit Application", application: {} });
+router.get('/job-applications/edit/:id', async (req, res) => {
+  try {
+    const application = await JobVacancyApplications.findById(req.params.id)
+      .populate('department', 'name')
+      .populate('designation', 'name')
+      .lean();
+    
+    if (!application) {
+      return res.redirect('/job-applications');
+    }
+    
+    res.render("job-applications/edit", { 
+      title: "Edit Application", 
+      application: application,
+      partial: false 
+    });
+  } catch (error) {
+    console.error('Error fetching application:', error);
+    res.redirect('/job-applications');
+  }
 });
 
-router.get('/job-applications/view/:id', (req, res) => {
-  res.render("job-applications/view", { title: "View Application", application: {} });
+router.get('/job-applications/view/:id', async (req, res) => {
+  try {
+    const application = await JobVacancyApplications.findById(req.params.id)
+      .populate('department', 'name')
+      .populate('designation', 'name')
+      .lean();
+    
+    if (!application) {
+      return res.redirect('/job-applications');
+    }
+    
+    res.render("job-applications/view", { 
+      title: "View Application", 
+      application: application,
+      partial: false 
+    });
+  } catch (error) {
+    console.error('Error fetching application:', error);
+    res.redirect('/job-applications');
+  }
 });
 
 router.get('/job-requisition', (req, res) => {

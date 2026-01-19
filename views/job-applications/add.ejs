@@ -12,20 +12,15 @@
 
   <div class="card">
     <div class="card-body">
-      <form id="addApplicationForm" method="POST" action="/api/storeJobVacancy" enctype="multipart/form-data">
+      <form id="addApplicationForm" enctype="multipart/form-data">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="candidate" class="form-label">Candidate Name *</label>
-            <input type="text" name="name" class="form-control" id="candidate" placeholder="Enter candidate name" required>
+            <label for="name" class="form-label">Candidate Name *</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Enter candidate name" required>
           </div>
           <div class="col-md-6 mb-3">
             <label for="position" class="form-label">Position Applied *</label>
-            <select class="form-select" name="position" id="position" required>
-              <option value="">Select Position</option>
-              <option value="1">Senior Developer</option>
-              <option value="2">Junior Developer</option>
-              <option value="3">HR Manager</option>
-            </select>
+            <input type="text" class="form-control" name="position" id="position" placeholder="e.g., Senior Developer" required>
           </div>
         </div>
 
@@ -43,22 +38,16 @@
         <div class="row">
           <div class="col-md-12 mb-3">
             <label for="resume" class="form-label">Upload Resume *</label>
-            <input type="file" name="resume" class="form-control" id="resume" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" required>
+            <input type="file" name="resume" class="form-control" id="resume" accept=".pdf,.doc,.docx" required>
+            <small class="text-muted">Accepted formats: PDF, DOC, DOCX (Max 10MB)</small>
           </div>
         </div>
-
-        <!-- <div class="row">
-          <div class="col-md-12 mb-3">
-            <label for="coverLetter" class="form-label">Cover Letter</label>
-            <textarea class="form-control" name="coverLetter" id="coverLetter" rows="4" placeholder="Enter cover letter text"></textarea>
-          </div>
-        </div> -->
 
         <div class="d-flex gap-2">
           <button type="submit" class="btn btn-primary">
             <i class="bi bi-check-circle me-2"></i>Create Application
           </button>
-          <a href="/job-applications" class="btn btn-secondary">
+          <a href="/job-applications" class="btn btn-secondary" data-spa>
             <i class="bi bi-x-circle me-2"></i>Cancel
           </a>
         </div>
@@ -66,6 +55,45 @@
     </div>
   </div>
 </div>
+
+<script>
+document.getElementById('addApplicationForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    
+    // Show loading state
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creating...';
+    
+    try {
+        const response = await fetch('/api/storeJobVacancy', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            showToast('Application created successfully', 'success');
+            setTimeout(() => {
+                window.location.href = '/job-applications';
+            }, 1000);
+        } else {
+            showToast(data.message || 'Failed to create application', 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('An error occurred while creating application', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+    }
+});
+</script>
 
 <% if (!partial) { %>
 <%- include ('../layouts/footer'); %>

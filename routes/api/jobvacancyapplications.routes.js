@@ -1,6 +1,15 @@
 import express from 'express';
 import multer from 'multer';
-import { storeJobVacancy, getApplications, getSingleJobAppDataByPost, updateJobApplicationById, updateJobApplication,deleteJobAppDataById,deleteJobAppData } from '../../controller/JobVacancyApplications.js';
+import { 
+    storeJobVacancy, 
+    getApplications, 
+    getSingleJobAppData,
+    getSingleJobAppDataByPost, 
+    updateJobApplicationById, 
+    updateJobApplication,
+    deleteJobAppDataById,
+    deleteJobAppData 
+} from '../../controller/JobVacancyApplications.js';
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -15,12 +24,21 @@ const upload = multer({
  storage: storage,
  limits: { fileSize: 10 * 1024 * 1024 }
 });
+
+// Create
 router.post('/storeJobVacancy',upload.single('resume'), storeJobVacancy);
+
+// Read
 router.get('/getApplications', getApplications);
-router.get('/getSingleJobAppData/:id', getSingleJobAppDataByPost);
-router.put('/updateJobApplication/:id', updateJobApplicationById);
+router.get('/getSingleJobAppData/:id', getSingleJobAppData);
+router.post('/getSingleJobAppDataByPost', getSingleJobAppDataByPost);
+
+// Update
+router.put('/updateJobApplication/:id', upload.single('resume'), updateJobApplicationById);
+router.post('/updateJobApplication', upload.single('resume'), updateJobApplication);
+
+// Delete
 router.delete('/deleteJobApplication/:id', deleteJobAppDataById);
-router.put('/updateJobApplication', updateJobApplication);
-router.delete('/deleteJobApplication', deleteJobAppData);
+router.post('/deleteJobApplication', deleteJobAppData);
 
 export default router;

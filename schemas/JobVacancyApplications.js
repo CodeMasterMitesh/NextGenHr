@@ -1,15 +1,17 @@
 // NextGenHr
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const JobVacancyApplications = new mongoose.Schema({
-  name: String,
-  email: String,
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  phone: { type: String },
   department : { type: mongoose.Schema.Types.ObjectId, ref: 'Departments' },
   designation: { type: mongoose.Schema.Types.ObjectId, ref: 'Designations' },
-  position : String,
-  resume: String,
+  position : { type: String, required: true },
+  resume: { type: String },
   appliedAt: { type: Date, default: Date.now },  
-  approved_by: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }
+  approved_by: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
+  status: { type: String, enum: ['applied', 'shortlisted', 'rejected', 'selected'], default: 'applied' }
 }, { timestamps: true });
 
-module.exports = mongoose.model('JobVacancyApplications', JobVacancyApplications);
+export default mongoose.model('JobVacancyApplications', JobVacancyApplications);

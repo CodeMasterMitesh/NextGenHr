@@ -166,6 +166,11 @@ class ToastNotification {
 // Create global instance
 const Toast = new ToastNotification();
 
+// Global helper function for backward compatibility
+function showToast(message, type = 'info', duration = 4000) {
+  Toast.show(message, type, duration);
+}
+
 // Add animations to document
 if (!document.getElementById('toast-animations')) {
   const style = document.createElement('style');
