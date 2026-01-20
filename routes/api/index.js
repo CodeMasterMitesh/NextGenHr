@@ -7,6 +7,7 @@ import JobApplication from './jobvacancyapplications.routes.js';
 import usersApi from './user.routes.js';
 import softwareRoutes from './software.routes.js';
 import moduleRoutes from './module.routes.js';
+import departmentRoutes from './department.routes.js';
 import seedMenus from '../../seedMenus.js';
 import isAuth from '../../middleware/auth.js';
 const router = Router();
@@ -35,5 +36,6 @@ router.use(JobApplication);
 router.use(compnayRoutes);
 router.use(usersApi);
 router.use(branchRoutes);
+router.use(departmentRoutes);
 
 export default router;

@@ -1,7 +1,6 @@
 import JobVacancyApplications from "../models/JobVacancyApplications.js";
 import fs from 'fs';
-import path from 'path';
-
+import path from 'path';import { sendJobApplicationConfirmation, sendJobApplicationNotificationToHR } from '../services/emailService.js';
 // Create new job application
 const storeJobVacancy = async (req, res) => {
     console.log('Request Body:', req.body);
@@ -16,8 +15,45 @@ const storeJobVacancy = async (req, res) => {
         }
         
         const newJobVacancy = new JobVacancyApplications(jobVacancyData);
-        await newJobVacancy.save();
-        res.status(200).json({ message: 'Job application stored successfully', success: true });
+        const savedApplication = await newJobVacancy.save();
+
+        // Send confirmation email to candidate (async, non-blocking)
+        sendJobApplicationConfirmation({
+            name: savedApplication.name,
+            email: savedApplication.email,
+            position: savedApplication.position,
+            appliedAt: savedApplication.createdAt
+        }).then(result => {
+            if (result.success) {
+                console.log('✅ Confirmation email sent to:', savedApplication.email);
+            } else {
+                console.error('❌ Failed to send confirmation email:', result.error);
+            }
+        }).catch(err => {
+            console.error('❌ Email error:', err.message);
+        });
+
+        // Send notification to HR team (async, non-blocking)
+        sendJobApplicationNotificationToHR({
+            name: savedApplication.name,
+            email: savedApplication.email,
+            phone: savedApplication.phone,
+            position: savedApplication.position,
+            appliedAt: savedApplication.createdAt
+        }).then(result => {
+            if (result.success) {
+                console.log('✅ HR notification sent');
+            } else {
+                console.error('❌ Failed to send HR notification:', result.error);
+            }
+        }).catch(err => {
+            console.error('❌ Email error:', err.message);
+        });
+
+        res.status(200).json({ 
+            message: 'Job application submitted successfully! A confirmation email has been sent to your email address.', 
+            success: true 
+        });
     } catch (err) {
         console.error('storeJobVacancy error:', err);
         res.status(500).json({ message: 'Failed to store job application', success: false, error: err.message });

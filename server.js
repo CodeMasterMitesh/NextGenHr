@@ -9,6 +9,7 @@ import connectMongoDBSession  from 'connect-mongodb-session';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import connectDB from './db.js';
+import { verifyEmailConfig } from './services/emailService.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
@@ -62,5 +63,16 @@ process.on("SIGINT", async () => {
 });
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+    
+    // Verify email configuration (non-blocking)
+    verifyEmailConfig().then(isValid => {
+        if (isValid) {
+            console.log('📧 Email service configured and ready');
+        } else {
+            console.warn('⚠️  Email service not configured. Check .env for EMAIL_USER and EMAIL_APP_PASSWORD');
+        }
+    }).catch(err => {
+        console.warn('⚠️  Email verification skipped:', err.message);
+    });
 });
 

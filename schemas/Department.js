@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const Branch = require('./Branch');
+import mongoose from 'mongoose';
 
 const departmentSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -8,4 +7,4 @@ const departmentSchema = new mongoose.Schema({
   description: String
 }, { timestamps: true });
 
-module.exports = mongoose.model('Department', departmentSchema);
+export default mongoose.model('Department', departmentSchema);
